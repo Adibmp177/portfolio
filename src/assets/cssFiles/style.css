@@ -1,0 +1,94 @@
+@font-face {
+  font-family: vazir;
+  src: url(../fonts/Vazir.ttf) format('ttf');
+}
+@font-face {
+  font-family: gagalin;
+  src: url(../fonts/Gagalin.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: bayer;
+  src: url(../fonts/Bayer-Sans.ttf);
+}
+
+:root {
+    --primary-bg: #000;
+    --secondray-bg: #000;
+    --third-bg: rgb(4,124,229); 
+    --main-txt: #fff;
+    --bg-gradient-linear: linear-gradient(90deg ,#1426CD, #E91E1E);
+    /* --bg-gradient-linear-hover: linear-gradient(35deg ,#1426CD, #E91E1E); */
+    /* --gradient-start: 90deg;
+    --gradient-end: 35deg;
+    --gradient-color-1: #1426CD;
+    --gradient-color-2: #E91E1E; */
+}
+
+
+
+html {
+  scroll-behavior: smooth;
+}
+a {
+    color: unset;
+    text-decoration: none;
+}
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: vazir;
+}
+
+body {
+    background-color: var(--primary-bg);
+}
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: var(--primary-bg);
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: var(--third-bg);
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #0c5391;
+  }
+
+  .container {
+    max-width: 1150px;
+    margin: 0 auto; 
+    background: rgba(0, 0, 0, 0);
+    transition: background 0.5s;
+  }
+
+
+
+  @media screen and (max-width: 1160px) {
+    .container {
+      max-width: 991px;
+    }
+  }
+  
+  @media screen and (max-width: 991px) {
+    .container {
+      max-width: 768px;
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .container {
+      padding: 0 15px;
+    }
+  }
