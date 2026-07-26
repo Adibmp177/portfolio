@@ -84,7 +84,7 @@ function toggleMenu() {
   -webkit-transform: translateY(-13px) rotate(90deg);
   -ms-transform: translateY(-13px) rotate(90deg);
   -o-transform: translateY(-13px) rotate(90deg);
-  transform: translateY(-3px) rotate(90deg);
+  transform: translateY(-13px) rotate(90deg);
 }
 
 @media screen and (max-width: 991px) {

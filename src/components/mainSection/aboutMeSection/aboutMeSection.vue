@@ -1,585 +1,382 @@
 <script setup>
-import { onMounted, ref } from 'vue';
-
-
-const skillsData = ref([
-    {
-        id: 2,
-        percentageValue: 100,
-        progressColor: "#0acf83",
-        bgColor: "rgba(48, 36, 40, 0.7)",
-        skillClass: "figma",
-        skillTitle: "Figma",
-        imgURL: "figma",
-    },
-    {
-        id: 4,
-        percentageValue: 80,
-        progressColor: "#d82885",
-        bgColor: "rgba(48, 36, 40, 0.7)",
-        skillClass: "AdobeXD",
-        skillTitle: "Adobe XD",
-        imgURL: "xd",
-    },
-    {
-        id: 1,
-        percentageValue: 60,
-        progressColor: "#25D4FF",
-        bgColor: "rgba(48, 36, 40, 0.7)",
-        skillClass: "photoshop",
-        skillTitle: "Photoshop",
-        imgURL: "ps",
-    },
-    {
-        id: 3,
-        percentageValue: 60,
-        progressColor: "#ff7919",
-        bgColor: "rgba(48, 36, 40, 0.7)",
-        skillClass: "illustration",
-        skillTitle: "Illustrator",
-        imgURL: "al",
-    },
-]);
+import { onMounted } from 'vue';
 
 onMounted(()=> {
-
-    function startSkills() {
-        const circularProgress = document.querySelectorAll(".circular-progress");
-        Array.from(circularProgress).forEach((progressBar) => {
-            const progressValue = progressBar.querySelector(".percentage");
-            const innerCircle = progressBar.querySelector(".inner-circle");
-            let startValue = 0,
-                endValue = Number(progressBar.getAttribute("data-percentage")),
-                speed = 10,
-                progressColor = progressBar.getAttribute("data-progress-color");
-    
-            setTimeout(() => {
-                const progress = setInterval(() => {
-                    startValue++;
-                    progressValue.textContent = `${startValue}%`;
-                    progressValue.style.color = `${progressColor}`;
-    
-                    innerCircle.style.backgroundColor = `${progressBar.getAttribute(
-                    "data-inner-circle-color"
-                    )}`;
-    
-                    progressBar.style.background = `conic-gradient(${progressColor} ${
-                    startValue * 3.6
-                    }deg,${progressBar.getAttribute("data-bg-color")} 0deg)`;
-                    if (startValue === endValue) {
-                        clearInterval(progress);
-                    }
-                }, speed);
-            }, 1250);
-        });
-        
-    }
-
-
-
     const Observer = new IntersectionObserver((entries)=> {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('active');
+                entry.target.classList.add('active--s');
                 Observer.unobserve(entry.target);         
             }
         });
         }, {
-            rootMargin: '-45% 0px -30% 0px'
-    });
-    const Observer_2 = new IntersectionObserver((entries)=> {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active'); 
-                startSkills();
-                Observer_2.unobserve(entry.target);         
-            }
-        });
-        }, {
-            rootMargin: '-45% 0px -30% 0px'
+            rootMargin: '-25% 0px -25% 0px'
     });
 
-    let aboutItems = document.querySelector('.aboutMeDetails');
-    let skillItems = document.querySelector('.skillsWrapper');
-    Observer.observe(aboutItems);
-    Observer_2.observe(skillItems);
-
+    let aboutItems = document.querySelector('.aboutMe--wrapper');
+    if(aboutItems) Observer.observe(aboutItems);
 });
-
-
 </script>
 
 <template>
-
     <div class="aboutMe--wrapper">
         <div class="container">
             
+            <div class="metrics--wrapper">
+                <div class="metric-card">
+                    <div class="icon-box">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="m-icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                    </div>
+                    <div class="m-text">
+                        <h3>3+</h3>
+                        <p>Years experience</p>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="icon-box" style="color: #c94b96; background: rgba(201, 75, 150, 0.1);">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="m-icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 6.878V6a2.25 2.25 0 0 1 2.25-2.25h7.5A2.25 2.25 0 0 1 18 6v.878m-12 0c.235-.083.487-.128.75-.128h10.5c.263 0 .515.045.75.128m-12 0A2.25 2.25 0 0 0 4.5 9v.878m13.5-3A2.25 2.25 0 0 1 19.5 9v.878m0 0a2.246 2.246 0 0 0-.75-.128H5.25c-.263 0-.515.045-.75.128m15 0A2.25 2.25 0 0 1 21 12v6a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18v-6c0-.98.626-1.813 1.5-2.122" />
+                        </svg>
+                    </div>
+                    <div class="m-text">
+                        <h3>12+</h3>
+                        <p>Projects Completed</p>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="icon-box" style="color: #b053e0; background: rgba(176, 83, 224, 0.1);">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="m-icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437 1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008Z" />
+                        </svg>
+                    </div>
+                    <div class="m-text">
+                        <h3>+5</h3>
+                        <p>Tools Mastered</p>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="icon-box" style="color: #d1416e; background: rgba(209, 65, 110, 0.1);">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="m-icon">
+                            <path d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="m-text">
+                        <h3>BSc</h3>
+                        <p>Computer Engineering</p>
+                    </div>
+                </div>
+            </div>
+
             <div class="heading--wrapper">
-                <h1 class="heading">About me</h1>
+                <h1 class="heading">About Me</h1>
             </div>
 
-            <div class="aboutMeContent--wrapper">
-                <div class="aboutMeContent">
-                    <p class="aboutMe--Txt">
-                        Hey there! I'm Adib, your friendly neighborhood <span class="textHighlight">UI/UX designer</span> I’m not just here to make things pretty; I’m all about creating websites and apps <span class="textHighlight">that people love to use</span> And for That I Will make sure that my design is always created based on user needs.
-                    </p>
-                    <p class="aboutMe--Txt">
-                        Riding the wave of the latest <span class="textHighlight">trends</span> is my thing. Your design won’t just be current; it'll be the trendsetter of tomorrow. I will keep an eye on emerging technologies and design movements, ensuring your project doesn't just meet expectations but <span class="textHighlight">surpasses them</span>.
-                    </p>
-                    <p class="aboutMe--Txt">
-                        For me <span class="textHighlight">Your ideas</span> matter most. Let’s team up and make your vision a <span class="textHighlight">digital reality</span>. You can easily contact me through the links that i’ve put in the In the following Part’s.
-                    </p>
+            <div class="aboutContent--layout">
+                <div class="about-left">
+                    <h2 class="hero-title">
+                        <span class="hero-title-top">Designing digital products</span>
+                        <span class="hero-title-main highlight-purple">that people actually love.</span>
+                    </h2>
+                    <p class="about-desc">I spend my days turning complex ideas into clean, eye-catching apps and websites that just make sense. My goal is simple: to design beautiful, smooth layouts that people actually enjoy using every single day, keeping everything clean and perfectly straightforward. <span class="highlight-gradient">Wanna know me Better?</span></p>
+                    <a href="/resumes/ResumeEnglish.pdf" download class="cta-btn cta-btn--primary" id="about-download-cv-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="btn-icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                        </svg>
+                        <span class="btn-label">Download CV</span>
+                    </a>
                 </div>
-            </div>
-
-
-            <div class="aboutMeDetails--wrapper">
-                <div class="aboutMeDetails">
-                    <div class="detailsItem item-1">
-                        <span class="Item-description">Location</span>
-                        <div class="arrow--warpper">
-                            <svg class="svgWidthHeight" viewBox="0 0 181 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M180.707 8.70711C181.098 8.31658 181.098 7.68342 180.707 7.29289L174.343 0.928932C173.953 0.538408 173.319 0.538408 172.929 0.928932C172.538 1.31946 172.538 1.95262 172.929 2.34315L178.586 8L172.929 13.6569C172.538 14.0474 172.538 14.6805 172.929 15.0711C173.319 15.4616 173.953 15.4616 174.343 15.0711L180.707 8.70711ZM0 9H180V7H0V9Z" fill="url(#paint0_linear_19_101)"/>
-                                <defs>
-                                    <linearGradient id="paint0_linear_19_101" x1="-11.4741" y1="8" x2="195.06" y2="8" gradientUnits="userSpaceOnUse">
-                                        <stop stop-color="white"/>
-                                        <stop offset="0.0001" stop-color="#1426CD"/>
-                                        <stop offset="1" stop-color="#E91E1E"/>
-                                        <stop offset="1" stop-color="white"/>
-                                    </linearGradient>
-                                </defs>
-                            </svg>
-                        </div>
-                        <span class="detail">IRAN</span>
-                    </div>
-                    <div class="detailsItem item-2">
-                        <span class="Item-description">UI/UX Designer Since</span>
-                        <div class="arrow--warpper">
-                            <svg class="svgWidthHeight" viewBox="0 0 181 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M180.707 8.70711C181.098 8.31658 181.098 7.68342 180.707 7.29289L174.343 0.928932C173.953 0.538408 173.319 0.538408 172.929 0.928932C172.538 1.31946 172.538 1.95262 172.929 2.34315L178.586 8L172.929 13.6569C172.538 14.0474 172.538 14.6805 172.929 15.0711C173.319 15.4616 173.953 15.4616 174.343 15.0711L180.707 8.70711ZM0 9H180V7H0V9Z" fill="url(#paint0_linear_19_101)"/>
-                                <defs>
-                                    <linearGradient id="paint0_linear_19_101" x1="-11.4741" y1="8" x2="195.06" y2="8" gradientUnits="userSpaceOnUse">
-                                        <stop stop-color="white"/>
-                                        <stop offset="0.0001" stop-color="#1426CD"/>
-                                        <stop offset="1" stop-color="#E91E1E"/>
-                                        <stop offset="1" stop-color="white"/>
-                                    </linearGradient>
-                                </defs>
-                            </svg>
-                        </div>
-                        <span class="detail">2023, July</span>
-                    </div>
-                    <div class="detailsItem item-3">
-                        <span class="Item-description">Working As</span>
-                        <div class="arrow--warpper">
-                            <svg class="svgWidthHeight" viewBox="0 0 181 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M180.707 8.70711C181.098 8.31658 181.098 7.68342 180.707 7.29289L174.343 0.928932C173.953 0.538408 173.319 0.538408 172.929 0.928932C172.538 1.31946 172.538 1.95262 172.929 2.34315L178.586 8L172.929 13.6569C172.538 14.0474 172.538 14.6805 172.929 15.0711C173.319 15.4616 173.953 15.4616 174.343 15.0711L180.707 8.70711ZM0 9H180V7H0V9Z" fill="url(#paint0_linear_19_101)"/>
-                                <defs>
-                                    <linearGradient id="paint0_linear_19_101" x1="-11.4741" y1="8" x2="195.06" y2="8" gradientUnits="userSpaceOnUse">
-                                        <stop stop-color="white"/>
-                                        <stop offset="0.0001" stop-color="#1426CD"/>
-                                        <stop offset="1" stop-color="#E91E1E"/>
-                                        <stop offset="1" stop-color="white"/>
-                                    </linearGradient>
-                                </defs>
-                            </svg>
-                        </div>
-                        <span class="detail">Full-time/Part-time Jobs</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="skillsWrapper">
-                <h2 class="skillHeading">My Skills: </h2>
-                <div class="skillsContainer">
-                    <div class="skills" v-for="skill in skillsData" :key="skill.id" :class="skill.skillClass">
-                        <div class="skill">
-                            <div class="circular-progress" data-inner-circle-color="transparent" :data-percentage="skill.percentageValue" :data-progress-color="skill.progressColor" :data-bg-color="skill.bgColor">
-                                <div class="inner-circle">
-                                    <div class="skillIcon">
-                                        <img :src="require(`@/assets/skills/${skill.imgURL}.webp`)">
-                                    </div>
-                                </div>
-                                <div class="percentage">0%</div>
-                                
+                
+                <div class="about-right">
+                    <div class="details-grid">
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" /></svg>
+                            </div>
+                            <div class="detail-text">
+                                <span>Designer Since</span>
+                                <strong>July 2023</strong>
                             </div>
                         </div>
-                        <p class="skillTitle">{{ skill.skillTitle }}</p>
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" /></svg>
+                            </div>
+                            <div class="detail-text">
+                                <span>Available For</span>
+                                <strong>Freelance & Full-time</strong>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" /></svg>
+                            </div>
+                            <div class="detail-text">
+                                <span>Location</span>
+                                <strong>IRAN, Sardasht</strong>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" /></svg>
+                            </div>
+                            <div class="detail-text">
+                                <span>Education</span>
+                                <strong>BSc Computer Engineering (GPA: 4.5)</strong>
+                            </div>
+                        </div>
                     </div>
                 </div>
-              
             </div>
 
-
         </div>
-
     </div>
-   
-
 </template>
 
-
 <style scoped>
-
-.skillsWrapper {
-    margin: 25px 0 50px;
-}
-.skillsContainer {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-.skillHeading {
-    color: #eee;
-    margin-bottom: 75px;
-    font-size: 24px;
-    letter-spacing: 1px;
-    font-weight: 500;
-    opacity: 0;
-    transform: translateX(-15px);
-    transition: 0.8s 0.5s;
-} .active .skillHeading {
-    opacity: 1;
-    transform: translateX(0px);
-}
-
-.skills {
-    width: 25%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.figma.skills, .illustration.skills {
-    transform: translateY(-30px);
-    opacity: 0;
-    transition: 0.8s 0.7s;
-}
-.photoshop.skills, .AdobeXD.skills {
-    transform: translateY(30px);
-    opacity: 0;
-    transition: 0.8s 0.7s;
-}
-.active .photoshop.skills, .active .AdobeXD.skills {
-    transform: translateY(0);
-    opacity: 1;
-}
-.active .figma.skills, .active .illustration.skills {
-    transform: translateY(0);
-    opacity: 1;
-}
-
-
-
-.circular-progress {
-  width: 100px;
-  height: 100px;
-  /* margin: 100px auto; */
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  box-shadow: 0 0 15px rgba(238, 238, 238, 0.5);
-}
-.inner-circle {
-  position: absolute;
-  width: calc(100px - 10px);
-  height: calc(100px - 10px);
-  border-radius: 50%;
-  overflow: hidden;
-}
-.inner-circle::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: -60px;
-    width: 100%;
-    height: 60px;
-    background: rgba(247, 247, 247, 0.2);
-    transition: 0.45s;
-}
-.skills:hover .inner-circle::after {
-    top: 100px;
-}
-
-.percentage {
-  position: absolute;
-  font-size: 15px;
-  font-weight: 600;
-  z-index: 1;
-  text-shadow: 0 0 6px #262626;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0;
-  transition: opacity 0.26s 0.7s;
-}
-.active .percentage {
-    opacity: 1;
-}
-.skillIcon {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 5px;
-    border-radius: 50%;
-    background: #36291e;
-    overflow: hidden;
-}
-.figma .skillIcon {
-    background: linear-gradient(135deg, #C99A24 10%, #823EB5 10%, #026640 10%, #005681 80%);
-
-}
-.photoshop .skillIcon {
-    background: #2d2e4d;
-}
-.illustration .skillIcon {
-    background: #35281b;
-}
-.AdobeXD .skillIcon {
-    background: #592a49;
-}
-
-.skillIcon img {
-    width: 100%;
-}
-.figma .skillIcon img {
-    transform: scale(1.4) translate(2.5px, -4px)
-}
-.photoshop .skillIcon img {
-    transform: scale(1.1) translate(3px, -2px)
-}
-.illustration .skillIcon img {
-    transform: scale(1.1) translate(2px, -4px)
-}
-.AdobeXD .skillIcon img {
-    transform: scale(1.3) translate(2px, -0px)
-}
-
-
-
-.svgWidthHeight {
-    width: 181px;
-    height: 16px;
-}
-.skillTitle {
-    font-size: 16px;
-    letter-spacing: 1px;
-    font-weight: 600;
-    margin-top: 12px;
-    text-align: center;
-    text-shadow: 0 0 10px rgba(238, 238, 238, 0.5);
-}
-
-.figma .skillTitle {
-    color: #0acf83;
-}
-.photoshop .skillTitle {
-    color: #25D4FF;
-}
-.illustration .skillTitle {
-    color: #ff7919;
-}
-.AdobeXD .skillTitle {
-    color: #d82885;
-}
-
-
-
-
-/* ------------------------------------ */
-
+/* ── Wrapper & Scroll Animations ── */
 .aboutMe--wrapper {
-    padding: 75px 0;
-    /* background: #0000007c; */
-    /* background: radial-gradient(69.9% 149.37% at -7.92% -4.45%, rgba(20, 38, 205, 0.23) 0%, rgba(20, 38, 205, 0.155) 100%), radial-gradient(75.56% 161.46% at -13.58% -6.36%, rgba(233, 30, 30, 0.329) 0%, rgba(233, 30, 30, 0.007) 100%); */
+    padding: 75px 0 60px;
+}
 
+/* Heading slides in from above */
+.aboutMe--wrapper .heading--wrapper {
+    opacity: 0;
+    transform: translateY(-22px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.active--s .heading--wrapper {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Left column slides from left */
+.about-left {
+    flex: 1;
+    min-width: 300px;
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: opacity 0.75s 0.2s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.active--s .about-left {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Right card slides from right */
+.about-right {
+    flex: 1;
+    min-width: 320px;
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity 0.75s 0.3s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.active--s .about-right {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.metrics--wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(18, 17, 43, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 22px;
+    padding: 26px 36px;
+    margin-bottom: 85px;
+    box-shadow: 0 16px 45px rgba(0, 0, 0, 0.45), 0 0 35px rgba(108, 99, 255, 0.15);
+    backdrop-filter: blur(14px);
+    width: 100%;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s 0.15s ease, transform 0.7s 0.15s ease;
+}
+.active--s .metrics--wrapper {
+    opacity: 1;
+    transform: translateY(0);
+}
+.metric-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+    justify-content: center;
+    padding: 0 15px;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    transition: transform 0.3s ease;
+}
+.metric-card:last-child {
+    border-right: none;
+}
+.metric-card:hover {
+    transform: translateY(-3px);
+}
+.icon-box {
+    background: rgba(108, 99, 255, 0.1);
+    color: #6c63ff;
+    padding: 12px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.m-icon {
+    width: 28px;
+    height: 28px;
+}
+.m-text h3 {
+    font-size: 24px;
+    color: #fff;
+    margin: 0;
+    font-weight: 700;
+}
+.m-text p {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
 }
 
 .heading--wrapper {
-    text-align: center
+    text-align: center;
+    margin-bottom: 50px;
 }
-
 .heading {
     display: inline-block;
-    margin: 0 auto;
     color: #fff;
-    font-family: bayer;
-    border-bottom: 5px solid transparent;
-    border-image: linear-gradient(90deg ,#1426CD, #E91E1E) 1;
+    font-family: var(--font-display);
+    border-bottom: 4px solid #6c63ff;
     letter-spacing: 1px;
-
-    opacity: 0;
-    transform: translateY(-40px);
-    transition: opacity ease-in-out 1s,
-                transform ease-in-out 1s;
-}
-.active--s .heading {
-    opacity: 1;
-    transform: translateY(0);
+    padding-bottom: 5px;
 }
 
-.aboutMeContent--wrapper {
-    margin: 50px 0;
-    border-radius: 10px;
-    background: linear-gradient(90deg ,#1426CD, #E91E1E);
-    padding: 3px;
-    border-radius: 15px;
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity ease-in-out 1s,
-                transform ease-in-out 1s;
-    
-}
-.active--s .aboutMeContent--wrapper {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.textHighlight {
-    color: #eee;
-    display: inline-block;
-    position: relative;
-    font-weight: 600;
-}
-.textHighlight::after {
-    content: "";
-    position: absolute;
-    width: 0%;
-    left: 0;
-    bottom: 3px;
-    border-bottom: 3px solid transparent;
-    border-image: linear-gradient(90deg ,#1426CD, #E91E1E) 1;
-    transition: 0.8s 1s;
-} .active--s .textHighlight::after {
-    width: 100%;
-}
-
-.aboutMeContent {
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    border-radius: 15px;
-    color: #fff;
-    /* border: 3px solid transparent; */
-    /* border-image: linear-gradient(90deg ,#1426CD, #E91E1E) 1; */
-    /* border-radius: 10px */
-}
-
-.aboutMe--Txt {
-    font-size: 18px;
-    line-height: 1.57;
-    letter-spacing: 0.5px;
-}
-.aboutMe--Txt:nth-child(2) {
-    margin: 12px 0;
-}
-
-.detailsItem {
-    position: relative;
+.aboutContent--layout {
     display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid transparent;
-    color: #fff;
-    border-image: linear-gradient(90deg ,#1426CD, #E91E1E) 1;
 }
-.detailsItem:not(.detailsItem:last-child) {
+
+.about-left {
+    flex: 1;
+    min-width: 300px;
+}
+.hero-title {
+    display: flex;
+    flex-direction: column;
     margin-bottom: 20px;
+    line-height: 1.25;
+    font-family: var(--font-display);
+}
+.hero-title-top {
+    font-size: 22px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 6px;
+}
+.hero-title-main {
+    font-size: clamp(28px, 4vw, 38px);
+    font-weight: 700;
+    background: linear-gradient(90deg, #6c63ff 0%, #9b59f5 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+.highlight-purple {
+    background: linear-gradient(90deg, #6c63ff 0%, #9b59f5 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+.highlight-gradient {
+    background: linear-gradient(90deg, #6c63ff 0%, #9b59f5 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 600;
+}
+.about-desc {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.7;
+    margin-bottom: 34px;
 }
 
-.item-1 {
-    opacity: 0;
-    transform: translateY(15px);
-    transition: 0.5s;
-}
-.item-2 {
-    opacity: 0;
-    transform: translateY(25px);
-    transition: 0.5s 0.3s;
-}
-.item-3 {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: 0.5s 0.6s;
-}
-.active .item-1 {
-    opacity: 1;
-    transform: translateY(0px);
-}
-.active .item-2 {
-    opacity: 1;
-    transform: translateY(0px);
-}
-.active .item-3 {
-    opacity: 1;
-    transform: translateY(0px);
+.btn-icon {
+    width: 18px;
+    height: 18px;
 }
 
-
-.Item-description {
-    font-size: 24px;
+.about-right {
+    flex: 1;
+    min-width: 320px;
+    background: rgba(18, 17, 43, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 42px 36px;
+    box-shadow: 0 16px 45px rgba(0, 0, 0, 0.45), 0 0 25px rgba(108, 99, 255, 0.12);
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
 }
-.detail {
-    font-size: 20px;
+.details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 36px 32px;
+    width: 100%;
 }
-
-.arrow--warpper {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+.detail-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
 }
-
-@media screen and (max-width:700px) {
-    .svgWidthHeight {
-        width: 100px;
-    }
-    .Item-description {
-        font-size: 18px;
-    }
-    .detail {
-        font-size: 16px;
-    }
-    .skills {
-        width: 50%;
-        padding: 25px 0;
-    }   
-    .skillHeading {
-        font-size: 17px;
-        font-weight: 600;
-        margin-bottom: 50px;
-    }
+.detail-icon {
+    color: #6c63ff;
+    background: rgba(108, 99, 255, 0.12);
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
 }
-
-@media screen and (max-width:500px) {
-    .svgWidthHeight {
-        width: 80px;
-        display: none;
-    }
-    .Item-description {
-        font-size: 16px;
-    }
-    .detail {
-        font-size: 14px;
-    }
-    .CvBtn {
-        font-size: 14px !important;
-        transform: scale(0.7);
-        transform-origin: right;
-    }
-    .aboutMe--Txt {
-        font-size: 16px;
-        line-height: 1.8;
-    }
+.detail-icon svg {
+    width: 22px;
+    height: 22px;
+}
+.detail-text {
+    display: flex;
+    flex-direction: column;
+}
+.detail-text span {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.55);
+    margin-bottom: 4px;
+}
+.detail-text strong {
+    font-size: 15px;
+    color: #fff;
+    font-weight: 600;
 }
 
-
-
+@media screen and (max-width: 768px) {
+    .metrics--wrapper {
+        flex-direction: column;
+        gap: 20px;
+        padding: 24px 20px;
+    }
+    .metric-card {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding-bottom: 16px;
+        width: 100%;
+        justify-content: flex-start;
+    }
+    .metric-card:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+}
 </style>

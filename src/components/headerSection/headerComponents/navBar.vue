@@ -8,27 +8,27 @@ const emits = defineEmits(['toggleMenu','toResume']);
 const menuData = ref([
     {
         id: 1,
-        menu: "home",
+        menu: "Home",
         anckorLink: "home",
     },
     {
         id: 2,
-        menu: "about me",
+        menu: "About Me",
         anckorLink: "aboutMe",
     },
     {
         id: 3,
-        menu: "services",
+        menu: "My Skills",
         anckorLink: "services",
     },
     {
         id: 4,
-        menu: "Portfolio",
+        menu: "Projects",
         anckorLink: "Portfolio",
     },
     {
         id: 5,
-        menu: "contact",
+        menu: "Contact",
         anckorLink: "contact",
     },
 ]);
@@ -188,12 +188,15 @@ function openResume() {
 .menu--container::after {
     content: "";
     position: absolute;
-    bottom: 0;
-    transform: translateX(var(--transformXJS));
-    width: var(--widthJS);
-    height: 2px;
-    background: var(--bg-gradient-linear);
-    transition: 0.5s linear;
+    bottom: -6px;
+    left: 0;
+    transform: translateX(var(--transformXJS, 0px));
+    width: var(--widthJS, 0px);
+    height: 3px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #6c63ff 0%, #9b59f5 100%);
+    transition: transform 0.38s cubic-bezier(0.25, 1, 0.5, 1), width 0.38s cubic-bezier(0.25, 1, 0.5, 1);
+    box-shadow: 0 2px 12px rgba(108, 99, 255, 0.6);
 }
 
 .menuItems {
@@ -207,7 +210,7 @@ function openResume() {
     font-size: 18px;
     padding: 0 20px;
     font-weight: 500;
-    font-family: bayer;
+    font-family: var(--font-body);
     height: 100%;
 }
 .menuItems::after {

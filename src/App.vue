@@ -94,11 +94,14 @@ header {
   z-index: 100;
 }
 
-.homeAndHeader { 
-  background-image: url(./assets/homeImage/home-bg.webp);
-  background-position: center;
-  background-size: cover;
+.homeAndHeader {
   width: 100%;
+  background-color: var(--bg-dark);
+  /* Figma IDM background: dark navy + centered blurred purple glow circle */
+  background-image:
+    radial-gradient(ellipse 60% 55% at 50% 48%, rgba(108, 99, 255, 0.22) 0%, rgba(108, 99, 255, 0.06) 55%, transparent 100%),
+    radial-gradient(ellipse 100% 40% at 50% 0%, rgba(80, 60, 200, 0.12) 0%, transparent 70%);
+  position: relative;
 }
 
 #home {
@@ -108,11 +111,26 @@ header {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: rgba(0, 0, 0, 0.5);
   padding: 75px 25px;
 }
 main {
-  background: radial-gradient(69.9% 149.37% at -7.92% -4.45%, rgba(20, 38, 205, 0.23) 0%, rgba(20, 38, 205, 0.155) 100%), radial-gradient(75.56% 161.46% at -13.58% -6.36%, rgba(233, 30, 30, 0.329) 0%, rgba(233, 30, 30, 0.007) 100%);
+  /* Background Linear — design system */
+  background: linear-gradient(135deg, #0a0c1b 0%, #0d0f22 50%, #0a0c1b 100%);
+  position: relative;
+}
+main::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 0% 0%, rgba(108, 99, 255, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 100% 100%, rgba(155, 89, 245, 0.08) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+main > * {
+  position: relative;
+  z-index: 1;
 }
 
 </style>

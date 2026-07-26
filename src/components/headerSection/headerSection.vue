@@ -81,8 +81,8 @@ onMounted(() => {
                     <div class="logoBox">
                         <img src="../../../public/logo/LOGO.png" alt="logo" class="logoImg">
                     </div>
-                    <div class="x--btn" @click="closeResume">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 x-b">
+                    <div class="x--btn" @click="closeResume" aria-label="Close resume overlay">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="x-b">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                         </svg>
                     </div>
@@ -96,10 +96,10 @@ onMounted(() => {
                             <img loading="lazy" src="../../assets/resumeImg/65afa8c554210e53dbfb7c18_Resume English.png" alt="resume">
                             <a href="/resumes/ResumeEnglish.pdf" download class="downloadResume--btn">
                                 <button class="download--btn">
-                                    Download English Resume
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 downloadIcon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="downloadIcon">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                                     </svg>
+                                    Download English Resume
                                 </button>
                             </a>
                         </div>
@@ -110,10 +110,10 @@ onMounted(() => {
                             <img loading="lazy" src="../../assets/resumeImg/65afa9172d0b012eaed1ede3_Resume Persian.png" alt="resume">
                             <a href="/resumes/ResumePersian.pdf" download class="downloadResume--btn">
                                 <button class="download--btn">
-                                    Download Persian Resume
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 downloadIcon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="downloadIcon">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                                     </svg>
+                                    Download Persian Resume
                                 </button>
                             </a>
                         </div>
@@ -126,33 +126,49 @@ onMounted(() => {
 </template>
 
 <style scoped>
+/* ── Download Resume Button ── */
 .downloadResume--btn {
     display: block;
     width: 100%;
 }
 .download--btn {
     width: 100%;
-    color: #eee;
+    color: #fff;
     border: none;
-    border-radius: 10px;
+    border-radius: 50px;
     display: flex;
     align-items: center;
-    justify-content: center; 
-    gap: 10px;
+    justify-content: center;
+    gap: 9px;
+    font-family: var(--font-body);
     font-size: 15px;
-    letter-spacing: 1px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
     cursor: pointer;
-    border: 2px solid var(--third-bg);
-    padding: 8px 0;
-    background-size: 255% auto;
-    background-image: linear-gradient(to right, #E91E1E 0%, #1426CD 50%, #E91E1E 100%);
-    transition: 0.5s;
+    padding: 11px 24px;
+    /* Sweep hover: oversized gradient shifts on hover */
+    background: linear-gradient(90deg, #6c63ff 0%, #9b59f5 50%, #6c63ff 100%);
+    background-size: 200% 100%;
+    background-position: left center;
+    box-shadow: 0 4px 18px rgba(108, 99, 255, 0.35);
+    transition:
+        background-position 0.55s ease,
+        box-shadow          0.3s ease,
+        transform           0.2s ease;
 }
 .download--btn:hover {
     background-position: right center;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(155, 89, 245, 0.5);
+}
+.download--btn:active {
+    transform: translateY(1px) scale(0.97);
+    box-shadow: 0 3px 12px rgba(108, 99, 255, 0.3);
 }
 .downloadIcon {
-    width: 22px;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
 }
 
 .logoSection {
@@ -207,8 +223,8 @@ onMounted(() => {
     height: 100vh;
     overflow-y: scroll;
     overflow-x: hidden;
-    background: radial-gradient(69.9% 149.37% at -7.92% -4.45%, rgba(20, 38, 205, 0.23) 0%, rgba(20, 38, 205, 0.155) 100%), radial-gradient(75.56% 161.46% at -13.58% -6.36%, rgba(233, 30, 30, 0.329) 0%, rgba(233, 30, 30, 0.007) 100%);
-    backdrop-filter: blur(20px);
+    background: rgba(10, 12, 27, 0.96);
+    backdrop-filter: blur(22px);
     padding: 150px 0;
 }
 
@@ -260,18 +276,29 @@ onMounted(() => {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    color: #eee;
+    color: #fff;
     cursor: pointer;
-    
-    background-size: 250% auto;
-    background-image: linear-gradient(to right, #1426CD 0%, #E91E1E 50%, #1426CD 100%);
-    box-shadow: 0 0 15px #eee;
+    /* Sweep animation — same pattern as Fill buttons */
+    background: linear-gradient(90deg, #6c63ff 0%, #9b59f5 50%, #6c63ff 100%);
+    background-size: 200% 100%;
+    background-position: left center;
+    box-shadow: 0 4px 18px rgba(108, 99, 255, 0.4);
     opacity: 0;
     transform: scale(0);
     animation: showL 0.35s 0.3s ease-in-out forwards;
-    transition: 0.35s;
-} .x--btn:hover {
+    transition:
+        background-position 0.55s ease,
+        box-shadow          0.3s ease,
+        transform           0.22s ease;
+}
+.x--btn:hover {
     background-position: right center;
+    transform: scale(1.08);
+    box-shadow: 0 8px 24px rgba(155, 89, 245, 0.55);
+}
+.x-b {
+    width: 22px;
+    height: 22px;
 }
 
 .mainResumes {

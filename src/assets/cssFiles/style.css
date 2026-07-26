@@ -1,94 +1,190 @@
+/* ═══════════════════════════════════════════════════
+   FONT REGISTRATIONS
+═══════════════════════════════════════════════════ */
+
+/* Clash Display — display/heading font */
 @font-face {
-  font-family: vazir;
-  src: url(../fonts/Vazir.ttf) format('ttf');
+  font-family: 'ClashDisplay';
+  src: url(../fonts/ClashDisplay-Medium.otf) format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
 }
 @font-face {
-  font-family: gagalin;
-  src: url(../fonts/Gagalin.woff2) format('woff2');
+  font-family: 'ClashDisplay';
+  src: url(../fonts/ClashDisplay-Semibold.otf) format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ClashDisplay';
+  src: url(../fonts/ClashDisplay-Bold.otf) format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
 }
 
-@font-face {
-  font-family: bayer;
-  src: url(../fonts/Bayer-Sans.ttf);
-}
 
+
+/* ═══════════════════════════════════════════════════
+   DESIGN TOKENS
+═══════════════════════════════════════════════════ */
 :root {
-    --primary-bg: #000;
-    --secondray-bg: #000;
-    --third-bg: rgb(4,124,229); 
-    --main-txt: #fff;
-    --bg-gradient-linear: linear-gradient(90deg ,#1426CD, #E91E1E);
-    /* --bg-gradient-linear-hover: linear-gradient(35deg ,#1426CD, #E91E1E); */
-    /* --gradient-start: 90deg;
-    --gradient-end: 35deg;
-    --gradient-color-1: #1426CD;
-    --gradient-color-2: #E91E1E; */
+  /* Background */
+  --bg-dark:          #0B1330;
+  --bg-gradient:      linear-gradient(90deg, #0B1330 0%, #160725 100%);
+  --bg-card:          rgba(255, 255, 255, 0.04);
+
+  /* Primary Accent Gradient */
+  --accent:           #6c63ff;
+  --accent-light:     #9b59f5;
+  --accent-dark:      #5b4ce4;
+  --accent-gradient:  linear-gradient(90deg, #6c63ff 0%, #9b59f5 50%, #6c63ff 100%);
+  --accent-gradient-static: linear-gradient(90deg, #6c63ff 0%, #9b59f5 100%);
+
+  /* Text */
+  --main-txt:         #ffffff;
+  --text-muted:       rgba(255, 255, 255, 0.55);
+  --text-sub:         rgba(255, 255, 255, 0.75);
+
+  /* Fonts */
+  --font-display:     'ClashDisplay', sans-serif;
+  --font-body:        'Poppins', sans-serif;
+
+  /* Legacy compat */
+  --primary-bg:       #0B1330;
+  --secondray-bg:     #0B1330;
+  --third-bg:         #7c6cf5;
 }
 
-
-
+/* ═══════════════════════════════════════════════════
+   BASE RESET
+═══════════════════════════════════════════════════ */
 html {
   scroll-behavior: smooth;
 }
 a {
-    color: unset;
-    text-decoration: none;
+  color: unset;
+  text-decoration: none;
 }
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    font-family: vazir;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: var(--font-body);
 }
-
 body {
-    background-color: var(--primary-bg);
+  background: #0B1330;
+  background: linear-gradient(90deg, #0B1330 0%, #160725 100%);
+  background-attachment: fixed;
+  color: var(--main-txt);
+  min-height: 100vh;
 }
 
+/* ═══════════════════════════════════════════════════
+   GLOBAL SECTION HEADINGS
+═══════════════════════════════════════════════════ */
+.heading--wrapper {
+  text-align: center;
+  margin-bottom: 50px;
+}
+.heading {
+  display: inline-block;
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding-bottom: 8px;
+  border-bottom: 3px solid #6c63ff;
+}
 
-/* width */
-::-webkit-scrollbar {
-    width: 5px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: var(--primary-bg);
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: var(--third-bg);
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #0c5391;
-  }
+/* ═══════════════════════════════════════════════════
+   GLOBAL BUTTON STYLES (Matching Hero Section)
+═══════════════════════════════════════════════════ */
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 28px;
+  border-radius: 50px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
 
-  .container {
-    max-width: 1150px;
-    margin: 0 auto; 
-    background: rgba(0, 0, 0, 0);
-    transition: background 0.5s;
-  }
+.cta-btn--primary {
+  color: #fff;
+  background: linear-gradient(90deg, #6c63ff 0%, #9b59f5 50%, #6c63ff 100%);
+  background-size: 200% 100%;
+  background-position: left center;
+  box-shadow: 0 4px 20px rgba(108, 99, 255, 0.4);
+  transition: background-position 0.55s ease, box-shadow 0.3s ease, transform 0.2s ease;
+}
+.cta-btn--primary:hover {
+  background-position: right center;
+  box-shadow: 0 8px 28px rgba(155, 89, 245, 0.55);
+  transform: translateY(-3px);
+}
+.cta-btn--primary:active {
+  transform: translateY(1px) scale(0.97);
+  box-shadow: 0 3px 12px rgba(108, 99, 255, 0.35);
+}
 
+.cta-btn--outline {
+  color: #6c63ff;
+  background: transparent;
+  border: 1.5px solid #6c63ff;
+  box-shadow: none;
+  transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+}
+.cta-btn--outline:hover {
+  color: #9b59f5;
+  border-color: #9b59f5;
+  background: rgba(108, 99, 255, 0.1);
+  box-shadow: 0 0 0 1px rgba(155, 89, 245, 0.2), 0 6px 22px rgba(108, 99, 255, 0.15);
+  transform: translateY(-3px);
+}
+.cta-btn--outline:active {
+  transform: translateY(1px) scale(0.97);
+  border-color: #6c63ff;
+  color: #6c63ff;
+  background: rgba(108, 99, 255, 0.08);
+}
 
+/* ═══════════════════════════════════════════════════
+   SCROLLBAR
+═══════════════════════════════════════════════════ */
+::-webkit-scrollbar        { width: 5px; }
+::-webkit-scrollbar-track  { background: var(--bg-dark); }
+::-webkit-scrollbar-thumb  { background: var(--accent); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-dark); }
 
-  @media screen and (max-width: 1160px) {
-    .container {
-      max-width: 991px;
-    }
-  }
-  
-  @media screen and (max-width: 991px) {
-    .container {
-      max-width: 768px;
-    }
-  }
-  
-  @media screen and (max-width: 768px) {
-    .container {
-      padding: 0 15px;
-    }
-  }
+/* ═══════════════════════════════════════════════════
+   LAYOUT — CONTAINER
+═══════════════════════════════════════════════════ */
+.container {
+  max-width: 1150px;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 1160px) {
+  .container { max-width: 991px; }
+}
+@media screen and (max-width: 991px) {
+  .container { max-width: 768px; }
+}
+@media screen and (max-width: 768px) {
+  .container { padding: 0 15px; }
+}
