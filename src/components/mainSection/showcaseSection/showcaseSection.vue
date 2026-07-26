@@ -9,7 +9,7 @@ const projects = ref([
         description: "Website and app design for a Movie & TvShow Streaming Platform, with download option as secondary Action!",
         tags: ["Web Design", "App Design", "CaseStudy"],
         link: "https://www.figma.com/design/erH5Y0jXpNLxJAnPjSQraD/CineStream-CaseStudy?m=auto&t=vsksg6UYbGLPfKXZ-6",
-        image: "CineStream.png"
+        image: "CineStream.webp"
     },
     {
         id: 2,
@@ -18,7 +18,7 @@ const projects = ref([
         description: "Website design for a digital gadget store, fully responsive with dark/light mode, user profile and shopping cart.",
         tags: ["Web Design", "App Design", "Dark/Light"],
         link: "https://www.figma.com/design/hlVbD1Q9JzGhYZ3iAA56bg/TakShop?m=auto&t=vsksg6UYbGLPfKXZ-7",
-        image: "TakShop.png"
+        image: "TakShop.webp"
     },
     {
         id: 3,
@@ -27,7 +27,7 @@ const projects = ref([
         description: "Website design for a Music Streaming Platform, with playlist creation, artist pages, user profile, fully responsive.",
         tags: ["Web Design", "App Design"],
         link: "https://www.figma.com/design/tH8nINgjWQlFx6bxaSZvED/melodies-Web--final-?m=auto&t=vsksg6UYbGLPfKXZ-7",
-        image: "Melodies.png"
+        image: "Melodies.webp"
     },
     {
         id: 4,
@@ -36,7 +36,7 @@ const projects = ref([
         description: "Responsive landing page design for a Gaming platform, where users can buy & play games, read blogs, game reviews and ratings.",
         tags: ["Web Design", "App Design"],
         link: "https://www.figma.com/design/2wDuQFmBnqDrQWewwwjhM5/Gaming-Website?m=auto&t=vsksg6UYbGLPfKXZ-6",
-        image: "PrimeGaming.png"
+        image: "PrimeGaming.webp"
     },
     {
         id: 5,
@@ -45,7 +45,7 @@ const projects = ref([
         description: "Responsive landing page design for Fitmaker, a Fitness platform with blog, workout & nutrition programs, and trainer profiles.",
         tags: ["Web Design", "App Design"],
         link: "https://www.figma.com/design/3enOWXqLU3k0JLtxwmt6YC/FitMaker?m=auto&t=vsksg6UYbGLPfKXZ-6",
-        image: "Fitmaker.png"
+        image: "Fitmaker.webp"
     },
     {
         id: 6,
@@ -54,7 +54,7 @@ const projects = ref([
         description: "Social media post designs for Instagram, focused on educational content to drive more engagement and reach.",
         tags: ["Post Design", "Custom Layout", "Branding"],
         link: "https://www.figma.com/design/Dw30tPvneV4NlyK62rpWn8/Social-Posts?m=auto&t=vsksg6UYbGLPfKXZ-6",
-        image: "Social.png"
+        image: "Social.webp"
     }
 ]);
 
