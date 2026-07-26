@@ -52,7 +52,6 @@ onMounted(() => {
     })
 })
 
-
 </script>
 
 <template>
@@ -93,7 +92,8 @@ onMounted(() => {
                     <div class="resume en-R">
                         <h2 class="resheading">English Resume</h2>
                         <div class="resImgBox">
-                            <img loading="lazy" src="../../assets/resumeImg/65afa8c554210e53dbfb7c18_Resume English.png" alt="resume">
+                            <!-- تغییر پسوند به webp -->
+                            <img loading="lazy" src="../../assets/resumeImg/65afa8c554210e53dbfb7c18_Resume English.webp" alt="resume">
                             <a href="/resumes/ResumeEnglish.pdf" download class="downloadResume--btn">
                                 <button class="download--btn">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="downloadIcon">
@@ -107,7 +107,8 @@ onMounted(() => {
                     <div class="resume fa-R">
                         <h2 class="resheading">Persian Resume</h2>
                         <div class="resImgBox">
-                            <img loading="lazy" src="../../assets/resumeImg/65afa9172d0b012eaed1ede3_Resume Persian.png" alt="resume">
+                            <!-- تغییر پسوند به webp -->
+                            <img loading="lazy" src="../../assets/resumeImg/65afa9172d0b012eaed1ede3_Resume Persian.webp" alt="resume">
                             <a href="/resumes/ResumePersian.pdf" download class="downloadResume--btn">
                                 <button class="download--btn">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="downloadIcon">
@@ -122,7 +123,6 @@ onMounted(() => {
             </div>
         </div>
     </Transition>
-
 </template>
 
 <style scoped>
