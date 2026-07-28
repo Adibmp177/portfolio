@@ -3,10 +3,12 @@ import headerSection from "./components/headerSection/headerSection.vue";
 import homeSection from "./components/mainSection/homeSection/homeSection.vue";
 import showcaseSection from "./components/mainSection/showcaseSection/showcaseSection.vue";
 import contactSection from "./components/mainSection/contactSection/contactSection.vue";
-// import footerSection from "./components/footerSection/footerSectoin.vue";
+import footerSection from "./components/footerSection/footerSection.vue";
 import { onMounted, ref } from "vue";
 import AboutMeSection from "./components/mainSection/aboutMeSection/aboutMeSection.vue";
 import ServicesSection from "./components/mainSection/servicesSection/servicesSection.vue";
+import CustomCursor from "./components/CustomCursor.vue";
+import FaqSection from "./components/mainSection/faqSection/faqSection.vue";
 
 
 if (window.location.hash) {
@@ -44,7 +46,7 @@ onMounted(()=> {
 <template>
 
   <div class="wrapper">
-    
+    <CustomCursor />
 
 
     <div class="homeAndHeader">
@@ -73,10 +75,13 @@ onMounted(()=> {
         <div class="sections" id="contact">
           <contactSection></contactSection>
         </div>
+        <div class="sections" id="faq">
+          <FaqSection></FaqSection>
+        </div>
       </main>
 
       <footer>
-        <!-- <footerSection></footerSection> -->
+        <footerSection></footerSection>
       </footer>
 
     <!-- </div> -->
@@ -114,20 +119,49 @@ header {
   padding: 75px 25px;
 }
 main {
-  /* Background Linear — design system */
-  background: linear-gradient(135deg, #0a0c1b 0%, #0d0f22 50%, #0a0c1b 100%);
+  /* Rich deep background — brand accent dark tones */
+  background:
+    linear-gradient(135deg, #070a18 0%, #0c0e20 40%, #0f0a1e 70%, #080a18 100%);
   position: relative;
+  overflow: hidden;
 }
+
+/* Multi-layer ambient glow overlay */
 main::before {
   content: '';
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 80% 60% at 0% 0%, rgba(108, 99, 255, 0.12) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at 100% 100%, rgba(155, 89, 245, 0.08) 0%, transparent 60%);
+    /* Top-left large indigo bloom */
+    radial-gradient(ellipse 70% 45% at -5% 5%,  rgba(108, 99, 255, 0.18) 0%, transparent 65%),
+    /* Bottom-right violet accent */
+    radial-gradient(ellipse 60% 40% at 105% 95%, rgba(155, 89, 245, 0.14) 0%, transparent 60%),
+    /* Center-top soft haze */
+    radial-gradient(ellipse 90% 30% at 50% 0%,  rgba(80, 60, 200, 0.10) 0%, transparent 70%),
+    /* Mid-left subtle glow */
+    radial-gradient(ellipse 40% 35% at 0% 55%,  rgba(108, 99, 255, 0.08) 0%, transparent 60%),
+    /* Bottom-center cool violet breath */
+    radial-gradient(ellipse 75% 25% at 50% 100%, rgba(120, 80, 255, 0.10) 0%, transparent 65%);
   pointer-events: none;
   z-index: 0;
 }
+
+/* Subtle diagonal accent stripe */
+main::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(115deg,
+      rgba(108, 99, 255, 0.04) 0%,
+      transparent 35%,
+      transparent 65%,
+      rgba(155, 89, 245, 0.05) 100%
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
 main > * {
   position: relative;
   z-index: 1;

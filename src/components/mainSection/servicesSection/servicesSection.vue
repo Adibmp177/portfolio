@@ -7,23 +7,23 @@ onMounted(() => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('active--s');
 
-                // Stagger skill cards
+                // Stagger skill cards — slower, more cinematic
                 const cards = entry.target.querySelectorAll('.skill-card');
                 cards.forEach((card, i) => {
-                    setTimeout(() => card.classList.add('card--visible'), 100 + i * 100);
+                    setTimeout(() => card.classList.add('card--visible'), 120 + i * 180);
                 });
 
-                // Stagger tag pills with a delay after cards
+                // Stagger tag pills after cards finish
                 const pills = entry.target.querySelectorAll('.tag-pill');
                 pills.forEach((pill, i) => {
-                    setTimeout(() => pill.classList.add('pill--visible'), 450 + i * 40);
+                    setTimeout(() => pill.classList.add('pill--visible'), 700 + i * 60);
                 });
 
                 Observer.unobserve(entry.target);
             }
         });
     }, {
-        rootMargin: '-15% 0px -15% 0px'
+        rootMargin: '-10% 0px -10% 0px'
     });
 
     let skillsItems = document.querySelector('.skills--wrapper');
@@ -176,8 +176,8 @@ onMounted(() => {
 /* Heading slides down when section enters */
 .skills--wrapper .heading--wrapper {
     opacity: 0;
-    transform: translateY(-20px);
-    transition: opacity 0.65s ease, transform 0.65s ease;
+    transform: translateY(-24px);
+    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .active--s .heading--wrapper {
     opacity: 1;
@@ -202,10 +202,10 @@ onMounted(() => {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(8px);
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(40px);
     transition:
-        opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-        transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.85s cubic-bezier(0.22, 1, 0.36, 1),
         border-color 0.3s ease,
         box-shadow 0.3s ease,
         background 0.3s ease;
@@ -366,10 +366,10 @@ onMounted(() => {
     cursor: default;
     user-select: none;
     opacity: 0;
-    transform: scale(0.85) translateY(8px);
+    transform: scale(0.88) translateY(12px);
     transition:
-        opacity 0.35s ease,
-        transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+        opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1),
         border-color 0.25s ease,
         background 0.25s ease,
         color 0.25s ease,

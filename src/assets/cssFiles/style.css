@@ -186,5 +186,8 @@ body {
   .container { max-width: 768px; }
 }
 @media screen and (max-width: 768px) {
-  .container { padding: 0 15px; }
+  .container { padding: 0 26px; }
+}
+@media screen and (max-width: 480px) {
+  .container { padding: 0 22px; }
 }

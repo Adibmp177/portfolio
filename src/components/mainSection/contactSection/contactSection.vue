@@ -163,41 +163,6 @@ async function sendEmail(e) {
                             </div>
                         </div>
                     </div>
-
-                    <!-- Connect with me & Social Icons -->
-                    <div class="connect-wrapper">
-                        <span class="connect-label">Connect with me</span>
-                        <div class="social--wrapper">
-                            <!-- Figma -->
-                            <a href="https://www.figma.com/@adibmohammadpou" class="social-icon" aria-label="Figma" target="_blank" rel="noopener noreferrer">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 57" fill="currentColor">
-                                    <path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0Z"/>
-                                    <path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 0 1-19 0Z"/>
-                                    <path d="M19 0v19h9.5a9.5 9.5 0 0 0 0-19H19Z"/>
-                                    <path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5Z"/>
-                                    <path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5Z"/>
-                                </svg>
-                            </a>
-                            <!-- LinkedIn -->
-                            <a href="https://www.linkedin.com/in/adibmohammadpouri/" class="social-icon" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                                </svg>
-                            </a>
-                            <!-- Telegram -->
-                            <a href="https://t.me/Adibmohamadpori" class="social-icon" aria-label="Telegram" target="_blank" rel="noopener noreferrer">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0Zm5.562 8.248-2.04 9.617c-.152.672-.554.836-1.123.52l-3.1-2.285-1.495 1.438c-.165.165-.304.304-.624.304l.223-3.167 5.754-5.195c.25-.223-.054-.347-.388-.124L7.29 14.806l-3.045-.953c-.663-.207-.677-.663.138-.98l11.893-4.585c.551-.199 1.033.134.857.98l-.571-.02Z"/>
-                                </svg>
-                            </a>
-                            <!-- Dribbble -->
-                            <a href="https://dribbble.com/adibmohammadpouri" class="social-icon" aria-label="Dribbble" target="_blank" rel="noopener noreferrer">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M12 2a10 10 0 1 0 10 10A10.011 10.011 0 0 0 12 2zm6.75 6.09a8.02 8.02 0 0 1 2.06 5.25c-.32-.05-3.83-.56-7.38-.07a41.87 41.87 0 0 0-.74-1.52c3.55-1.41 5.04-3.1 5.17-3.25a7.9 7.9 0 0 1 .89-.41zm-1.82-.77c-.12.14-1.49 1.7-4.85 3.01a45.69 45.69 0 0 0-3.3-4.94A8.07 8.07 0 0 1 12 4a7.94 7.94 0 0 1 4.93 1.32zM8.34 2.8a44.62 44.62 0 0 1 3.23 4.88c-3.79 1.05-7.14 1.04-7.5 1.04a7.99 7.99 0 0 1 4.27-5.92zm-5.18 7.4c.39 0 3.38.01 7.02-.97.26.51.51 1.03.75 1.55-3.84 1.09-7.34 1.57-7.69 1.62a8.04 8.04 0 0 1-.08-2.2zm1.2 3.81c.32-.04 3.49-.49 7.15-1.53.86 2.37 1.37 4.74 1.54 5.67A8.02 8.02 0 0 1 4.36 14.01zm9.4 6.8c-.18-.97-.66-3.28-1.5-5.59 3.3-.43 6.55.03 6.87.08a8.02 8.02 0 0 1-5.37 5.51z"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- Right Side: Form Card Container -->
@@ -301,8 +266,8 @@ async function sendEmail(e) {
 /* Heading fades in from above */
 .contactSection---wrapper .heading--wrapper {
     opacity: 0;
-    transform: translateY(-20px);
-    transition: opacity 0.65s ease, transform 0.65s ease;
+    transform: translateY(-24px);
+    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .active--s .heading--wrapper {
     opacity: 1;
@@ -313,7 +278,7 @@ async function sendEmail(e) {
 .contact-layout {
     display: flex;
     gap: 48px;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
 }
 
@@ -321,12 +286,10 @@ async function sendEmail(e) {
 .contact-left {
     flex: 1;
     min-width: 320px;
-    position: sticky;
-    top: 100px;
-    align-self: flex-start;
+    align-self: center;
     opacity: 0;
-    transform: translateX(-40px);
-    transition: opacity 0.75s 0.15s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s 0.15s cubic-bezier(0.22, 1, 0.36, 1);
+    transform: translateX(-50px);
+    transition: opacity 0.9s 0.15s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s 0.15s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .active--s .contact-left {
     opacity: 1;
@@ -368,7 +331,6 @@ async function sendEmail(e) {
     display: flex;
     flex-direction: column;
     gap: 18px;
-    margin-bottom: 36px;
 }
 
 .info-card {
@@ -470,6 +432,13 @@ async function sendEmail(e) {
 .contact-right {
     flex: 1.1;
     min-width: 340px;
+    opacity: 0;
+    transform: translateX(50px);
+    transition: opacity 0.9s 0.3s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.active--s .contact-right {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 .form-card {
@@ -700,10 +669,63 @@ async function sendEmail(e) {
     }
     .contact-left, .contact-right {
         width: 100%;
+        min-width: 0;
+    }
+    .contact-left {
+        position: static;
+        top: auto;
+        align-self: auto;
+        padding: 0 8px;
     }
     .form-row {
         flex-direction: column;
-        gap: 20px;
+        gap: 16px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .form-card {
+        padding: 28px 22px;
+        border-radius: 18px;
+    }
+    .input-field input,
+    .input-field textarea {
+        padding: 11px 14px;
+        font-size: 13.5px;
+        border-radius: 10px;
+    }
+    .input-field label {
+        font-size: 13px;
+        margin-bottom: 6px;
+    }
+    .form-submit-btn {
+        padding: 13px;
+        font-size: 14px;
+    }
+    .form {
+        gap: 16px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .form-card {
+        padding: 22px 14px;
+        border-radius: 16px;
+    }
+    .input-field input,
+    .input-field textarea {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+    .input-field label {
+        font-size: 12.5px;
+    }
+    .form-submit-btn {
+        padding: 12px;
+        font-size: 13.5px;
+    }
+    .form {
+        gap: 14px;
     }
 }
 </style>

@@ -31,6 +31,8 @@ function toggleMenu() {
   display: none;
   align-items: center;
   justify-content: center;
+  position: relative;
+  z-index: 10005;
 }
 
 .hamburger .line{
@@ -74,17 +76,17 @@ function toggleMenu() {
 }
 
 #hamburger-6.is-active .line:nth-child(1){
-  -webkit-transform: translateY(13px);
-  -ms-transform: translateY(13px);
-  -o-transform: translateY(13px);
-  transform: translateY(13px);
+  -webkit-transform: translateY(8px);
+  -ms-transform: translateY(8px);
+  -o-transform: translateY(8px);
+  transform: translateY(8px);
 }
 
 #hamburger-6.is-active .line:nth-child(3){
-  -webkit-transform: translateY(-13px) rotate(90deg);
-  -ms-transform: translateY(-13px) rotate(90deg);
-  -o-transform: translateY(-13px) rotate(90deg);
-  transform: translateY(-13px) rotate(90deg);
+  -webkit-transform: translateY(-8px) rotate(90deg);
+  -ms-transform: translateY(-8px) rotate(90deg);
+  -o-transform: translateY(-8px) rotate(90deg);
+  transform: translateY(-8px) rotate(90deg);
 }
 
 @media screen and (max-width: 991px) {

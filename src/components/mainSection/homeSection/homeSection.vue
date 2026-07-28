@@ -120,34 +120,29 @@ onUnmounted(() => {
 
     </div>
 
-    <a href="#aboutMe" class="scrollDown" aria-label="Scroll down">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 5.25 7.5 7.5 7.5-7.5m-15 6 7.5 7.5 7.5-7.5" />
-        </svg>
-    </a>
-
 </template>
 
 <style scoped>
 
-/* ─── Scroll Down ────────────────────────────────────── */
-.scrollDown {
-    display: inline-block;
-    position: absolute;
-    bottom: 28px;
-    left: 50%;
-    transform: translate(-50%, 0);
-    width: 42px;
-    padding: 5px;
-    color: rgba(255,255,255,0.4);
-    animation: moving 0.9s alternate infinite ease-in-out;
-    opacity: 0;
-    transition: opacity 0.5s 1.2s;
+/* ─── Hero Section Container ─────────────────────────── */
+.hero-section-container {
+    position: relative;
+    min-height: calc(100vh - 100px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
-.active--s .scrollDown { opacity: 1; }
-@keyframes moving {
-    0%   { transform: translate(-50%, 0px); }
-    100% { transform: translate(-50%, -12px); }
+
+/* ─── Hero Bottom Divider ────────────────────────────── */
+.hero-bottom-divider {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(108, 99, 255, 0.45) 30%, rgba(155, 89, 245, 0.45) 50%, rgba(108, 99, 255, 0.45) 70%, transparent 100%);
+    box-shadow: 0 0 12px rgba(108, 99, 255, 0.4);
 }
 
 /* ─── Wrapper ────────────────────────────────────────── */

@@ -174,6 +174,8 @@ onMounted(() => {
 .logoSection {
     display: block;
     cursor: pointer;
+    position: relative;
+    z-index: 10005;
 }
 
 .fadeResume-enter-active {
@@ -189,6 +191,8 @@ onMounted(() => {
 }
 
 .header--wrapper {
+    position: relative;
+    z-index: 10000;
     width: 100%;
     padding: 20px 0 0px;
     backdrop-filter: blur(0px);
@@ -200,8 +204,11 @@ onMounted(() => {
     align-items: center;
 }
 .toTop {
-    background-color: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(10px);
+    background: rgba(11, 15, 36, 0.82);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(108, 99, 255, 0.18);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(108, 99, 255, 0.08);
     padding: 0px 0 0;
 }
 
@@ -218,7 +225,7 @@ onMounted(() => {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 10;
+    z-index: 999999;
     width: 100%;
     height: 100vh;
     overflow-y: scroll;

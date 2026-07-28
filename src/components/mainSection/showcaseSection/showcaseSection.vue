@@ -88,13 +88,13 @@ onMounted(() => {
                 entry.target.classList.add('active--s');
                 const cards = entry.target.querySelectorAll('.project-card');
                 cards.forEach((card, i) => {
-                    setTimeout(() => card.classList.add('card--visible'), i * 80);
+                    setTimeout(() => card.classList.add('card--visible'), i * 140);
                 });
                 Observer.unobserve(entry.target);
             }
         });
     }, {
-        rootMargin: '-15% 0px -15% 0px'
+        rootMargin: '-10% 0px -10% 0px'
     });
 
     let showcaseItems = document.querySelector('.showcase--wrapper');
@@ -150,6 +150,18 @@ onMounted(() => {
                                 </svg>
                             </div>
                         </div>
+
+                        <!-- Mobile "View in Figma" Pill Button -->
+                        <div class="mobile-figma-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 57" fill="currentColor" class="mobile-figma-icon">
+                                <path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0Z"/>
+                                <path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 0 1-19 0Z"/>
+                                <path d="M19 0v19h9.5a9.5 9.5 0 0 0 0-19H19Z"/>
+                                <path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5Z"/>
+                                <path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5Z"/>
+                            </svg>
+                            <span>View in Figma</span>
+                        </div>
                     </div>
                 </a>
             </div>
@@ -185,8 +197,8 @@ onMounted(() => {
 /* Heading fades in with a slight slide-down */
 .showcase--wrapper .heading--wrapper {
     opacity: 0;
-    transform: translateY(-20px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
+    transform: translateY(-24px);
+    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .active--s .heading--wrapper {
     opacity: 1;
@@ -212,10 +224,10 @@ onMounted(() => {
     backdrop-filter: blur(8px);
     cursor: pointer;
     opacity: 0;
-    transform: translateY(36px) scale(0.97);
+    transform: translateY(44px) scale(0.96);
     transition:
-        opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-        transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.85s cubic-bezier(0.22, 1, 0.36, 1),
         background 0.3s ease,
         border-color 0.3s ease,
         box-shadow 0.3s ease;
@@ -403,9 +415,45 @@ onMounted(() => {
     fill: currentColor;
 }
 
+.mobile-figma-btn {
+    display: none;
+}
+
 @media screen and (max-width: 768px) {
     .projects-grid {
         grid-template-columns: 1fr;
+    }
+    .p-desc {
+        margin-bottom: 14px;
+    }
+    .p-btn {
+        display: none !important;
+    }
+    .p-tags {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .mobile-figma-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        margin-top: 14px;
+        padding: 8px 16px;
+        border-radius: 50px;
+        background: linear-gradient(90deg, #6c63ff 0%, #9b59f5 100%);
+        color: #ffffff;
+        font-family: var(--font-body);
+        font-size: 12.5px;
+        font-weight: 500;
+        text-decoration: none;
+        box-shadow: 0 4px 15px rgba(108, 99, 255, 0.35);
+        width: fit-content;
+        border: none;
+    }
+    .mobile-figma-icon {
+        width: 13px;
+        height: 13px;
+        fill: currentColor;
     }
 }
 </style>

@@ -31,6 +31,11 @@ const menuData = ref([
         menu: "Contact",
         anckorLink: "contact",
     },
+    {
+        id: 6,
+        menu: "FAQ",
+        anckorLink: "faq",
+    },
 ]);
 
 const whitchMenuActive = ref('home');
@@ -59,7 +64,7 @@ function menuHandler(newValu, isInWatch, isMenuOpen, item) {
                 isWatching.value = true;
             }, 500);
         }
-    } else {
+    } else if (item && item.parentElement) {
         item.parentElement.style.setProperty("--transformXJS", `${item.offsetLeft}px`);
         item.parentElement.style.setProperty("--widthJS", `${item.offsetWidth}px`);
         if (!isInWatch) {
@@ -77,8 +82,10 @@ onMounted(()=> {
     activeMenu.value = document.querySelectorAll(".menuItems");
 
     let firstMenuActive = document.querySelector(".menuItems.activeMenu");
-    firstMenuActive.parentElement.style.setProperty("--transformXJS", `${firstMenuActive.offsetLeft}px`);
-    firstMenuActive.parentElement.style.setProperty("--widthJS", `${firstMenuActive.offsetWidth}px`);
+    if (firstMenuActive && firstMenuActive.parentElement) {
+        firstMenuActive.parentElement.style.setProperty("--transformXJS", `${firstMenuActive.offsetLeft}px`);
+        firstMenuActive.parentElement.style.setProperty("--widthJS", `${firstMenuActive.offsetWidth}px`);
+    }
     
     // activeingMenu(whitchMenuActive.value, false, activeMenu.value[0]);
 
@@ -86,9 +93,10 @@ onMounted(()=> {
         
         if (window.innerWidth >= 991) {
             let item = document.querySelector(".menuItems.activeMenu");
-            
-            item.parentElement.style.setProperty("--transformXJS", `${item.offsetLeft}px`);
-            item.parentElement.style.setProperty("--widthJS", `${item.offsetWidth}px`);
+            if (item && item.parentElement) {
+                item.parentElement.style.setProperty("--transformXJS", `${item.offsetLeft}px`);
+                item.parentElement.style.setProperty("--widthJS", `${item.offsetWidth}px`);
+            }
         }
     });
 })
@@ -98,15 +106,23 @@ watch(()=> props.whitchMenuActive, (newValue) => {
     
     if (isWatching.value) {
         console.log(props.whitchMenuActive+"log-2");
-        let item;   
-        activeMenu.value.forEach(el => {
-            el.classList.contains("activeMenu") && el.classList.remove("activeMenu");
-            if (el.firstElementChild.getAttribute("href").slice(1) === newValue) {
-                el.classList.add("activeMenu");
-                item = el;
-            }
-        });
-        menuHandler(newValue, true, props.menuHandler, item);
+        let item = null;   
+        if (activeMenu.value) {
+            activeMenu.value.forEach(el => {
+                if (el.firstElementChild && el.firstElementChild.getAttribute("href")) {
+                    const href = el.firstElementChild.getAttribute("href").slice(1);
+                    if (href === newValue) {
+                        el.classList.add("activeMenu");
+                        item = el;
+                    } else {
+                        el.classList.remove("activeMenu");
+                    }
+                }
+            });
+        }
+        if (item) {
+            menuHandler(newValue, true, props.menuHandler, item);
+        }
         
         console.log("Hi ferey we are Here, in watch");
     }
@@ -135,6 +151,9 @@ function openResume() {
 </script>
 
 <template>
+
+    <!-- Mobile Menu Backdrop Overlay -->
+    <div class="mobile-menu-overlay" :class="{'is-visible': props.menuHandler}" @click="emits('toggleMenu')"></div>
 
     <div class="menu--wrapper" :class="{'active': props.menuHandler}">
 
@@ -207,8 +226,8 @@ function openResume() {
 .menuItems a {
     cursor: pointer;
     text-transform: capitalize;
-    font-size: 18px;
-    padding: 0 20px;
+    font-size: 15px;
+    padding: 0 14px;
     font-weight: 500;
     font-family: var(--font-body);
     height: 100%;
@@ -243,7 +262,31 @@ function openResume() {
     cursor: not-allowed;
 }
 
+.mobile-menu-overlay {
+    display: none;
+}
+
 @media screen and (max-width: 991px) {
+    .mobile-menu-overlay {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(4, 3, 15, 0.45);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        z-index: 9998;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+    .mobile-menu-overlay.is-visible {
+        opacity: 1;
+        visibility: visible;
+    }
+
     .menu--container::after {
         display: none;
     }
@@ -254,43 +297,49 @@ function openResume() {
     }
     .menu--wrapper {
         animation: unset;
-        position: absolute;
-        left: 50%;
-        bottom: 10px;
-        transform: translate(-50%, 100%);
-        border: 2px solid rgba(216, 216, 216, 0.4);
-        width: 98%;
-        border-radius: 15px 15px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid rgba(108, 99, 255, 0.25);
+        border-radius: 0 0 24px 24px;
         overflow: hidden;
         height: auto;
         visibility: hidden;
         opacity: 0;
-        transition: 0.5s;
-        padding: 40px 0 20px;
-        background-color: rgba(0, 0, 0, 0.95);
+        transform: translateY(-20px);
+        transition: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        padding: 100px 0 30px; /* Space for the header elements */
+        background: rgba(12, 10, 32, 0.97);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
         z-index: 9999;
     }
     .active {
         visibility: visible;
         opacity: 1;
-        bottom: -25px;
+        transform: translateY(0);
     }
     .menu--container {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 40px 0;
+        gap: 32px 0;
         width: 100%;
-        
     }
     .menuItems a {
         display: block;
-        padding: 0 20px;
+        font-size: 18px;
+        font-weight: 500;
+        padding: 4px 20px;
+        letter-spacing: 0.3px;
     }
     .resumeButton-wrapper {
         display: flex;
         justify-content: center;
-        margin: 35px 0 15px; 
+        margin: 32px 0 10px;
     }
 }
 
