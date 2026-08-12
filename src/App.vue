@@ -3,6 +3,7 @@ import headerSection from "./components/headerSection/headerSection.vue";
 import homeSection from "./components/mainSection/homeSection/homeSection.vue";
 import showcaseSection from "./components/mainSection/showcaseSection/showcaseSection.vue";
 import contactSection from "./components/mainSection/contactSection/contactSection.vue";
+import ProcessSection from "./components/mainSection/processSection/processSection.vue";
 import footerSection from "./components/footerSection/footerSection.vue";
 import { onMounted, ref } from "vue";
 import AboutMeSection from "./components/mainSection/aboutMeSection/aboutMeSection.vue";
@@ -71,6 +72,9 @@ onMounted(()=> {
         </div>
         <div class="sections" id="Portfolio">
           <showcaseSection></showcaseSection>
+        </div>
+        <div class="sections" id="process">
+          <ProcessSection></ProcessSection>
         </div>
         <div class="sections" id="contact">
           <contactSection></contactSection>

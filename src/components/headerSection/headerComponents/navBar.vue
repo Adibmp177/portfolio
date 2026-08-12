@@ -13,28 +13,23 @@ const menuData = ref([
     },
     {
         id: 2,
-        menu: "About Me",
+        menu: "About",
         anckorLink: "aboutMe",
     },
     {
         id: 3,
-        menu: "My Skills",
-        anckorLink: "services",
+        menu: "Projects",
+        anckorLink: "Portfolio",
     },
     {
         id: 4,
-        menu: "Projects",
-        anckorLink: "Portfolio",
+        menu: "Process",
+        anckorLink: "process",
     },
     {
         id: 5,
         menu: "Contact",
         anckorLink: "contact",
-    },
-    {
-        id: 6,
-        menu: "FAQ",
-        anckorLink: "faq",
     },
 ]);
 
