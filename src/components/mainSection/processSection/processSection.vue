@@ -1,8 +1,15 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, onUnmounted, computed } from 'vue';
 
 const activeStep = ref(0);
 const panelRef = ref(null);
+const isMobile = ref(false);
+
+const checkMobile = () => {
+    if (typeof window !== 'undefined') {
+        isMobile.value = window.innerWidth <= 768;
+    }
+};
 
 const steps = [
     {
@@ -44,7 +51,7 @@ const steps = [
     {
         number: "04",
         label: "Test",
-        icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" /></svg>`,
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" /></svg>`,
         title: "Test & Validate",
         subtitle: "Real users, real feedback",
         description: "Designs are pressure-tested through usability sessions and feedback loops — refining until the experience feels effortless.",
@@ -142,6 +149,11 @@ function handleTouchEnd() {
 }
 
 onMounted(() => {
+    checkMobile();
+    if (typeof window !== 'undefined') {
+        window.addEventListener('resize', checkMobile);
+    }
+
     const Observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -155,6 +167,12 @@ onMounted(() => {
 
     const wrapper = document.querySelector('.process--wrapper');
     if (wrapper) Observer.observe(wrapper);
+});
+
+onUnmounted(() => {
+    if (typeof window !== 'undefined') {
+        window.removeEventListener('resize', checkMobile);
+    }
 });
 </script>
 
@@ -199,7 +217,9 @@ onMounted(() => {
                 <div
                     class="carousel-track"
                     :style="{
-                        transform: `translateX(calc(-${activeStep * 100}% - ${activeStep * 24}px + ${dragOffsetX}px))`,
+                        transform: isMobile
+                            ? `translateX(calc(-${activeStep * 100}% + ${dragOffsetX}px))`
+                            : `translateX(calc(-${activeStep * 100}% - ${activeStep * 24}px + ${dragOffsetX}px))`,
                         transition: isDragging ? 'none' : 'transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)'
                     }"
                 >
@@ -444,8 +464,8 @@ onMounted(() => {
     position: relative;
     touch-action: pan-y;
     user-select: none;
-    padding: 10px 0 20px;
-    margin: -10px 0 -20px;
+    padding: 12px 0 24px;
+    margin: -12px 0 -24px;
 }
 
 .carousel-track {
@@ -467,11 +487,11 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 430px;
+    height: 390px;
     background: linear-gradient(145deg, rgba(14, 13, 36, 0.94) 0%, rgba(10, 9, 28, 0.98) 100%);
     border: 1px solid rgba(var(--panel-rgb), 0.25);
     border-radius: 24px;
-    padding: 38px 44px 0;
+    padding: 34px 44px 0;
     backdrop-filter: blur(20px);
     box-shadow:
         0 24px 60px rgba(0, 0, 0, 0.55),
@@ -496,7 +516,7 @@ onMounted(() => {
 
 .panel-body {
     display: flex;
-    gap: 40px;
+    gap: 36px;
     flex: 1;
     min-height: 0;
     position: relative;
@@ -594,14 +614,14 @@ onMounted(() => {
 }
 
 .step-header {
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
 .step-title {
     font-family: var(--font-display);
-    font-size: clamp(22px, 2.8vw, 28px);
+    font-size: clamp(22px, 2.5vw, 27px);
     font-weight: 700;
     color: #fff;
-    margin: 0 0 5px;
+    margin: 0 0 4px;
     line-height: 1.2;
 }
 .step-subtitle {
@@ -613,16 +633,16 @@ onMounted(() => {
 }
 
 .step-description {
-    font-size: 15px;
+    font-size: 14.5px;
     color: rgba(255, 255, 255, 0.68);
-    line-height: 1.7;
-    margin: 0 0 20px;
+    line-height: 1.65;
+    margin: 0;
 }
 
 /* Outcomes */
 .outcomes-section {
-    margin-top: auto;
-    padding-bottom: 8px;
+    margin-top: 30px;
+    margin-bottom: 16px;
 }
 .outcomes-label {
     font-size: 11px;
@@ -630,13 +650,13 @@ onMounted(() => {
     color: rgba(255, 255, 255, 0.45);
     text-transform: uppercase;
     letter-spacing: 1.2px;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
 .outcomes-list {
     list-style: none;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px 22px;
+    gap: 8px 22px;
     padding: 0;
     margin: 0;
 }
@@ -673,7 +693,7 @@ onMounted(() => {
     justify-content: space-between;
     width: calc(100% + 88px);
     margin: 0 -44px;
-    padding: 16px 44px;
+    padding: 15px 44px;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     background: rgba(13, 11, 38, 0.4);
     position: relative;
@@ -764,13 +784,12 @@ onMounted(() => {
 ═══════════════════════════════════════ */
 @media screen and (max-width: 900px) {
     .step-panel-box {
-        height: auto;
-        min-height: 480px;
-        padding: 30px 28px 0;
+        height: 500px;
+        padding: 28px 26px 0;
     }
     .panel-body {
         flex-direction: column;
-        gap: 20px;
+        gap: 16px;
     }
     .panel-left {
         flex-direction: row;
@@ -779,14 +798,38 @@ onMounted(() => {
         justify-content: flex-start;
     }
     .step-meta { flex-direction: row; align-items: center; gap: 14px; }
+    .outcomes-section {
+        margin-top: 16px;
+        margin-bottom: 20px;
+    }
     .panel-nav-bar {
-        width: calc(100% + 56px);
-        margin: 20px -28px 0;
-        padding: 16px 28px;
+        width: calc(100% + 52px);
+        margin: 0 -26px;
+        padding: 14px 26px;
     }
 }
 
 @media screen and (max-width: 768px) {
+    /* Full bleed breakout on mobile so swipe goes edge-to-edge of phone screen */
+    .process-carousel-viewport {
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+        padding: 12px 0 24px;
+    }
+    .carousel-track {
+        gap: 0;
+    }
+    .single-step-card {
+        flex: 0 0 100vw;
+        width: 100vw;
+        min-width: 100vw;
+        box-sizing: border-box;
+        padding: 0 20px;
+    }
     .timeline-nav {
         overflow: visible;
         padding: 12px 0 8px;
@@ -816,15 +859,23 @@ onMounted(() => {
 }
 
 @media screen and (max-width: 480px) {
+    .single-step-card {
+        padding: 0 16px;
+    }
     .step-panel-box {
-        padding: 24px 20px 0;
+        height: 510px;
+        padding: 22px 18px 0;
     }
     .panel-left { flex-wrap: wrap; }
     .step-title { font-size: 20px; }
+    .outcomes-section {
+        margin-top: 14px;
+        margin-bottom: 16px;
+    }
     .panel-nav-bar {
-        width: calc(100% + 40px);
-        margin: 16px -20px 0;
-        padding: 14px 20px;
+        width: calc(100% + 36px);
+        margin: 0 -18px;
+        padding: 12px 18px;
     }
     .node-circle {
         width: 34px;
