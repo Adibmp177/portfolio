@@ -4,6 +4,15 @@ import { ref, onMounted } from 'vue';
 const projects = ref([
     {
         id: 1,
+        title: "AI SaaS Dashboard",
+        year: "2026",
+        description: "AI-powered social media management dashboard enabling users to seamlessly connect accounts, auto-schedule posts, analyze metrics, and generate content with AI.",
+        tags: ["SaaS Design", "Dashboard", "AI Tool"],
+        link: "https://www.figma.com/design/07SrQPQLtgIKrYlPAlh2s3/AI-SaaS-Dashboard---ContentPilot?node-id=0-1&t=oYjjWhYFpnJ3ojeQ-1",
+        image: "ContentPilot.webp"
+    },
+    {
+        id: 2,
         title: "CineStream",
         year: "2026",
         description: "Website and app design for a Movie & TvShow Streaming Platform, with download option as secondary Action!",
@@ -12,7 +21,7 @@ const projects = ref([
         image: "CineStream.webp"
     },
     {
-        id: 2,
+        id: 3,
         title: "TakShop",
         year: "2025",
         description: "Website design for a digital gadget store, fully responsive with dark/light mode, user profile and shopping cart.",
@@ -21,7 +30,7 @@ const projects = ref([
         image: "TakShop.webp"
     },
     {
-        id: 3,
+        id: 4,
         title: "Melodies",
         year: "2023",
         description: "Website design for a Music Streaming Platform, with playlist creation, artist pages, user profile, fully responsive.",
@@ -30,22 +39,13 @@ const projects = ref([
         image: "Melodies.webp"
     },
     {
-        id: 4,
+        id: 5,
         title: "Prime Gaming",
         year: "2024",
         description: "Responsive landing page design for a Gaming platform, where users can buy & play games, read blogs, game reviews and ratings.",
         tags: ["Web Design", "App Design"],
         link: "https://www.figma.com/design/2wDuQFmBnqDrQWewwwjhM5/Gaming-Website?m=auto&t=vsksg6UYbGLPfKXZ-6",
         image: "PrimeGaming.webp"
-    },
-    {
-        id: 5,
-        title: "Fitmaker",
-        year: "2024",
-        description: "Responsive landing page design for Fitmaker, a Fitness platform with blog, workout & nutrition programs, and trainer profiles.",
-        tags: ["Web Design", "App Design"],
-        link: "https://www.figma.com/design/3enOWXqLU3k0JLtxwmt6YC/FitMaker?m=auto&t=vsksg6UYbGLPfKXZ-6",
-        image: "Fitmaker.webp"
     },
     {
         id: 6,
