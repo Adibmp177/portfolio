@@ -279,7 +279,7 @@ onUnmounted(() => {
 .sk-card {
     position: relative;
     overflow: hidden;
-    border-radius: 24px;
+    border-radius: 20px;
     padding: 36px 32px;
     background: rgba(15, 14, 40, 0.55);
     border: 1px solid rgba(255, 255, 255, 0.06);
@@ -301,14 +301,36 @@ onUnmounted(() => {
     transform: translateY(0) scale(1);
 }
 
-/* Hover lift */
+/* Hover lift — generic fallback */
 .sk-card.sk-card--visible:hover {
-    border-color: rgba(108, 99, 255, 0.25);
+    transform: translateY(-5px) scale(1);
+}
+
+/* Figma card: violet/purple glow (matches .sk-glow--figma + .sk-icon-orb--figma) */
+.sk-card--featured.sk-card--visible:hover {
+    border-color: rgba(167, 139, 250, 0.35);
     box-shadow:
-        0 24px 60px rgba(0, 0, 0, 0.35),
-        0 0 40px rgba(108, 99, 255, 0.07);
-    background: rgba(18, 16, 50, 0.65);
-    transform: translateY(-6px) scale(1);
+        0 24px 60px rgba(0, 0, 0, 0.4),
+        0 0 32px rgba(167, 139, 250, 0.2);
+    background: rgba(18, 14, 52, 0.7);
+}
+
+/* Photoshop card: sky-blue glow (matches .sk-glow--ps + .sk-icon-orb--ps) */
+.sk-card:not(.sk-card--featured):nth-child(2).sk-card--visible:hover {
+    border-color: rgba(56, 189, 248, 0.35);
+    box-shadow:
+        0 24px 60px rgba(0, 0, 0, 0.4),
+        0 0 32px rgba(56, 189, 248, 0.2);
+    background: rgba(10, 22, 50, 0.7);
+}
+
+/* AI card: emerald glow (matches .sk-glow--ai + .sk-icon-orb--ai) */
+.sk-card:not(.sk-card--featured):nth-child(3).sk-card--visible:hover {
+    border-color: rgba(52, 211, 153, 0.35);
+    box-shadow:
+        0 24px 60px rgba(0, 0, 0, 0.4),
+        0 0 32px rgba(52, 211, 153, 0.2);
+    background: rgba(8, 22, 20, 0.7);
 }
 
 /* Subtle top-edge gradient shimmer */
@@ -726,6 +748,7 @@ onUnmounted(() => {
 
     .sk-card {
         padding: 28px 24px;
+        border-radius: 18px;
     }
     .sk-tags { gap: 8px; }
     .tag-pill { font-size: 13px; padding: 6px 16px; }

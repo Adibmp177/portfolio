@@ -112,7 +112,7 @@ function toggleFaq(index) {
 .faq-card {
     background: rgba(18, 17, 43, 0.5);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 18px;
+    border-radius: 20px;
     padding: 22px 28px;
     backdrop-filter: blur(12px);
     cursor: pointer;

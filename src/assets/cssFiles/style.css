@@ -94,10 +94,11 @@ body {
   color: #fff;
   font-family: var(--font-display);
   font-size: 36px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
   padding-bottom: 8px;
-  border-bottom: 3px solid #6c63ff;
+  border-bottom: 3px solid transparent;
+  border-image: linear-gradient(90deg, #6c63ff 0%, #9b59f5 100%) 1;
 }
 
 /* ═══════════════════════════════════════════════════

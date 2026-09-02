@@ -1,14 +1,14 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 
-// ── Typing animation ──────────────────────────────────────
+// ── Role typing animation sequence ────────────────────────
 const roles = [
   'UI/UX Designer',
-  'Problem Solver',
   'Product Thinker',
-  'Visual Storyteller',
-  'User Advocate',
   'Interaction Designer',
+  'Visual Storyteller',
+  'Design Systems Lead',
+  'Problem Solver',
 ];
 
 const displayedRole = ref('');
@@ -25,7 +25,7 @@ function typeEffect() {
     charIndex++;
     if (charIndex === currentRole.length) {
       isDeleting = true;
-      const pauseDuration = roleIndex === 0 ? 4000 : 1800;
+      const pauseDuration = roleIndex === 0 ? 3500 : 2000;
       typingTimer = setTimeout(typeEffect, pauseDuration);
       return;
     }
@@ -38,397 +38,1495 @@ function typeEffect() {
     }
   }
 
-  const speed = isDeleting ? 55 : 85;
+  const speed = isDeleting ? 45 : 75;
   typingTimer = setTimeout(typeEffect, speed);
 }
 
+// ── Interactive Design System Workbench State ─────────────
+const activeTab = ref('all'); // 'all' | 'tokens' | 'components'
+
+// 1. Color Tokens & Theme System Map
+const activeColor = ref('#6C63FF');
+const swatches = [
+  { name: 'Primary', hex: '#6C63FF' },
+  { name: 'Accent', hex: '#9B59F5' },
+  { name: 'Emerald', hex: '#10B981' },
+  { name: 'Amber', hex: '#F59E0B' },
+];
+
+const themeMap = {
+  '#6C63FF': { start: '#6C63FF', end: '#9B59F5', glow: 'rgba(108, 99, 255, 0.45)', hoverGlow: 'rgba(108, 99, 255, 0.7)' },
+  '#9B59F5': { start: '#9B59F5', end: '#C084FC', glow: 'rgba(155, 89, 245, 0.45)', hoverGlow: 'rgba(155, 89, 245, 0.7)' },
+  '#10B981': { start: '#10B981', end: '#34D399', glow: 'rgba(16, 185, 129, 0.45)', hoverGlow: 'rgba(16, 185, 129, 0.7)' },
+  '#F59E0B': { start: '#F59E0B', end: '#FBBF24', glow: 'rgba(245, 158, 11, 0.45)', hoverGlow: 'rgba(245, 158, 11, 0.7)' },
+};
+
+const currentTheme = computed(() => themeMap[activeColor.value] || themeMap['#6C63FF']);
+
+function selectSwatch(hex) {
+  activeColor.value = hex;
+}
+
+// 2. Elevation & Depth Token State (Subtle, professional glassmorphic depth levels)
+const activeElevation = ref('Elevated');
+const elevationTokens = [
+  { label: 'Flat', val: 'Flat' },
+  { label: 'Elevated', val: 'Elevated' },
+  { label: 'Ambient Float', val: 'Ambient Float' }
+];
+
+// 3. Typography Token State
+const activeFontSize = ref('14px');
+const fontTokens = [
+  { label: 'Display', size: '18px' },
+  { label: 'Heading', size: '15px' },
+  { label: 'Body', size: '13px' }
+];
+
+// 4. Component Variant State
+const activeVariant = ref('Default');
+const variants = ['Default', 'Hover', 'Focus', 'Disabled'];
+
+// 5. Component Live Controls
+const isToggleActive = ref(true);
+function toggleSwitch() {
+  isToggleActive.value = !isToggleActive.value;
+}
+
+const searchQuery = ref('');
+const isInputFocused = ref(false);
+
+// 6. Interactive Motion & Easing Playground State
+const activeEase = ref('Spring'); // 'Linear' | 'Ease' | 'Spring'
+const motionDuration = ref('3.2s');
+
+const easingCurves = {
+  Linear: {
+    name: 'Linear',
+    path: 'M 10 32 L 210 6',
+    bezier: 'linear'
+  },
+  Ease: {
+    name: 'Ease-Out',
+    path: 'M 10 32 C 60 32 50 6 210 6',
+    bezier: 'cubic-bezier(0.25, 1, 0.5, 1)'
+  },
+  Spring: {
+    name: 'Spring Bounce',
+    path: 'M 10 32 C 60 32 80 2 130 18 C 170 30 190 6 210 6',
+    bezier: 'cubic-bezier(0.34, 1.56, 0.64, 1)'
+  }
+};
+
+const currentEase = computed(() => easingCurves[activeEase.value] || easingCurves['Spring']);
+
 onMounted(() => {
-  typingTimer = setTimeout(typeEffect, 900);
+  typingTimer = setTimeout(typeEffect, 600);
 });
+
 onUnmounted(() => {
-  clearTimeout(typingTimer);
+  if (typingTimer) clearTimeout(typingTimer);
 });
 </script>
 
 <template>
+  <div class="hero-split-container">
+    <!-- Ambient Background Lighting Mesh -->
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="hero-grid-pattern"></div>
 
-    <div class="homeWrapper">
+    <div class="hero-grid">
+      <!-- LEFT COLUMN: Brand Identity & Typography -->
+      <div class="hero-left">
+        <!-- Greeting & Headline -->
+        <p class="greeting">Hi, I'm</p>
+        <h1 class="myName">Adib Mohammadpouri</h1>
 
-        <p class="greeting">Hi, i'm</p>
+        <!-- Dynamic Subtitle -->
+        <div class="subtitle">
+          <span class="static-txt">Specializing in</span>
+          <span class="role-badge">
+            {{ displayedRole }}<span class="cursor">|</span>
+          </span>
+        </div>
 
-        <h1 class="myName">Adib mohammad pouri</h1>
-
-        <!-- Subtitle: "i'm a" is fixed/static, only the role text changes -->
-        <p class="subtitle">
-            <span class="subtitle-static">i'm a&nbsp;</span><span class="role">{{ displayedRole }}<span class="cursor">|</span></span>
-        </p>
-
+        <!-- Description -->
         <p class="intro">
-            I design clean, purposeful interfaces for web and mobile. turning ideas into products
-            people enjoy using, and businesses love to grow with.
+          I design clean, purposeful digital interfaces & systems. Turning complex ideas into intuitive products people enjoy using, and businesses love to scale with.
         </p>
 
-        <!-- CTA Buttons — Button Component -->
+        <!-- CTA Buttons -->
         <div class="homeButton--wrapper">
+          <a href="#Portfolio" class="cta-btn cta-btn--primary" id="hero-view-projects-btn">
+            <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+              <polyline points="2 12 12 17 22 12"></polyline>
+            </svg>
+            <span class="btn-label">View My Projects</span>
+          </a>
 
-            <!-- Primary Fill: icon LEFT + label -->
-            <a href="#Portfolio" class="cta-btn cta-btn--primary" id="hero-view-projects-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="btn-icon--left">
-                    <path fill-rule="evenodd" d="M7.502 6h7.128A3.375 3.375 0 0 1 18 9.375v9.375a3 3 0 0 0 3-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 0 0-.673-.05A3 3 0 0 0 15 1.5h-1.5a3 3 0 0 0-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6ZM13.5 3A1.5 1.5 0 0 0 12 4.5h4.5A1.5 1.5 0 0 0 15 3h-1.5Z" clip-rule="evenodd" />
-                    <path fill-rule="evenodd" d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 0 1 3 20.625V9.375ZM6 12a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 0 1.5H6.75A.75.75 0 0 1 6 12Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75Zm-2.25 3a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 0 1.5H6.75A.75.75 0 0 1 6 15Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75Zm-2.25 3a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 0 1.5H6.75A.75.75 0 0 1 6 18Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
-                </svg>
-                <span class="btn-label">View my Projects</span>
-            </a>
-
-            <!-- Outline: Contact me — fully transparent bg, gradient border -->
-            <a href="#contact" class="cta-btn cta-btn--outline" id="hero-contact-btn">
-                <span class="btn-label">Contact me</span>
-            </a>
+          <a href="#contact" class="cta-btn cta-btn--outline" id="hero-contact-btn">
+            <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            <span class="btn-label">Contact Me</span>
+          </a>
         </div>
 
-        <!-- Social Icons -->
+        <!-- Social Connections -->
         <div class="social--wrapper">
-            <!-- Figma -->
-            <a href="https://www.figma.com/@adibmohammadpou" class="social-icon" aria-label="Figma" target="_blank" rel="noopener noreferrer">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 57" fill="currentColor">
-                    <path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0Z"/>
-                    <path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 0 1-19 0Z"/>
-                    <path d="M19 0v19h9.5a9.5 9.5 0 0 0 0-19H19Z"/>
-                    <path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5Z"/>
-                    <path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5Z"/>
-                </svg>
-            </a>
-            <!-- LinkedIn -->
-            <a href="https://www.linkedin.com/in/adibmohammadpouri/" class="social-icon" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                </svg>
-            </a>
-            <!-- Telegram -->
-            <a href="https://t.me/Adibmohamadpori" class="social-icon" aria-label="Telegram" target="_blank" rel="noopener noreferrer">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0Zm5.562 8.248-2.04 9.617c-.152.672-.554.836-1.123.52l-3.1-2.285-1.495 1.438c-.165.165-.304.304-.624.304l.223-3.167 5.754-5.195c.25-.223-.054-.347-.388-.124L7.29 14.806l-3.045-.953c-.663-.207-.677-.663.138-.98l11.893-4.585c.551-.199 1.033.134.857.98l-.571-.02Z"/>
-                </svg>
-            </a>
-            <!-- Dribbble -->
-            <a href="https://dribbble.com/adibmohammadpouri" class="social-icon" aria-label="Dribbble" target="_blank" rel="noopener noreferrer">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2a10 10 0 1 0 10 10A10.011 10.011 0 0 0 12 2zm6.75 6.09a8.02 8.02 0 0 1 2.06 5.25c-.32-.05-3.83-.56-7.38-.07a41.87 41.87 0 0 0-.74-1.52c3.55-1.41 5.04-3.1 5.17-3.25a7.9 7.9 0 0 1 .89-.41zm-1.82-.77c-.12.14-1.49 1.7-4.85 3.01a45.69 45.69 0 0 0-3.3-4.94A8.07 8.07 0 0 1 12 4a7.94 7.94 0 0 1 4.93 1.32zM8.34 2.8a44.62 44.62 0 0 1 3.23 4.88c-3.79 1.05-7.14 1.04-7.5 1.04a7.99 7.99 0 0 1 4.27-5.92zm-5.18 7.4c.39 0 3.38.01 7.02-.97.26.51.51 1.03.75 1.55-3.84 1.09-7.34 1.57-7.69 1.62a8.04 8.04 0 0 1-.08-2.2zm1.2 3.81c.32-.04 3.49-.49 7.15-1.53.86 2.37 1.37 4.74 1.54 5.67A8.02 8.02 0 0 1 4.36 14.01zm9.4 6.8c-.18-.97-.66-3.28-1.5-5.59 3.3-.43 6.55.03 6.87.08a8.02 8.02 0 0 1-5.37 5.51z"/>
-                </svg>
-            </a>
+          <span class="social-label">Connect:</span>
+          <!-- Figma -->
+          <a href="https://www.figma.com/@adibmohammadpou" class="social-icon" aria-label="Figma" target="_blank" rel="noopener noreferrer" title="Figma">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 57" fill="currentColor">
+              <path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0Z"/>
+              <path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 0 1-19 0Z"/>
+              <path d="M19 0v19h9.5a9.5 9.5 0 0 0 0-19H19Z"/>
+              <path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5Z"/>
+              <path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5Z"/>
+            </svg>
+          </a>
+          <!-- LinkedIn -->
+          <a href="https://www.linkedin.com/in/adibmohammadpouri/" class="social-icon" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer" title="LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+          </a>
+          <!-- Telegram -->
+          <a href="https://t.me/Adibmohamadpori" class="social-icon" aria-label="Telegram" target="_blank" rel="noopener noreferrer" title="Telegram">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0Zm5.562 8.248-2.04 9.617c-.152.672-.554.836-1.123.52l-3.1-2.285-1.495 1.438c-.165.165-.304.304-.624.304l.223-3.167 5.754-5.195c.25-.223-.054-.347-.388-.124L7.29 14.806l-3.045-.953c-.663-.207-.677-.663.138-.98l11.893-4.585c.551-.199 1.033.134.857.98l-.571-.02Z"/>
+            </svg>
+          </a>
+          <!-- Dribbble -->
+          <a href="https://dribbble.com/adibmohammadpouri" class="social-icon" aria-label="Dribbble" target="_blank" rel="noopener noreferrer" title="Dribbble">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2a10 10 0 1 0 10 10A10.011 10.011 0 0 0 12 2zm6.75 6.09a8.02 8.02 0 0 1 2.06 5.25c-.32-.05-3.83-.56-7.38-.07a41.87 41.87 0 0 0-.74-1.52c3.55-1.41 5.04-3.1 5.17-3.25a7.9 7.9 0 0 1 .89-.41zm-1.82-.77c-.12.14-1.49 1.7-4.85 3.01a45.69 45.69 0 0 0-3.3-4.94A8.07 8.07 0 0 1 12 4a7.94 7.94 0 0 1 4.93 1.32zM8.34 2.8a44.62 44.62 0 0 1 3.23 4.88c-3.79 1.05-7.14 1.04-7.5 1.04a7.99 7.99 0 0 1 4.27-5.92zm-5.18 7.4c.39 0 3.38.01 7.02-.97.26.51.51 1.03.75 1.55-3.84 1.09-7.34 1.57-7.69 1.62a8.04 8.04 0 0 1-.08-2.2zm1.2 3.81c.32-.04 3.49-.49 7.15-1.53.86 2.37 1.37 4.74 1.54 5.67A8.02 8.02 0 0 1 4.36 14.01zm9.4 6.8c-.18-.97-.66-3.28-1.5-5.59 3.3-.43 6.55.03 6.87.08a8.02 8.02 0 0 1-5.37 5.51z"/>
+            </svg>
+          </a>
         </div>
+      </div>
 
+      <!-- RIGHT COLUMN: Design System Studio Window -->
+      <div class="hero-right">
+        <div class="figma-window">
+          <!-- Window Header Controls -->
+          <div class="window-header">
+            <div class="window-controls">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-yellow"></span>
+              <span class="dot dot-green"></span>
+            </div>
+            <div class="file-tab">
+              <svg class="figma-logo-mini" viewBox="0 0 38 57" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0Z" fill="#1ABCFE"/>
+                <path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 0 1-19 0Z" fill="#0ACF83"/>
+                <path d="M19 0v19h9.5a9.5 9.5 0 0 0 0-19H19Z" fill="#FF7262"/>
+                <path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5Z" fill="#F24E1E"/>
+                <path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5Z" fill="#A259FF"/>
+              </svg>
+              <span>core-design-system.fig</span>
+            </div>
+            <div class="canvas-status">
+              <span class="status-dot-green"></span> Studio Active
+            </div>
+          </div>
+
+          <!-- Canvas Viewport -->
+          <div class="canvas-viewport">
+            <div class="figma-artboard">
+              <!-- Interactive Tab Navigation -->
+              <div class="artboard-tabs">
+                <button 
+                  class="tab-btn" 
+                  :class="{ active: activeTab === 'all' }"
+                  @click="activeTab = 'all'"
+                >
+                  All Overview
+                </button>
+                <button 
+                  class="tab-btn" 
+                  :class="{ active: activeTab === 'tokens' }"
+                  @click="activeTab = 'tokens'"
+                >
+                  Tokens
+                </button>
+                <button 
+                  class="tab-btn" 
+                  :class="{ active: activeTab === 'components' }"
+                  @click="activeTab = 'components'"
+                >
+                  Components
+                </button>
+              </div>
+
+              <!-- Animated Designer Cursor Tag -->
+              <div class="designer-cursor-tag">
+                <svg class="cursor-arrow" viewBox="0 0 24 24" fill="#9b59f5" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5.5 3.2L18.7 12L12.4 13.9L8.7 20.8L5.5 3.2Z" stroke="#ffffff" stroke-width="1.5"/>
+                </svg>
+                <span class="tag-name">Adib (Managing System)</span>
+              </div>
+
+              <!-- FIXED-HEIGHT Workbench Container -->
+              <div class="ui-workbench-card">
+                <!-- ════════════════════════════════════════════════
+                     SECTION 1: COLOR TOKENS (Full Width Symmetrical Palette)
+                ════════════════════════════════════════════════ -->
+                <div class="workbench-section" v-if="activeTab === 'all' || activeTab === 'tokens'">
+                  <div class="section-header">
+                    <span class="section-lbl">Brand Color Tokens</span>
+                    <span class="token-count">Active: {{ activeColor }}</span>
+                  </div>
+                  <div class="color-swatches">
+                    <div 
+                      class="swatch-item" 
+                      v-for="swatch in swatches" 
+                      :key="swatch.hex"
+                      @click="selectSwatch(swatch.hex)"
+                    >
+                      <div 
+                        class="swatch" 
+                        :style="{ background: swatch.hex, boxShadow: activeColor === swatch.hex ? `0 0 16px ${currentTheme.glow}` : 'none' }"
+                        :class="{ 'swatch-active': activeColor === swatch.hex }"
+                      ></div>
+                      <span class="swatch-code">{{ swatch.hex }}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- TYPOGRAPHY TOKENS (Tokens tab) -->
+                <div class="workbench-section token-sub-section" v-if="activeTab === 'tokens'">
+                  <div class="section-header">
+                    <span class="section-lbl">Typography Tokens</span>
+                    <span class="token-count">Scale: {{ activeFontSize }}</span>
+                  </div>
+                  <div class="font-scale-selector">
+                    <button 
+                      class="font-token-pill" 
+                      v-for="font in fontTokens" 
+                      :key="font.label"
+                      :class="{ active: activeFontSize === font.size }"
+                      @click="activeFontSize = font.size"
+                    >
+                      {{ font.label }}
+                    </button>
+                  </div>
+                  <div class="typography-live-preview" :style="{ fontSize: activeFontSize }">
+                    <span :style="{ color: currentTheme.start }">The quick brown fox</span> jumps over design limits.
+                  </div>
+                </div>
+
+                <!-- ELEVATION & DEPTH TOKENS (Tokens tab - Live Interactive Surface) -->
+                <div class="workbench-section token-sub-section" v-if="activeTab === 'tokens'">
+                  <div class="section-header">
+                    <span class="section-lbl">Elevation & Depth Tokens</span>
+                    <span class="token-count">Level: {{ activeElevation }}</span>
+                  </div>
+                  <div class="elevation-selector">
+                    <button 
+                      class="elevation-pill" 
+                      v-for="e in elevationTokens" 
+                      :key="e.val"
+                      :class="{ active: activeElevation === e.val }"
+                      @click="activeElevation = e.val"
+                    >
+                      {{ e.label }}
+                    </button>
+                  </div>
+                  <div 
+                    class="elevation-live-preview"
+                    :style="{
+                      boxShadow: activeElevation === 'Flat'
+                        ? '0 2px 6px rgba(0, 0, 0, 0.35)'
+                        : activeElevation === 'Elevated'
+                        ? '0 8px 20px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.3)'
+                        : '0 12px 28px rgba(0, 0, 0, 0.6), 0 0 12px rgba(108, 99, 255, 0.25)',
+                      borderColor: activeElevation === 'Ambient Float' 
+                        ? 'rgba(155, 89, 245, 0.4)' 
+                        : activeElevation === 'Elevated'
+                        ? 'rgba(255, 255, 255, 0.16)'
+                        : 'rgba(255, 255, 255, 0.08)',
+                      background: activeElevation === 'Ambient Float'
+                        ? 'rgba(108, 99, 255, 0.08)'
+                        : activeElevation === 'Elevated'
+                        ? 'rgba(255, 255, 255, 0.04)'
+                        : 'rgba(255, 255, 255, 0.02)',
+                      transform: activeElevation === 'Flat' ? 'none' : activeElevation === 'Elevated' ? 'translateY(-2px)' : 'translateY(-3px)'
+                    }"
+                  >
+                    <div class="preview-inner-content">
+                      <span class="preview-indicator" :style="{ background: currentTheme.start, color: currentTheme.start }"></span>
+                      <span>Live Surface Preview: <strong>{{ activeElevation }} Depth</strong></span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- ════════════════════════════════════════════════
+                     SECTION 2: UI COMPONENTS
+                ════════════════════════════════════════════════ -->
+                <div class="workbench-section" v-if="activeTab === 'all' || activeTab === 'components'">
+                  <div class="section-header">
+                    <span class="section-lbl">UI Component Library</span>
+                    <span class="token-count">Variant: {{ activeVariant }}</span>
+                  </div>
+                  <div class="component-preview">
+                    <!-- Dynamic Button -->
+                    <button 
+                      class="sample-btn"
+                      :class="[`state-${activeVariant.toLowerCase()}`]"
+                      :style="{ 
+                        background: activeVariant === 'Disabled' 
+                          ? 'rgba(255, 255, 255, 0.12)' 
+                          : activeVariant === 'Hover'
+                          ? `linear-gradient(135deg, ${currentTheme.end} 0%, ${currentTheme.start} 100%)`
+                          : `linear-gradient(135deg, ${currentTheme.start} 0%, ${currentTheme.end} 100%)`, 
+                        borderRadius: '12px',
+                        boxShadow: activeVariant === 'Disabled'
+                          ? 'none'
+                          : activeVariant === 'Focus'
+                          ? `0 0 0 2px #0c0a20, 0 0 0 4px ${currentTheme.start}, 0 0 16px ${currentTheme.glow}`
+                          : activeVariant === 'Hover'
+                          ? `0 8px 24px ${currentTheme.hoverGlow}`
+                          : `0 4px 14px ${currentTheme.glow}`,
+                        transform: activeVariant === 'Hover' ? 'translateY(-2px) scale(1.04)' : activeVariant === 'Focus' ? 'scale(1.02)' : 'none',
+                        opacity: activeVariant === 'Disabled' ? '0.45' : '1',
+                        cursor: activeVariant === 'Disabled' ? 'not-allowed' : 'pointer'
+                      }"
+                    >
+                      <svg class="btn-sparkle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z"/>
+                      </svg>
+                      <span>Explore UI</span>
+                    </button>
+
+                    <!-- Search Input -->
+                    <div 
+                      class="sample-input" 
+                      :style="{ 
+                        borderRadius: '12px',
+                        borderColor: isInputFocused ? currentTheme.start : 'rgba(255, 255, 255, 0.1)',
+                        boxShadow: isInputFocused ? `0 0 12px ${currentTheme.glow}` : 'none'
+                      }"
+                    >
+                      <svg class="search-icon" :style="{ color: isInputFocused ? currentTheme.start : 'rgba(255, 255, 255, 0.4)' }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                      </svg>
+                      <input 
+                        type="text" 
+                        v-model="searchQuery" 
+                        placeholder="Type..."
+                        class="interactive-input-field"
+                        @focus="isInputFocused = true"
+                        @blur="isInputFocused = false"
+                      />
+                    </div>
+
+                    <!-- Smooth Spring Animated Toggle Switch -->
+                    <div 
+                      class="sample-toggle" 
+                      :class="{ 'toggle-on': isToggleActive }"
+                      :style="{
+                        background: isToggleActive 
+                          ? `linear-gradient(90deg, ${currentTheme.start} 0%, ${currentTheme.end} 100%)` 
+                          : 'rgba(255, 255, 255, 0.12)',
+                        boxShadow: isToggleActive ? `0 0 12px ${currentTheme.glow}` : 'none'
+                      }"
+                      @click="toggleSwitch"
+                    >
+                      <span class="toggle-knob"></span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- VARIANT MATRIX (Components tab - Clean labels without redundant 'State' text) -->
+                <div class="workbench-section token-sub-section" v-if="activeTab === 'components'">
+                  <div class="section-header">
+                    <span class="section-lbl">Component State Matrix</span>
+                    <span class="token-count">Active: {{ activeVariant }}</span>
+                  </div>
+                  <div class="variant-matrix-chips">
+                    <button 
+                      class="variant-chip" 
+                      v-for="v in variants" 
+                      :key="v"
+                      :class="{ active: activeVariant === v }"
+                      @click="activeVariant = v"
+                    >
+                      {{ v }}
+                    </button>
+                  </div>
+                </div>
+
+                <!-- ════════════════════════════════════════════════
+                     SECTION 3: INTERACTIVE MOTION & EASING PLAYGROUND
+                ════════════════════════════════════════════════ -->
+                <div class="workbench-section animation-section" v-if="activeTab === 'all' || activeTab === 'components'">
+                  <div class="section-header">
+                    <span class="section-lbl">Motion & Easing Curves</span>
+                    <span class="ease-val">{{ currentEase.bezier }} ({{ motionDuration }})</span>
+                  </div>
+
+                  <!-- Interactive Curve Formula Selector Buttons -->
+                  <div class="motion-curve-selectors">
+                    <button 
+                      class="ease-chip" 
+                      v-for="(curve, key) in easingCurves" 
+                      :key="key"
+                      :class="{ active: activeEase === key }"
+                      @click="activeEase = key"
+                    >
+                      {{ curve.name }}
+                    </button>
+                  </div>
+
+                  <!-- Live Path-Following SVG Curve Visualizer -->
+                  <div class="curve-box" title="Watch circle move along path curve">
+                    <svg viewBox="0 0 220 38" class="curve-svg">
+                      <!-- Curve Path Line -->
+                      <path 
+                        :d="currentEase.path" 
+                        fill="none" 
+                        :stroke="currentTheme.start" 
+                        stroke-width="3" 
+                        stroke-linecap="round"
+                        class="animated-stroke-line"
+                      />
+                      <!-- Live Smooth Path-Following Ball (Locks onto path & glides gently at 3.2s) -->
+                      <circle 
+                        r="5" 
+                        :fill="currentTheme.end" 
+                        class="live-moving-dot"
+                        :style="{
+                          offsetPath: `path('${currentEase.path}')`,
+                          WebkitOffsetPath: `path('${currentEase.path}')`,
+                          animationDuration: motionDuration
+                        }"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3 Floating Specialty Badges (With project-matching hover animations) -->
+          <div class="floating-badge float-top-right">
+            <span class="badge-emoji">🎨</span>
+            <div class="badge-info">
+              <strong>Figma Master</strong>
+              <span>Design Systems</span>
+            </div>
+          </div>
+
+          <div class="floating-badge float-bottom-left">
+            <span class="badge-emoji">📱</span>
+            <div class="badge-info">
+              <strong>Responsive UI</strong>
+              <span>Web & Mobile</span>
+            </div>
+          </div>
+
+          <div class="floating-badge float-bottom-right">
+            <span class="badge-emoji">⚡</span>
+            <div class="badge-info">
+              <strong>Prototyping</strong>
+              <span>Interactive Motion</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
-
+  </div>
 </template>
 
 <style scoped>
-
-/* ─── Hero Section Container ─────────────────────────── */
-.hero-section-container {
-    position: relative;
-    min-height: calc(100vh - 100px);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+/* ─── Hero Main Container ─────────────────────────────── */
+.hero-split-container {
+  position: relative;
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
 }
 
-/* ─── Hero Bottom Divider ────────────────────────────── */
-.hero-bottom-divider {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent 0%, rgba(108, 99, 255, 0.45) 30%, rgba(155, 89, 245, 0.45) 50%, rgba(108, 99, 255, 0.45) 70%, transparent 100%);
-    box-shadow: 0 0 12px rgba(108, 99, 255, 0.4);
+/* ─── Ambient Glow Orbs ───────────────────────────────── */
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.25;
+}
+.glow-orb-1 {
+  width: 440px;
+  height: 440px;
+  background: radial-gradient(circle, #6c63ff 0%, rgba(108, 99, 255, 0) 70%);
+  top: -80px;
+  left: -60px;
+}
+.glow-orb-2 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, #9b59f5 0%, rgba(155, 89, 245, 0) 70%);
+  bottom: -60px;
+  right: -40px;
 }
 
-/* ─── Wrapper ────────────────────────────────────────── */
-.homeWrapper {
-    text-align: center;
-    color: var(--main-txt);
-    padding-top: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.hero-grid-pattern {
+  position: absolute;
+  inset: -60px;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 30px 30px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 40%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 40%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
 }
 
-/* ─── Greeting ───────────────────────────────────────── */
+/* ─── Grid Layout ─────────────────────────────────────── */
+.hero-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 44px;
+  align-items: center;
+  width: 100%;
+}
+
+/* ─── Left Column Styling ─────────────────────────────── */
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+/* Greeting & Name */
 .greeting {
-    font-family: var(--font-body);
-    font-size: 16px;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.6);
-    letter-spacing: 0.3px;
-    margin-bottom: 12px;
-    opacity: 0;
-    transform: translateY(18px);
-    transition: opacity 0.7s 0.1s ease-out, transform 0.7s 0.1s ease-out;
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s 0.15s ease-out, transform 0.7s 0.15s ease-out;
 }
 .active--s .greeting { opacity: 1; transform: translateY(0); }
 
-/* ─── Name — gradient text ───────────────────────────── */
 .myName {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: clamp(34px, 5.5vw, 68px);
-    line-height: 1.08;
-    letter-spacing: -0.5px;
-    margin-bottom: 20px;
-    opacity: 0;
-    transform: translateY(22px);
-    transition: opacity 0.85s 0.2s ease-out, transform 0.85s 0.2s ease-out;
-    background: linear-gradient(90deg, #6c63ff 0%, #9b59f5 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+  font-family: var(--font-display);
+  font-size: clamp(38px, 4.8vw, 62px);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #ffffff 40%, #a78bfa 75%, #6c63ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 14px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s 0.2s ease-out, transform 0.8s 0.2s ease-out;
 }
 .active--s .myName { opacity: 1; transform: translateY(0); }
 
-/* ─── Subtitle ───────────────────────────────────────── */
-/* 
-  Layout: row, left-aligned items
-  "i'm a " is static/fixed, role text grows from it left→right
-*/
+/* Subtitle & Role */
 .subtitle {
-    font-family: var(--font-body);
-    font-size: 18px;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 24px;
-    opacity: 0;
-    transform: translateY(18px);
-    transition: opacity 0.85s 0.32s ease-out, transform 0.85s 0.32s ease-out;
-    /* Flex row — "i'm a" anchored, role expands to the right */
-    display: flex;
-    align-items: baseline;
-    justify-content: center;
-    min-height: 28px;
-    white-space: nowrap;
+  font-size: 18px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.75);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.8s 0.3s ease-out, transform 0.8s 0.3s ease-out;
 }
 .active--s .subtitle { opacity: 1; transform: translateY(0); }
 
-/* Static part — never moves */
-.subtitle-static {
-    flex-shrink: 0;
+.static-txt { color: rgba(255, 255, 255, 0.55); }
+.role-badge {
+  font-weight: 600;
+  background: linear-gradient(90deg, #6c63ff 0%, #9b59f5 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-/* Role span: fixed width = widest possible role, text left-aligned inside
-   This prevents "i'm a" from shifting when text gets shorter */
-.role {
-    font-weight: 600;
-    background: linear-gradient(90deg, #6c63ff 0%, #9b59f5 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    display: inline-block;
-}
-
-/* Blinking cursor */
 .cursor {
-    display: inline;
-    color: #9b59f5;
-    font-weight: 300;
-    margin-left: 1px;
-    animation: blink 1s step-end infinite;
-    background: none;
-    -webkit-background-clip: unset;
-    background-clip: unset;
+  color: #9b59f5;
+  font-weight: 300;
+  animation: blink 1s step-end infinite;
 }
-@keyframes blink {
-    0%, 100% { opacity: 1; }
-    50%       { opacity: 0; }
-}
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-/* ─── Intro ──────────────────────────────────────────── */
+/* Intro text */
 .intro {
-    font-family: var(--font-body);
-    font-size: 15px;
-    font-weight: 400;
-    line-height: 1.8;
-    max-width: 500px;
-    color: rgba(255, 255, 255, 0.5);
-    margin-bottom: 44px;
-    opacity: 0;
-    transform: translateY(22px);
-    transition: opacity 0.85s 0.44s ease-out, transform 0.85s 0.44s ease-out;
+  font-size: 15.5px;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.6);
+  max-width: 520px;
+  margin-bottom: 34px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s 0.4s ease-out, transform 0.8s 0.4s ease-out;
 }
 .active--s .intro { opacity: 1; transform: translateY(0); }
 
-/* ═══════════════════════════════════════════════════════
-   BUTTON COMPONENT  —  Figma Design System
-   
-   Fill button:
-   - Default: gradient left #6c63ff → right #9b59f5
-   - Hover:   gradient sweeps — purple (#9b59f5) slides from right to left
-     Technique: oversized gradient background + background-position shift
-   
-   Outline button:
-   - Background: fully transparent (no fill at all)  
-   - Border: 1.5px solid using gradient-border technique
-   - Text: white (#fff)
-════════════════════════════════════════════════════════ */
+/* Buttons */
 .homeButton--wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 14px;
-    margin-bottom: 48px;
-    opacity: 0;
-    transform: translateY(22px);
-    transition: opacity 0.85s 0.56s ease-out, transform 0.85s 0.56s ease-out;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 36px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s 0.5s ease-out, transform 0.8s 0.5s ease-out;
 }
 .active--s .homeButton--wrapper { opacity: 1; transform: translateY(0); }
 
-/* ── Base ── */
 .cta-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 13px 28px;
-    border-radius: 50px;
-    font-family: var(--font-body);
-    font-size: 15px;
-    font-weight: 500;
-    letter-spacing: 0.2px;
-    cursor: pointer;
-    text-decoration: none;
-    border: none;
-    outline: none;
-    position: relative;
-    overflow: hidden;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 13px 28px;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* ── Fill / Primary button ──
-   Uses a wide gradient (200% width) and slides background-position on hover
-   This creates the smooth "sweep from right to left" effect described in Figma */
+.btn-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
 .cta-btn--primary {
-    color: #fff;
-    background: linear-gradient(90deg, #6c63ff 0%, #9b59f5 50%, #6c63ff 100%);
-    background-size: 200% 100%;
-    background-position: left center;
-    box-shadow: 0 4px 20px rgba(108, 99, 255, 0.4);
-    transition:
-        background-position 0.55s ease,
-        box-shadow          0.3s ease,
-        transform           0.2s ease;
+  color: #fff;
+  background: linear-gradient(90deg, #6c63ff 0%, #9b59f5 50%, #6c63ff 100%);
+  background-size: 200% 100%;
+  box-shadow: 0 4px 24px rgba(108, 99, 255, 0.42);
 }
 .cta-btn--primary:hover {
-    background-position: right center;
-    box-shadow: 0 8px 28px rgba(155, 89, 245, 0.55);
-    transform: translateY(-3px);
+  background-position: right center;
+  box-shadow: 0 8px 32px rgba(155, 89, 245, 0.6);
+  transform: translateY(-3px);
 }
-.cta-btn--primary:active {
-    transform: translateY(1px) scale(0.97);
-    box-shadow: 0 3px 12px rgba(108, 99, 255, 0.35);
-}
+.cta-btn--primary:hover .btn-icon { transform: translateY(-2px) scale(1.1); }
 
-/* Children sit above any future pseudo-layers */
-.btn-icon--left,
-.btn-label {
-    position: relative;
-    z-index: 1;
-}
-
-/* Left icon */
-.btn-icon--left {
-    width: 18px;
-    height: 18px;
-    flex-shrink: 0;
-    color: currentColor;
-}
-
-/* ── Outline pill ──
-   Figma spec: blue text + blue border (default), purple text + purple border + subtle bg (hover) */
 .cta-btn--outline {
-    color: #6c63ff;
-    background: transparent;
-    border: 1.5px solid #6c63ff;
-    box-shadow: none;
-    transition:
-        color        0.3s ease,
-        border-color 0.3s ease,
-        background   0.3s ease,
-        box-shadow   0.3s ease,
-        transform    0.2s ease;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
 }
 .cta-btn--outline:hover {
-    color: #9b59f5;
-    border-color: #9b59f5;
-    background: rgba(108, 99, 255, 0.1);
-    box-shadow: 0 0 0 1px rgba(155, 89, 245, 0.2),
-                0 6px 22px rgba(108, 99, 255, 0.15);
-    transform: translateY(-3px);
-}
-.cta-btn--outline:active {
-    transform: translateY(1px) scale(0.97);
-    border-color: #6c63ff;
-    color: #6c63ff;
-    background: rgba(108, 99, 255, 0.08);
+  background: rgba(108, 99, 255, 0.15);
+  border-color: rgba(155, 89, 245, 0.5);
+  box-shadow: 0 6px 24px rgba(108, 99, 255, 0.2);
+  transform: translateY(-3px);
 }
 
-/* ─── Social Icons ──────────────────────────────────── */
+/* Social Row */
 .social--wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.85s 0.7s ease-out, transform 0.85s 0.7s ease-out;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.8s 0.6s ease-out, transform 0.8s 0.6s ease-out;
 }
 .active--s .social--wrapper { opacity: 1; transform: translateY(0); }
 
+.social-label {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.45);
+  font-weight: 500;
+}
+
 .social-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    color: rgba(255, 255, 255, 0.55);
-    border: 1.5px solid rgba(255, 255, 255, 0.12);
-    background: rgba(255, 255, 255, 0.03);
-    transition:
-        color        0.22s ease,
-        border-color 0.22s ease,
-        background   0.22s ease,
-        box-shadow   0.22s ease,
-        transform    0.22s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  transition: all 0.25s ease;
 }
-.social-icon svg { width: 19px; height: 19px; }
-
+.social-icon svg { width: 18px; height: 18px; }
 .social-icon:hover {
-    color: #fff;
-    border-color: rgba(108, 99, 255, 0.65);
-    background: rgba(108, 99, 255, 0.18);
-    box-shadow: 0 6px 20px rgba(108, 99, 255, 0.3);
-    transform: translateY(-3px);
-}
-.social-icon:active {
-    transform: translateY(0) scale(0.93);
+  color: #fff;
+  border-color: rgba(155, 89, 245, 0.6);
+  background: rgba(108, 99, 255, 0.2);
+  box-shadow: 0 6px 20px rgba(108, 99, 255, 0.35);
+  transform: translateY(-3px);
 }
 
-/* ─── Responsive ─────────────────────────────────────── */
+/* ─── Right Column Figma Live Showcase Window (Flat Clean 2D) ── */
+.hero-right {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 10px;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.9s 0.3s ease-out, transform 0.9s 0.3s ease-out;
+}
+.active--s .hero-right { opacity: 1; transform: translateY(0); }
+
+.figma-window {
+  position: relative;
+  width: 100%;
+  max-width: 450px;
+  border-radius: 20px;
+  background: rgba(12, 10, 32, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.65),
+    0 0 40px rgba(108, 99, 255, 0.15);
+  padding: 16px;
+  overflow: visible;
+}
+
+/* Window Top Control Bar */
+.window-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 14px;
+}
+.window-controls {
+  display: flex;
+  gap: 6px;
+}
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot-red { background: #ff5f56; }
+.dot-yellow { background: #ffbd2e; }
+.dot-green { background: #27c93f; }
+
+.file-tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.75);
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+}
+.figma-logo-mini { width: 12px; height: 18px; }
+.canvas-status {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+}
+.status-dot-green {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+}
+
+/* Canvas Viewport */
+.canvas-viewport {
+  position: relative;
+  padding: 4px 2px;
+}
+
+/* Figma Frame Container */
+.figma-artboard {
+  position: relative;
+  border: 1.5px dashed rgba(108, 99, 255, 0.45);
+  border-radius: 16px;
+  padding: 16px 14px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Artboard Filter Tabs */
+.artboard-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.tab-btn {
+  font-size: 10.5px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 4px 11px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.tab-btn.active, .tab-btn:hover {
+  color: #fff;
+  background: rgba(108, 99, 255, 0.2);
+  border-color: rgba(155, 89, 245, 0.4);
+}
+
+/* Designer Live Cursor Tag */
+.designer-cursor-tag {
+  position: absolute;
+  top: -14px;
+  right: 18px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  z-index: 10;
+  animation: cursorFloat 3.5s ease-in-out infinite alternate;
+}
+
+@keyframes cursorFloat {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-6px, 8px); }
+}
+
+.cursor-arrow {
+  width: 16px;
+  height: 16px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+}
+.tag-name {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #fff;
+  background: #9b59f5;
+  padding: 2px 8px;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(155, 89, 245, 0.5);
+  white-space: nowrap;
+}
+
+/* ── FIXED HEIGHT WORKBENCH CONTAINER ────────────────── */
+.ui-workbench-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  height: 310px;
+  overflow-y: auto;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 14px;
+  box-sizing: border-box;
+}
+
+.ui-workbench-card::-webkit-scrollbar {
+  width: 4px;
+}
+.ui-workbench-card::-webkit-scrollbar-thumb {
+  background: rgba(108, 99, 255, 0.3);
+  border-radius: 10px;
+}
+
+.workbench-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.section-lbl {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.2px;
+}
+
+.token-count {
+  font-size: 10px;
+  font-weight: 500;
+  color: #a78bfa;
+  font-family: monospace;
+}
+
+/* 1. Color Swatches - Full Width Grid */
+.color-swatches {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  width: 100%;
+}
+.swatch-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+  cursor: pointer;
+}
+.swatch {
+  width: 100%;
+  height: 32px;
+  border-radius: 9px;
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.swatch-item:hover .swatch, .swatch-active {
+  transform: translateY(-2px);
+  border-color: #fff;
+}
+
+.swatch-code {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: monospace;
+  font-weight: 500;
+}
+
+/* Typography Token Sub-Section */
+.font-scale-selector {
+  display: flex;
+  gap: 6px;
+}
+.font-token-pill {
+  font-size: 10.5px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 4px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.font-token-pill.active, .font-token-pill:hover {
+  color: #fff;
+  background: rgba(108, 99, 255, 0.2);
+  border-color: #9b59f5;
+}
+.typography-live-preview {
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+  transition: font-size 0.25s ease;
+  line-height: 1.3;
+  margin-top: 4px;
+}
+
+/* Elevation & Depth Token Sub-Section */
+.elevation-selector {
+  display: flex;
+  gap: 6px;
+  width: 100%;
+}
+.elevation-pill {
+  flex: 1;
+  font-size: 10.5px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 5px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+.elevation-pill.active, .elevation-pill:hover {
+  color: #fff;
+  background: rgba(108, 99, 255, 0.2);
+  border-color: #9b59f5;
+}
+
+.elevation-live-preview {
+  margin-top: 6px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.preview-inner-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.preview-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  box-shadow: 0 0 8px currentColor;
+}
+
+/* Variant State Matrix Sub-Section */
+.variant-matrix-chips {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.variant-chip {
+  font-size: 10.5px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 4px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.variant-chip.active, .variant-chip:hover {
+  color: #fff;
+  background: rgba(155, 89, 245, 0.25);
+  border-color: #9b59f5;
+}
+
+/* 2. Component System Sample */
+.component-preview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  background: rgba(108, 99, 255, 0.06);
+  border: 1px solid rgba(108, 99, 255, 0.18);
+  border-radius: 12px;
+  padding: 10px;
+  transition: all 0.25s ease;
+}
+
+.sample-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  border: none;
+  outline: none;
+  padding: 6px 14px;
+  border-radius: 12px;
+  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+  user-select: none;
+}
+.sample-btn:hover {
+  transform: translateY(-2px) scale(1.04) !important;
+}
+.sample-btn:active {
+  transform: translateY(0) scale(0.97) !important;
+}
+.btn-sparkle { width: 12px; height: 12px; transition: transform 0.25s ease; }
+.sample-btn:hover .btn-sparkle { transform: rotate(15deg) scale(1.1); }
+
+.sample-input {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 5px 9px;
+  border-radius: 12px;
+  flex: 1;
+  max-width: 115px;
+  transition: all 0.25s ease;
+}
+.search-icon { width: 12px; height: 12px; flex-shrink: 0; transition: color 0.25s ease; }
+.interactive-input-field {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 11px;
+  font-family: var(--font-body);
+}
+.interactive-input-field::placeholder { color: rgba(255, 255, 255, 0.35); }
+
+/* ── SMOOTH SPRING ANIMATED TOGGLE SWITCH ─────────────── */
+.sample-toggle {
+  position: relative;
+  width: 38px;
+  height: 20px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.12);
+  padding: 2px;
+  cursor: pointer;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  user-select: none;
+}
+.toggle-knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.sample-toggle.toggle-on .toggle-knob {
+  transform: translateX(18px);
+}
+
+/* ── INTERACTIVE MOTION PLAYGROUND ────────────────────── */
+.motion-curve-selectors {
+  display: flex;
+  gap: 6px;
+  margin-top: 2px;
+}
+.ease-chip {
+  font-size: 10px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 3px 9px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.ease-chip.active, .ease-chip:hover {
+  color: #fff;
+  background: rgba(108, 99, 255, 0.2);
+  border-color: #9b59f5;
+}
+
+.ease-val {
+  font-size: 10px;
+  color: #a78bfa;
+  font-weight: 500;
+  font-family: monospace;
+}
+
+.curve-box {
+  width: 100%;
+  height: 34px;
+  margin-top: 4px;
+  cursor: pointer;
+}
+.curve-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.animated-stroke-line {
+  transition: stroke 0.35s ease, d 0.35s ease;
+}
+
+/* Live Path-Following Ball along SVG Curve */
+.live-moving-dot {
+  transition: fill 0.35s ease;
+  animation: moveAlongPath 3.2s ease-in-out infinite alternate;
+}
+
+@keyframes moveAlongPath {
+  0% {
+    offset-distance: 0%;
+    -webkit-offset-distance: 0%;
+  }
+  100% {
+    offset-distance: 100%;
+    -webkit-offset-distance: 100%;
+  }
+}
+
+/* ─── Floating Specialty Badges (With Project-Matching Hover Effect) ─── */
+.floating-badge {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 16px;
+  border-radius: 14px;
+  background: rgba(15, 12, 38, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.55);
+  z-index: 20;
+  cursor: pointer;
+  transition: color 0.28s ease, border-color 0.28s ease, background 0.28s ease, box-shadow 0.28s ease, transform 0.28s cubic-bezier(0.25, 0.8, 0.25, 1);
+  animation: badgeFloat 4s ease-in-out infinite alternate;
+}
+
+.floating-badge:hover {
+  border-color: rgba(155, 89, 245, 0.6);
+  background: rgba(108, 99, 255, 0.22);
+  box-shadow: 0 8px 25px rgba(108, 99, 255, 0.38);
+  transform: translateY(-5px) scale(1.04);
+}
+
+@keyframes badgeFloat {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-7px); }
+}
+
+/* Position Coordinates - Zero Overlap */
+.float-top-right {
+  top: -24px;
+  right: -24px;
+}
+
+.float-bottom-left {
+  bottom: -24px;
+  left: -24px;
+  animation-delay: -1.8s;
+}
+
+.float-bottom-right {
+  bottom: -24px;
+  right: -24px;
+  animation-delay: -3s;
+}
+
+.badge-emoji { font-size: 17px; }
+.badge-info {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+.badge-info strong {
+  font-size: 12.5px;
+  color: #fff;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.badge-info span {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ─── Responsive Media Queries (Mobile First UX & Touch Guidelines) ──── */
+@media screen and (max-width: 1100px) {
+  .float-bottom-right { display: none; }
+}
+
+@media screen and (max-width: 991px) {
+  .hero-split-container {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .hero-left {
+    align-items: center;
+    text-align: center;
+  }
+  .subtitle { justify-content: center; }
+  .intro { max-width: 95%; }
+  .floating-badge { display: none; } /* Hide floating badges on touch screens to maximize canvas space */
+  
+  .figma-window {
+    max-width: 100%;
+    padding: 14px;
+  }
+}
+
 @media screen and (max-width: 768px) {
-    .homeWrapper { padding-top: 20px; }
-    .myName { font-size: 36px; }
-    .subtitle { font-size: 16px; }
-    .intro { font-size: 14px; max-width: 88%; }
-    .cta-btn { padding: 11px 22px; font-size: 14px; }
+  .hero-split-container {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .greeting {
+    font-size: 15px;
+  }
+
+  .myName {
+    font-size: clamp(32px, 8vw, 46px);
+    line-height: 1.12;
+    margin-bottom: 12px;
+  }
+
+  .subtitle {
+    font-size: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+
+  .intro {
+    font-size: 14.5px;
+    line-height: 1.65;
+    margin-bottom: 26px;
+  }
+
+  .homeButton--wrapper {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .cta-btn {
+    width: 100%;
+    padding: 13px 20px;
+    font-size: 14.5px;
+    box-sizing: border-box;
+  }
+
+  /* ── Mobile Workbench Touch Controls (44px Minimum Touch Target Standards) ── */
+  .figma-artboard {
+    padding: 12px 10px;
+  }
+
+  .artboard-tabs {
+    gap: 6px;
+    justify-content: space-between;
+  }
+
+  .tab-btn {
+    flex: 1;
+    font-size: 11.5px;
+    font-weight: 600;
+    padding: 8px 10px;
+    min-height: 36px;
+    text-align: center;
+    border-radius: 10px;
+  }
+
+  .designer-cursor-tag {
+    top: -22px;
+    right: 8px;
+    transform: scale(0.88);
+  }
+
+  .ui-workbench-card {
+    height: 345px;
+    padding: 12px;
+    gap: 14px;
+  }
+
+  /* Color Swatches Touch Optimization (Full width grid on mobile too) */
+  .color-swatches {
+    gap: 8px;
+  }
+
+  .swatch {
+    height: 34px;
+    border-radius: 8px;
+  }
+
+  .swatch-code {
+    font-size: 10px;
+    font-weight: 500;
+  }
+
+  /* Typography & Elevation Token Pills */
+  .font-scale-selector, .elevation-selector {
+    gap: 6px;
+  }
+
+  .font-token-pill, .elevation-pill {
+    flex: 1;
+    padding: 7px 10px;
+    font-size: 11.5px;
+    min-height: 36px;
+    text-align: center;
+  }
+
+  /* Component Library Sample Row */
+  .component-preview {
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .sample-btn {
+    padding: 8px 14px;
+    font-size: 11.5px;
+    min-height: 36px;
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+  .sample-input {
+    max-width: 100%;
+    flex: 1 1 120px;
+    padding: 7px 10px;
+    min-height: 36px;
+  }
+
+  .interactive-input-field {
+    font-size: 11.5px;
+  }
+
+  .sample-toggle {
+    width: 42px;
+    height: 22px;
+    padding: 3px;
+  }
+
+  .toggle-knob {
+    width: 16px;
+    height: 16px;
+  }
+
+  .sample-toggle.toggle-on .toggle-knob {
+    transform: translateX(20px);
+  }
+
+  /* Matrix Chips & Motion Chips */
+  .variant-chip, .ease-chip {
+    padding: 7px 11px;
+    font-size: 11px;
+    min-height: 34px;
+    flex: 1;
+    text-align: center;
+  }
 }
 
-@media screen and (max-width: 450px) {
-    .homeButton--wrapper { flex-direction: column; gap: 10px; width: 100%; }
-    .cta-btn { width: 82%; justify-content: center; }
-    .myName { font-size: 28px; }
-    .intro { max-width: 96%; }
-    .subtitle { white-space: normal; flex-wrap: wrap; }
-}
+@media screen and (max-width: 480px) {
+  .hero-split-container {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
 
+  .myName {
+    font-size: 28px;
+  }
+
+  .figma-window {
+    padding: 10px;
+    border-radius: 16px;
+  }
+
+  .tab-btn {
+    font-size: 10.5px;
+    padding: 7px 6px;
+  }
+
+  .ui-workbench-card {
+    height: 340px;
+    padding: 10px;
+  }
+}
 </style>

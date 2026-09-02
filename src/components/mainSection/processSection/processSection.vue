@@ -500,7 +500,17 @@ onUnmounted(() => {
         inset 0 1px 0 rgba(255, 255, 255, 0.07);
     position: relative;
     overflow: hidden;
-    transition: border-color 0.45s ease, box-shadow 0.45s ease;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease, background 0.4s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.step-panel-box:hover {
+    border-color: rgba(var(--panel-rgb), 0.55);
+    box-shadow:
+        0 24px 60px rgba(0, 0, 0, 0.55),
+        0 0 0 1px rgba(255, 255, 255, 0.04),
+        0 0 45px rgba(var(--panel-rgb), 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    background: linear-gradient(145deg, rgba(var(--panel-rgb), 0.07) 0%, rgba(10, 9, 28, 0.98) 100%);
+    transform: translateY(-4px);
 }
 
 /* Custom Glow Blob for THIS box */

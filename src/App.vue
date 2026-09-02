@@ -106,7 +106,6 @@ header {
 .homeAndHeader {
   width: 100%;
   background-color: var(--bg-dark);
-  /* Figma IDM background: dark navy + centered blurred purple glow circle */
   background-image:
     radial-gradient(ellipse 60% 55% at 50% 48%, rgba(108, 99, 255, 0.22) 0%, rgba(108, 99, 255, 0.06) 55%, transparent 100%),
     radial-gradient(ellipse 100% 40% at 50% 0%, rgba(80, 60, 200, 0.12) 0%, transparent 70%);
@@ -114,13 +113,28 @@ header {
 }
 
 #home {
-  height: 100vh;
+  min-height: 100vh;
+  height: auto;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 75px 25px;
+  padding: 120px 25px 80px;
+}
+
+@media screen and (max-width: 991px) {
+  #home {
+    height: auto;
+    min-height: auto;
+    padding: 130px 20px 60px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #home {
+    padding: 120px 14px 50px;
+  }
 }
 main {
   /* Rich deep background — brand accent dark tones */
