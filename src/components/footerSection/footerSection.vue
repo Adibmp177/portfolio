@@ -135,8 +135,8 @@ const socials = [
 .footer-inner {
     display: flex;
     gap: 48px;
-    padding-top: 56px;
-    padding-bottom: 48px;
+    padding-top: 64px;
+    padding-bottom: 56px;
     justify-content: space-between;
     flex-wrap: wrap;
 }
@@ -276,7 +276,7 @@ const socials = [
 /* ── Bottom Bar ── */
 .footer-bottom {
     border-top: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 16px 0;
+    padding: 20px 0;
 }
 .footer-bottom-inner {
     display: flex;
@@ -326,11 +326,86 @@ const socials = [
     .footer-inner {
         flex-direction: column;
         gap: 36px;
-        padding-top: 44px;
+        padding-top: 48px;
         padding-bottom: 36px;
     }
-    .footer-brand { min-width: unset; }
-    .footer-cta-btn { max-width: 280px; }
-    .footer-bottom-inner { justify-content: center; text-align: center; }
+    .footer-brand {
+        width: 100%;
+        min-width: unset;
+    }
+    .brand-tagline {
+        max-width: 100%;
+        font-size: 13.5px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+    
+    /* 4 Equal-Width Large Social Action Buttons filling the screen */
+    .footer-socials {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        width: 100%;
+        gap: 10px;
+    }
+    .footer-social-icon {
+        width: 100%;
+        height: 50px;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: rgba(255, 255, 255, 0.7);
+    }
+    .footer-social-icon :deep(svg) {
+        width: 22px;
+        height: 22px;
+    }
+    .footer-social-icon:hover, .footer-social-icon:active {
+        background: rgba(108, 99, 255, 0.22);
+        border-color: rgba(155, 89, 245, 0.6);
+        color: #fff;
+        transform: translateY(-2px);
+    }
+
+    .footer-nav {
+        width: 100%;
+        min-width: unset;
+    }
+
+    /* Full-width CTA Section & Button */
+    .footer-cta {
+        width: 100%;
+        min-width: unset;
+    }
+    .footer-cta-text {
+        font-size: 13.5px;
+        line-height: 1.6;
+        margin-bottom: 16px;
+    }
+    .footer-cta-btn {
+        width: 100% !important;
+        max-width: 100% !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 15px 24px;
+        font-size: 15px;
+        font-weight: 600;
+        border-radius: 14px;
+        min-height: 50px;
+        box-sizing: border-box;
+        margin-bottom: 16px;
+    }
+
+    .footer-bottom-inner {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        gap: 14px;
+    }
+    .back-to-top-btn {
+        order: -1;
+        padding: 8px 22px;
+        font-size: 13px;
+    }
 }
 </style>

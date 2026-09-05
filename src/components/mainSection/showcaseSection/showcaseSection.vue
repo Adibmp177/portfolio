@@ -191,7 +191,7 @@ onMounted(() => {
 <style scoped>
 /* ── Wrapper & Scroll Animations ── */
 .showcase--wrapper {
-    padding: 70px 0;
+    padding: 100px 0;
 }
 
 /* Heading fades in with a slight slide-down */
@@ -208,7 +208,7 @@ onMounted(() => {
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
-    gap: 30px;
+    gap: 28px;
 }
 
 /* Each card starts hidden and slides up when .card--visible is added */
@@ -420,8 +420,12 @@ onMounted(() => {
 }
 
 @media screen and (max-width: 768px) {
+    .showcase--wrapper {
+        padding: 64px 0;
+    }
     .projects-grid {
         grid-template-columns: 1fr;
+        gap: 20px;
     }
     .p-desc {
         margin-bottom: 14px;

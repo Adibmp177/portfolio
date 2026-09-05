@@ -63,6 +63,7 @@
 ═══════════════════════════════════════════════════ */
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 a {
   color: unset;
@@ -80,6 +81,9 @@ body {
   background-attachment: fixed;
   color: var(--main-txt);
   min-height: 100vh;
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
 }
 
 /* ═══════════════════════════════════════════════════
@@ -87,7 +91,7 @@ body {
 ═══════════════════════════════════════════════════ */
 .heading--wrapper {
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 48px;
 }
 .heading {
   display: inline-block;
@@ -99,6 +103,16 @@ body {
   padding-bottom: 8px;
   border-bottom: 3px solid transparent;
   border-image: linear-gradient(90deg, #6c63ff 0%, #9b59f5 100%) 1;
+}
+
+@media screen and (max-width: 768px) {
+  .heading--wrapper {
+    margin-bottom: 36px;
+  }
+  .heading {
+    font-size: 28px;
+    padding-bottom: 6px;
+  }
 }
 
 /* ═══════════════════════════════════════════════════

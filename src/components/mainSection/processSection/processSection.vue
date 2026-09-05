@@ -213,21 +213,20 @@ onUnmounted(() => {
                 @touchmove="handleTouchMove"
                 @touchend="handleTouchEnd"
             >
-                <!-- Horizontal Track moving 5 distinct boxes -->
+                <!-- Track moving / transitioning 5 distinct boxes -->
                 <div
                     class="carousel-track"
-                    :style="{
-                        transform: isMobile
-                            ? `translateX(calc(-${activeStep * 100}% + ${dragOffsetX}px))`
-                            : `translateX(calc(-${activeStep * 100}% - ${activeStep * 24}px + ${dragOffsetX}px))`,
+                    :style="isMobile ? {
+                        transform: `translateX(calc(-${activeStep * 100}% + ${dragOffsetX}px))`,
                         transition: isDragging ? 'none' : 'transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)'
-                    }"
+                    } : {}"
                 >
                     <!-- 5 Completely Independent, Distinct Step Cards/Boxes -->
                     <div
                         v-for="(step, index) in steps"
                         :key="index"
                         class="single-step-card"
+                        :class="{ 'is-active-step': activeStep === index }"
                         :style="`--panel-accent: ${step.color}; --panel-rgb: ${step.colorRgb};`"
                     >
                         <div class="step-panel-box">
@@ -323,7 +322,7 @@ onUnmounted(() => {
 <style scoped>
 /* ── Wrapper ── */
 .process--wrapper {
-    padding: 90px 0 100px;
+    padding: 100px 0;
     position: relative;
 }
 
@@ -332,7 +331,7 @@ onUnmounted(() => {
     opacity: 0;
     transform: translateY(-24px);
     transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-    margin-bottom: 60px;
+    margin-bottom: 48px;
 }
 .active--s .heading--wrapper {
     opacity: 1;
@@ -459,27 +458,37 @@ onUnmounted(() => {
    CAROUSEL VIEWPORT & 5 DISTINCT BOXES TRACK
 ═══════════════════════════════════════ */
 .process-carousel-viewport {
-    overflow: hidden;
+    overflow: visible;
     width: 100%;
     position: relative;
-    touch-action: pan-y;
     user-select: none;
-    padding: 12px 0 24px;
-    margin: -12px 0 -24px;
+    padding: 18px 0 26px;
 }
 
 .carousel-track {
-    display: flex;
-    gap: 24px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
     width: 100%;
     position: relative;
-    will-change: transform;
 }
 
 .single-step-card {
-    flex: 0 0 100%;
+    grid-area: 1 / 1 / 2 / 2;
     width: 100%;
-    min-width: 100%;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(8px) scale(0.99);
+    transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1), transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.35s ease;
+}
+
+.single-step-card.is-active-step {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+    z-index: 2;
 }
 
 /* EACH INDIVIDUAL DISTINCT BOX (With its own border, background, shadow, glow, and nav bar) */
@@ -489,27 +498,25 @@ onUnmounted(() => {
     justify-content: space-between;
     height: 390px;
     background: linear-gradient(145deg, rgba(14, 13, 36, 0.94) 0%, rgba(10, 9, 28, 0.98) 100%);
-    border: 1px solid rgba(var(--panel-rgb), 0.25);
+    border: 1px solid rgba(var(--panel-rgb), 0.22);
     border-radius: 24px;
     padding: 34px 44px 0;
-    backdrop-filter: blur(20px);
     box-shadow:
-        0 24px 60px rgba(0, 0, 0, 0.55),
-        0 0 0 1px rgba(255, 255, 255, 0.04),
-        0 0 50px rgba(var(--panel-rgb), 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.07);
+        0 14px 36px rgba(0, 0, 0, 0.45),
+        0 0 16px rgba(var(--panel-rgb), 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
     position: relative;
     overflow: hidden;
-    transition: border-color 0.4s ease, box-shadow 0.4s ease, background 0.4s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: border-color 0.35s ease, box-shadow 0.35s ease, background 0.35s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .step-panel-box:hover {
-    border-color: rgba(var(--panel-rgb), 0.55);
+    border-color: rgba(var(--panel-rgb), 0.42);
     box-shadow:
-        0 24px 60px rgba(0, 0, 0, 0.55),
-        0 0 0 1px rgba(255, 255, 255, 0.04),
-        0 0 45px rgba(var(--panel-rgb), 0.22),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
-    background: linear-gradient(145deg, rgba(var(--panel-rgb), 0.07) 0%, rgba(10, 9, 28, 0.98) 100%);
+        0 14px 36px rgba(0, 0, 0, 0.45),
+        0 0 20px rgba(var(--panel-rgb), 0.2),
+        0 0 45px rgba(var(--panel-rgb), 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    background: linear-gradient(145deg, rgba(var(--panel-rgb), 0.04) 0%, rgba(10, 9, 28, 0.98) 100%);
     transform: translateY(-4px);
 }
 
@@ -820,49 +827,136 @@ onUnmounted(() => {
 }
 
 @media screen and (max-width: 768px) {
-    /* Full bleed breakout on mobile so swipe goes edge-to-edge of phone screen */
-    .process-carousel-viewport {
-        width: 100vw;
-        position: relative;
-        left: 50%;
-        right: 50%;
-        margin-left: -50vw;
-        margin-right: -50vw;
-        padding: 12px 0 24px;
+    .process--wrapper {
+        padding: 64px 0;
     }
-    .carousel-track {
-        gap: 0;
-    }
-    .single-step-card {
-        flex: 0 0 100vw;
-        width: 100vw;
-        min-width: 100vw;
-        box-sizing: border-box;
-        padding: 0 20px;
-    }
-    .timeline-nav {
-        overflow: visible;
-        padding: 12px 0 8px;
+    .process--wrapper .heading--wrapper {
         margin-bottom: 36px;
     }
+    .process-carousel-viewport {
+        overflow: hidden;
+        width: 100%;
+        position: relative;
+        left: auto;
+        right: auto;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 12px 0 24px;
+        touch-action: pan-y;
+    }
+    .carousel-track {
+        display: flex;
+        gap: 0;
+        width: 100%;
+        position: relative;
+        will-change: transform;
+    }
+    .single-step-card {
+        grid-area: auto;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: none;
+        transition: none;
+        flex: 0 0 100%;
+        width: 100%;
+        min-width: 100%;
+        box-sizing: border-box;
+        padding: 0;
+    }
+    /* ── Mobile Process Timeline: Touch-Friendly Segmented Pill Rail ── */
+    .timeline-nav {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding: 4px 2px 12px;
+        margin-bottom: 24px;
+        position: relative;
+    }
+    .timeline-nav::-webkit-scrollbar {
+        display: none;
+    }
     .timeline-track {
-        display: block;
-        top: 30px;
-        left: 8%;
-        right: 8%;
+        display: none !important;
+    }
+    .timeline-node {
+        flex: 0 0 auto;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        min-height: 42px;
+        cursor: pointer;
+        transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+        -webkit-tap-highlight-color: transparent;
     }
     .node-circle {
-        width: 38px;
-        height: 38px;
+        width: 24px;
+        height: 24px;
+        min-width: 24px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        box-shadow: none;
     }
     .node-num {
-        font-size: 12px;
+        font-size: 11px;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.8);
     }
     .node-label {
         display: block;
-        font-size: 11px;
-        margin-top: 2px;
+        font-size: 12.5px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.7);
+        white-space: nowrap;
+        margin: 0;
     }
+
+    /* Active Mobile Pill */
+    .timeline-node.is-active {
+        background: rgba(var(--node-rgb), 0.18);
+        border-color: var(--node-accent);
+        box-shadow: 0 4px 16px rgba(var(--node-rgb), 0.3);
+        transform: translateY(-1px);
+    }
+    .timeline-node.is-active .node-circle {
+        background: var(--node-accent);
+        border-color: var(--node-accent);
+        box-shadow: 0 0 8px rgba(var(--node-rgb), 0.6);
+    }
+    .timeline-node.is-active .node-num {
+        color: #ffffff;
+        font-weight: 800;
+    }
+    .timeline-node.is-active .node-label {
+        color: #ffffff;
+        font-weight: 600;
+    }
+
+    /* Completed Mobile Pills */
+    .timeline-node.is-done {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(var(--node-rgb), 0.35);
+    }
+    .timeline-node.is-done .node-circle {
+        border-color: var(--node-accent);
+        background: rgba(var(--node-rgb), 0.25);
+    }
+    .timeline-node.is-done .node-num {
+        color: var(--node-accent);
+    }
+    .timeline-node.is-done .node-label {
+        color: rgba(255, 255, 255, 0.9);
+    }
+
     .outcomes-list { grid-template-columns: 1fr; }
     .nav-btn span { display: none; }
     .nav-btn { padding: 12px 16px; }
@@ -870,7 +964,7 @@ onUnmounted(() => {
 
 @media screen and (max-width: 480px) {
     .single-step-card {
-        padding: 0 16px;
+        padding: 0;
     }
     .step-panel-box {
         height: 510px;
@@ -887,19 +981,20 @@ onUnmounted(() => {
         margin: 0 -18px;
         padding: 12px 18px;
     }
+    .timeline-node {
+        padding: 7px 12px;
+        min-height: 38px;
+    }
     .node-circle {
-        width: 34px;
-        height: 34px;
+        width: 22px;
+        height: 22px;
+        min-width: 22px;
     }
     .node-num {
-        font-size: 11px;
+        font-size: 10px;
     }
     .node-label {
-        font-size: 10px;
-        letter-spacing: 0;
-    }
-    .timeline-track {
-        top: 28px;
+        font-size: 11.5px;
     }
 }
 </style>

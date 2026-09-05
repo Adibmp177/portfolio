@@ -242,7 +242,7 @@ onUnmounted(() => {
 
 /* ── Wrapper ── */
 .skills--wrapper {
-    padding: 80px 0 70px;
+    padding: 100px 0;
 }
 
 /* Heading reveal */
@@ -265,7 +265,7 @@ onUnmounted(() => {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto auto;
     gap: 24px;
-    margin-bottom: 70px;
+    margin-bottom: 56px;
 }
 
 /* Featured card spans full first row on desktop */
@@ -720,8 +720,13 @@ onUnmounted(() => {
    RESPONSIVE
 ══════════════════════════════════════════════════════ */
 @media screen and (max-width: 768px) {
+    .skills--wrapper {
+        padding: 64px 0;
+    }
     .sk-grid {
         grid-template-columns: 1fr;
+        gap: 18px;
+        margin-bottom: 40px;
     }
 
     /* On mobile, position Figma ring at top-right to match PS & AI cards */

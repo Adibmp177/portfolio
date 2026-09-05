@@ -131,10 +131,11 @@ onUnmounted(() => {
 
 <template>
   <div class="hero-split-container">
-    <!-- Ambient Background Lighting Mesh -->
-    <div class="glow-orb glow-orb-1"></div>
-    <div class="glow-orb glow-orb-2"></div>
-    <div class="hero-grid-pattern"></div>
+    <!-- Desktop-Only Ambient Pattern & Glow Mesh (Seamless radial fade, no rectangle borders) -->
+    <div class="hero-desktop-mesh">
+      <div class="hero-dot-pattern"></div>
+      <div class="hero-name-glow"></div>
+    </div>
 
     <div class="hero-grid">
       <!-- LEFT COLUMN: Brand Identity & Typography -->
@@ -553,39 +554,38 @@ onUnmounted(() => {
   margin: 0 auto;
 }
 
-/* ─── Ambient Glow Orbs ───────────────────────────────── */
-.glow-orb {
+/* ─── Desktop-Only Ambient Pattern & Lighting Mesh ───── */
+.hero-desktop-mesh {
   position: absolute;
-  border-radius: 50%;
-  filter: blur(100px);
+  inset: -80px -60px;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.25;
-}
-.glow-orb-1 {
-  width: 440px;
-  height: 440px;
-  background: radial-gradient(circle, #6c63ff 0%, rgba(108, 99, 255, 0) 70%);
-  top: -80px;
-  left: -60px;
-}
-.glow-orb-2 {
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, #9b59f5 0%, rgba(155, 89, 245, 0) 70%);
-  bottom: -60px;
-  right: -40px;
 }
 
-.hero-grid-pattern {
+.hero-dot-pattern {
   position: absolute;
-  inset: -60px;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-  background-size: 30px 30px;
-  mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 40%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 40%, transparent 100%);
-  pointer-events: none;
-  z-index: 0;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1.2px, transparent 1.2px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(ellipse 75% 65% at 48% 45%, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.35) 45%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 75% 65% at 48% 45%, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.35) 45%, transparent 75%);
+}
+
+.hero-name-glow {
+  position: absolute;
+  top: 30px;
+  left: 40px;
+  width: 480px;
+  height: 340px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse 65% 55% at 50% 50%, rgba(108, 99, 255, 0.22) 0%, rgba(155, 89, 245, 0.08) 45%, transparent 70%);
+  filter: blur(40px);
+}
+
+@media screen and (max-width: 991px) {
+  .hero-desktop-mesh {
+    display: none !important;
+  }
 }
 
 /* ─── Grid Layout ─────────────────────────────────────── */
@@ -613,7 +613,7 @@ onUnmounted(() => {
   font-weight: 400;
   color: rgba(255, 255, 255, 0.6);
   letter-spacing: 0.5px;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   opacity: 0;
   transform: translateY(16px);
   transition: opacity 0.7s 0.15s ease-out, transform 0.7s 0.15s ease-out;
@@ -630,7 +630,7 @@ onUnmounted(() => {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.8s 0.2s ease-out, transform 0.8s 0.2s ease-out;
@@ -674,7 +674,7 @@ onUnmounted(() => {
   line-height: 1.75;
   color: rgba(255, 255, 255, 0.6);
   max-width: 520px;
-  margin-bottom: 34px;
+  margin-bottom: 32px;
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.8s 0.4s ease-out, transform 0.8s 0.4s ease-out;
@@ -686,7 +686,7 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   gap: 16px;
-  margin-bottom: 36px;
+  margin-bottom: 32px;
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.8s 0.5s ease-out, transform 0.8s 0.5s ease-out;
@@ -698,7 +698,7 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 13px 28px;
+  padding: 14px 28px;
   border-radius: 50px;
   font-size: 15px;
   font-weight: 500;
@@ -1376,19 +1376,19 @@ onUnmounted(() => {
   .intro {
     font-size: 14.5px;
     line-height: 1.65;
-    margin-bottom: 26px;
+    margin-bottom: 24px;
   }
 
   .homeButton--wrapper {
     flex-direction: column;
     width: 100%;
     gap: 12px;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
   }
 
   .cta-btn {
     width: 100%;
-    padding: 13px 20px;
+    padding: 14px 20px;
     font-size: 14.5px;
     box-sizing: border-box;
   }

@@ -63,18 +63,6 @@ const principles = [
   }
 ];
 
-// ── Core Skills & Superpower Pills ────────────────────────
-const superpowers = [
-  { label: "Design Systems", icon: "❖" },
-  { label: "Interactive Motion", icon: "⚡" },
-  { label: "Design-to-Code", icon: "</>" },
-  { label: "Micro-Interactions", icon: "✨" },
-  { label: "Rapid Prototyping", icon: "📱" },
-  { label: "User Research", icon: "🔍" },
-  { label: "WCAG Accessibility", icon: "♿" },
-  { label: "Information Architecture", icon: "📐" }
-];
-
 onMounted(() => {
   const Observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -195,7 +183,7 @@ onUnmounted(() => {
                   Available for work
                 </span>
               </div>
-              <p class="avatar-title-tag">Product Designer & Design Systems Architect</p>
+              <p class="avatar-title-tag">UI/UX Designer</p>
               <div class="avatar-badges-row">
                 <span class="badge-mini">📍 Sardasht, Iran</span>
                 <span class="badge-mini">🌐 Remote Worldwide</span>
@@ -217,17 +205,6 @@ onUnmounted(() => {
             <p class="story-text">
               Every interface I craft is grounded in one fundamental rule: <strong>what does the human on the other side actually need?</strong> Not just what looks striking in a static frame, but what delivers clarity, speed, and real emotional satisfaction at scale.
             </p>
-
-            <!-- Interactive Superpowers Pill Matrix -->
-            <div class="superpowers-wrapper">
-              <span class="sp-label">Core Capabilities:</span>
-              <div class="superpowers-grid">
-                <span class="sp-pill" v-for="sp in superpowers" :key="sp.label">
-                  <span class="sp-icon">{{ sp.icon }}</span>
-                  <span class="sp-text">{{ sp.label }}</span>
-                </span>
-              </div>
-            </div>
 
             <!-- CTA Actions -->
             <div class="cta-row-modern">
@@ -308,42 +285,58 @@ onUnmounted(() => {
             </div>
           </div>
 
-          <!-- Bento Card 2: Interactive Design Philosophy Matrix -->
+          <!-- Bento Card 2: Interactive Design Philosophy / Ethos -->
           <div class="bento-philosophy-card">
             <div class="bento-header">
-              <span class="bento-tag">Design Ethos & Beliefs</span>
-              <span class="bento-hint">Click to expand details</span>
+              <span class="bento-tag">Design Ethos &amp; Beliefs</span>
+              <span class="bento-hint">Interactive Principles</span>
             </div>
 
-            <div class="philosophy-stack">
-              <div 
-                class="philosophy-bento-card"
-                v-for="(item, idx) in principles" 
+            <!-- Segmented Pill Selector (3 principles) -->
+            <div class="ethos-tab-strip">
+              <button
+                v-for="(item, idx) in principles"
                 :key="item.number"
-                :class="{ 'is-active-principle': activePrinciple === idx }"
-                :style="activePrinciple === idx ? { borderColor: item.color, boxShadow: `0 8px 24px rgba(${item.colorRgb}, 0.22)` } : {}"
+                class="ethos-tab-btn"
+                :class="{ 'is-active-tab': activePrinciple === idx }"
+                :style="activePrinciple === idx ? {
+                  borderColor: item.color,
+                  background: `rgba(${item.colorRgb}, 0.14)`,
+                  boxShadow: `0 4px 18px rgba(${item.colorRgb}, 0.22)`
+                } : {}"
                 @click="activePrinciple = idx"
               >
-                <div class="ph-top-bar">
-                  <div class="ph-num-badge" :style="{ color: item.color, borderColor: item.color }">
-                    {{ item.number }}
+                <span class="ethos-tab-num" :style="{ color: item.color }">{{ item.number }}</span>
+                <span class="ethos-tab-title">{{ item.title.split(' ')[0] }}</span>
+              </button>
+            </div>
+
+            <!-- Focused Active Ethos Card -->
+            <div
+              class="ethos-active-display"
+              :style="{
+                borderColor: principles[activePrinciple].color,
+                boxShadow: `0 8px 24px rgba(0, 0, 0, 0.35), 0 0 20px rgba(${principles[activePrinciple].colorRgb}, 0.16)`
+              }"
+            >
+              <div class="ethos-card-header">
+                <div class="ethos-title-area">
+                  <div class="ethos-num-badge" :style="{ color: principles[activePrinciple].color, borderColor: `rgba(${principles[activePrinciple].colorRgb}, 0.4)` }">
+                    {{ principles[activePrinciple].number }}
                   </div>
-                  <div class="ph-title-group">
-                    <h4 class="ph-card-title">{{ item.title }}</h4>
-                    <span class="ph-card-tagline">{{ item.tagline }}</span>
-                  </div>
-                  <div class="ph-status-box">
-                    <span class="ph-active-tag" v-if="activePrinciple === idx" :style="{ color: item.color, background: `rgba(${item.colorRgb}, 0.12)`, borderColor: `rgba(${item.colorRgb}, 0.3)` }">
-                      <span class="ph-pulse-dot" :style="{ background: item.color }"></span> Active
-                    </span>
-                    <span class="ph-icon-symbol" :style="{ color: item.color }">{{ item.icon }}</span>
+                  <div>
+                    <h4 class="ethos-main-title">{{ principles[activePrinciple].title }}</h4>
+                    <span class="ethos-tagline-text" :style="{ color: principles[activePrinciple].color }">{{ principles[activePrinciple].tagline }}</span>
                   </div>
                 </div>
-                <p class="ph-desc-text">{{ item.desc }}</p>
-                <div class="ph-impact-badge" v-if="activePrinciple === idx" :style="{ borderColor: `rgba(${item.colorRgb}, 0.22)`, background: `rgba(${item.colorRgb}, 0.06)` }">
-                  <span class="ph-impact-icon" :style="{ color: item.color }">✦</span>
-                  <span class="ph-impact-text">{{ item.impact }}</span>
-                </div>
+                <span class="ethos-icon-large" :style="{ color: principles[activePrinciple].color }">{{ principles[activePrinciple].icon }}</span>
+              </div>
+
+              <p class="ethos-body-desc">{{ principles[activePrinciple].desc }}</p>
+
+              <div class="ethos-impact-row" :style="{ borderColor: `rgba(${principles[activePrinciple].colorRgb}, 0.22)`, background: `rgba(${principles[activePrinciple].colorRgb}, 0.08)` }">
+                <span class="ethos-impact-star" :style="{ color: principles[activePrinciple].color }">✦</span>
+                <span class="ethos-impact-label">{{ principles[activePrinciple].impact }}</span>
               </div>
             </div>
           </div>
@@ -359,7 +352,7 @@ onUnmounted(() => {
 /* ─── About Me Section Wrapper ─────────────────────────── */
 .aboutMe--wrapper {
   position: relative;
-  padding: 100px 0 110px;
+  padding: 100px 0;
   overflow: hidden;
 }
 
@@ -417,11 +410,14 @@ onUnmounted(() => {
   transform: translateY(0);
 }
 
-/* ─── 1. Harmonious Metrics Bar (Matching Section Depth) ─── */
+/* ═══════════════════════════════════════════════════════
+     1. ANIMATED LIVE METRICS DASHBOARD
+═══════════════════════════════════════════════════════ */
 .metrics--wrapper {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
+  gap: 16px;
   background: rgba(18, 17, 43, 0.55);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 24px;
@@ -738,50 +734,6 @@ onUnmounted(() => {
   font-style: italic;
 }
 
-/* Superpowers Matrix */
-.superpowers-wrapper {
-  margin: 14px 0 24px;
-}
-.sp-label {
-  display: block;
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  color: rgba(255, 255, 255, 0.45);
-  margin-bottom: 10px;
-}
-.superpowers-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-}
-.sp-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 5px 11px;
-  border-radius: 20px;
-  background: rgba(108, 99, 255, 0.08);
-  border: 1px solid rgba(108, 99, 255, 0.2);
-  font-size: 11.5px;
-  color: rgba(255, 255, 255, 0.8);
-  transition: all 0.25s ease;
-  cursor: default;
-}
-.sp-pill:hover {
-  background: rgba(108, 99, 255, 0.22);
-  border-color: rgba(155, 89, 245, 0.6);
-  color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 14px rgba(108, 99, 255, 0.3);
-}
-.sp-icon {
-  color: #a78bfa;
-  font-size: 12px;
-  font-weight: 600;
-}
-
 /* CTA Row */
 .cta-row-modern {
   display: flex;
@@ -803,6 +755,12 @@ onUnmounted(() => {
   -webkit-backdrop-filter: blur(16px);
   box-shadow: 0 14px 40px rgba(0, 0, 0, 0.4), 0 0 25px rgba(108, 99, 255, 0.08);
   transition: border-color 0.3s ease;
+}
+.bento-philosophy-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .bento-facts-card:hover, .bento-philosophy-card:hover {
   border-color: rgba(155, 89, 245, 0.35);
@@ -871,121 +829,128 @@ onUnmounted(() => {
 .fact-lbl { font-size: 11px; color: rgba(255, 255, 255, 0.45); margin-bottom: 2px; }
 .fact-val { font-size: 13px; color: #fff; font-weight: 600; }
 
-/* Philosophy Interactive Stack */
-.philosophy-stack {
+/* ─── Philosophy Interactive Segmented Showcase ──────── */
+.ethos-tab-strip {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  gap: 8px;
+  margin-bottom: 16px;
 }
-.philosophy-bento-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  padding: 16px 18px;
-  cursor: pointer;
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-}
-.active--s .philosophy-bento-card {
-  opacity: 1;
-  transform: translateY(0);
-}
-.active--s .philosophy-bento-card:nth-child(1) { transition-delay: 0.08s; }
-.active--s .philosophy-bento-card:nth-child(2) { transition-delay: 0.16s; }
-.active--s .philosophy-bento-card:nth-child(3) { transition-delay: 0.24s; }
-
-.philosophy-bento-card:hover, .philosophy-bento-card.is-active-principle {
-  background: rgba(108, 99, 255, 0.1);
-  transform: translateY(-3px) scale(1.01);
-}
-
-.ph-top-bar {
+.ethos-tab-btn {
+  flex: 1;
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  color: rgba(255, 255, 255, 0.7);
+  min-height: 42px;
 }
-.ph-num-badge {
-  font-size: 11px;
+.ethos-tab-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.16);
+  color: #fff;
+  transform: translateY(-1px);
+}
+.ethos-tab-btn.is-active-tab {
+  color: #fff;
+  transform: translateY(-2px);
+}
+.ethos-tab-num {
+  font-size: 11.5px;
   font-weight: 700;
   font-family: monospace;
-  padding: 2px 7px;
-  border-radius: 8px;
-  border: 1px solid;
-  background: rgba(0, 0, 0, 0.3);
 }
-.ph-title-group {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-.ph-card-title {
-  font-family: var(--font-display);
-  font-size: 15px;
+.ethos-tab-title {
+  font-size: 13px;
   font-weight: 600;
-  letter-spacing: 0.4px;
-  color: #fff;
-  margin: 0;
-}
-.ph-card-tagline {
-  font-size: 11.5px;
-  color: rgba(255, 255, 255, 0.5);
-}
-.ph-status-box {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.ph-active-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 10.5px;
-  font-weight: 600;
-  padding: 2px 8px;
-  border-radius: 12px;
-  border: 1px solid;
-}
-.ph-pulse-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  animation: beaconPulse 1.8s infinite;
-}
-.ph-icon-symbol {
-  font-size: 16px;
+  letter-spacing: 0.2px;
 }
 
-.ph-desc-text {
-  font-size: 12.5px;
-  color: rgba(255, 255, 255, 0.65);
-  line-height: 1.6;
-  margin: 8px 0 0;
-  padding-top: 8px;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+/* Focused Active Ethos Card */
+.ethos-active-display {
+  background: rgba(18, 15, 42, 0.75);
+  border: 1.5px solid;
+  border-radius: 18px;
+  padding: 22px 24px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: ethosFadeIn 0.35s ease;
 }
-
-.ph-impact-badge {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 10px;
-  padding: 6px 12px;
-  border-radius: 10px;
-  border: 1px solid;
-  font-size: 11.5px;
-  animation: fadeInDown 0.3s ease;
-}
-@keyframes fadeInDown {
-  from { opacity: 0; transform: translateY(-4px); }
+@keyframes ethosFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
 }
-.ph-impact-icon {
-  font-size: 13px;
+
+.ethos-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 12px;
 }
-.ph-impact-text {
-  color: rgba(255, 255, 255, 0.88);
+.ethos-title-area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.ethos-num-badge {
+  font-size: 12px;
+  font-weight: 700;
+  font-family: monospace;
+  padding: 3px 8px;
+  border-radius: 8px;
+  border: 1px solid;
+  background: rgba(0, 0, 0, 0.35);
+  flex-shrink: 0;
+}
+.ethos-main-title {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 3px;
+  letter-spacing: 0.3px;
+}
+.ethos-tagline-text {
+  font-size: 12px;
   font-weight: 500;
+  display: block;
+}
+.ethos-icon-large {
+  font-size: 22px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.ethos-body-desc {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.68);
+  line-height: 1.65;
+  margin: 0 0 16px;
+}
+
+.ethos-impact-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid;
+}
+.ethos-impact-star {
+  font-size: 12px;
+  flex-shrink: 0;
+}
+.ethos-impact-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 /* ─── Responsive Media Queries ───────────────────────── */
@@ -1003,10 +968,16 @@ onUnmounted(() => {
 
 @media screen and (max-width: 768px) {
   .aboutMe--wrapper {
-    padding: 70px 0 80px;
+    padding: 64px 0;
+  }
+  .about-left, .about-right {
+    transform: translateY(20px);
+  }
+  .active--s .about-left, .active--s .about-right {
+    transform: translateY(0);
   }
   .metrics--wrapper {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 12px;
     padding: 14px;
     margin-bottom: 45px;
@@ -1030,10 +1001,15 @@ onUnmounted(() => {
     font-size: 11.5px;
   }
 
+  /* Profile Card Mobile Stack (Centered Column) */
   .avatar-card-modern {
     flex-direction: column;
     text-align: center;
     padding: 20px;
+  }
+  .avatar-ring-box {
+    width: 72px;
+    height: 72px;
   }
   .avatar-header-row {
     justify-content: center;
@@ -1042,17 +1018,67 @@ onUnmounted(() => {
     justify-content: center;
   }
 
+  /* Story block */
+  .story-block-modern {
+    padding: 20px 18px;
+  }
+  .story-sub {
+    font-size: 13px;
+  }
+  .story-highlight {
+    font-size: 20px;
+    line-height: 1.25;
+  }
+  .story-text {
+    font-size: 13.5px;
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+
+  /* Facts Grid Mobile Stack (1fr on top of each other) */
   .facts-grid-modern {
     grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  /* Ethos Mobile Standard */
+  .ethos-tab-btn {
+    padding: 8px 6px;
+    min-height: 38px;
+  }
+  .ethos-tab-title {
+    font-size: 11.5px;
+  }
+  .ethos-active-display {
+    padding: 16px;
+  }
+  .ethos-main-title {
+    font-size: 15px;
+  }
+  .ethos-tagline-text {
+    font-size: 11.5px;
+  }
+  .ethos-body-desc {
+    font-size: 12.5px;
+    line-height: 1.55;
+    margin-bottom: 12px;
+  }
+  .ethos-impact-row {
+    padding: 7px 10px;
+  }
+  .ethos-impact-label {
+    font-size: 11.5px;
   }
 
   .cta-row-modern {
     flex-direction: column;
     width: 100%;
+    gap: 10px;
   }
   .cta-row-modern .cta-btn {
     width: 100%;
     justify-content: center;
+    padding: 14px 20px;
   }
 }
 

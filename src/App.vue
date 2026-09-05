@@ -95,6 +95,12 @@ onMounted(()=> {
 
 <style>
 
+.wrapper {
+  width: 100%;
+  overflow-x: hidden;
+  position: relative;
+}
+
 header {
   width: 100%;
   position: fixed;
@@ -105,6 +111,7 @@ header {
 
 .homeAndHeader {
   width: 100%;
+  overflow: hidden;
   background-color: var(--bg-dark);
   background-image:
     radial-gradient(ellipse 60% 55% at 50% 48%, rgba(108, 99, 255, 0.22) 0%, rgba(108, 99, 255, 0.06) 55%, transparent 100%),
@@ -120,20 +127,20 @@ header {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 120px 25px 80px;
+  padding: 120px 24px 80px;
 }
 
 @media screen and (max-width: 991px) {
   #home {
     height: auto;
     min-height: auto;
-    padding: 130px 20px 60px;
+    padding: 112px 20px 64px;
   }
 }
 
 @media screen and (max-width: 480px) {
   #home {
-    padding: 120px 14px 50px;
+    padding: 96px 16px 48px;
   }
 }
 main {

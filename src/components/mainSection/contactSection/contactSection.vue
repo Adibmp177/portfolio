@@ -363,7 +363,7 @@ async function sendEmail(e) {
 /* ── Wrapper & Ambient Atmosphere ── */
 .contactSection---wrapper {
     position: relative;
-    padding: 100px 0 110px;
+    padding: 100px 0;
     overflow: hidden;
 }
 
@@ -401,7 +401,7 @@ async function sendEmail(e) {
     opacity: 0;
     transform: translateY(-24px);
     transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-    margin-bottom: 50px;
+    margin-bottom: 48px;
 }
 .active--s .heading--wrapper {
     opacity: 1;
@@ -925,12 +925,21 @@ async function sendEmail(e) {
     }
 }
 
+@media screen and (max-width: 768px) {
+    .contactSection---wrapper {
+        padding: 64px 0;
+    }
+    .contactSection---wrapper .heading--wrapper {
+        margin-bottom: 36px;
+    }
+}
+
 @media screen and (max-width: 600px) {
     .contactSection---wrapper {
-        padding: 70px 0 80px;
+        padding: 64px 0;
     }
     .form-card-modern {
-        padding: 24px 18px;
+        padding: 24px 20px;
         border-radius: 20px;
     }
     .form-row {

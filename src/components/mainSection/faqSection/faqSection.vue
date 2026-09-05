@@ -5,8 +5,8 @@ const openFaqs = ref([0]); // First one open by default
 
 const faqs = [
     {
-        question: "What is your UI/UX design process?",
-        answer: "I start with user research and wireframing, create high-fidelity UI designs in Figma, and build interactive prototypes ready for development."
+        question: "What do you need from me to get started?",
+        answer: "Just a brief overview of your idea, goals, and any references or existing materials you have. Even if you only have a rough concept, we can hop on a quick call to define the requirements together."
     },
     {
         question: "How long does a design project take?",
@@ -75,13 +75,13 @@ function toggleFaq(index) {
 
 <style scoped>
 .faqSection--wrapper {
-    padding: 90px 0;
+    padding: 100px 0;
     position: relative;
 }
 
 .heading--wrapper {
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 48px;
     opacity: 0;
     transform: translateY(-24px);
     transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
@@ -113,7 +113,7 @@ function toggleFaq(index) {
     background: rgba(18, 17, 43, 0.5);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 20px;
-    padding: 22px 28px;
+    padding: 24px 28px;
     backdrop-filter: blur(12px);
     cursor: pointer;
     transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.25s ease;
@@ -214,7 +214,10 @@ function toggleFaq(index) {
 /* Responsive */
 @media screen and (max-width: 768px) {
     .faqSection--wrapper {
-        padding: 60px 0;
+        padding: 64px 0;
+    }
+    .heading--wrapper {
+        margin-bottom: 36px;
     }
     .faq-card {
         padding: 18px 20px;

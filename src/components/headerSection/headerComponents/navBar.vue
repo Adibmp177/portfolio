@@ -265,10 +265,9 @@ function openResume() {
     .mobile-menu-overlay {
         display: block;
         position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
+        inset: 0;
+        width: 100%;
+        height: 100%;
         background: rgba(4, 3, 15, 0.45);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
