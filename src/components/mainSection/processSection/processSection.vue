@@ -122,6 +122,7 @@ function handleTouchMove(e) {
     const diffY = currentY - touchStartY.value;
 
     if (Math.abs(diffX) > Math.abs(diffY)) {
+        if (e.cancelable && Math.abs(diffX) > 6) e.preventDefault();
         isDragging.value = true;
         // Rubber-band resistance at track boundaries
         if ((activeStep.value === 0 && diffX > 0) || (activeStep.value === steps.length - 1 && diffX < 0)) {
@@ -134,7 +135,7 @@ function handleTouchMove(e) {
 
 function handleTouchEnd() {
     if (!isDragging.value) return;
-    const threshold = 55;
+    const threshold = 40;
 
     if (dragOffsetX.value < -threshold && activeStep.value < steps.length - 1) {
         nextStep();
@@ -833,6 +834,11 @@ onUnmounted(() => {
     .process--wrapper .heading--wrapper {
         margin-bottom: 36px;
     }
+    .step-panel-box,
+    .step-panel-box:hover {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35), 0 0 16px rgba(var(--panel-rgb), 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+        transform: none !important;
+    }
     .process-carousel-viewport {
         overflow: hidden;
         width: 100%;
@@ -841,7 +847,7 @@ onUnmounted(() => {
         right: auto;
         margin-left: 0;
         margin-right: 0;
-        padding: 12px 0 24px;
+        padding: 12px 0 20px;
         touch-action: pan-y;
     }
     .carousel-track {
@@ -853,16 +859,20 @@ onUnmounted(() => {
     }
     .single-step-card {
         grid-area: auto;
-        opacity: 1;
         visibility: visible;
         pointer-events: auto;
-        transform: none;
-        transition: none;
         flex: 0 0 100%;
         width: 100%;
         min-width: 100%;
         box-sizing: border-box;
-        padding: 0;
+        padding: 0 10px;
+        opacity: 0.65;
+        transform: scale(0.96);
+        transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s ease;
+    }
+    .single-step-card.is-active-step {
+        opacity: 1;
+        transform: scale(1);
     }
     /* ── Mobile Process Timeline: Touch-Friendly Segmented Pill Rail ── */
     .timeline-nav {
@@ -964,7 +974,7 @@ onUnmounted(() => {
 
 @media screen and (max-width: 480px) {
     .single-step-card {
-        padding: 0;
+        padding: 0 8px;
     }
     .step-panel-box {
         height: 510px;

@@ -1,5 +1,21 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+
+onMounted(() => {
+    const Observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active--s');
+                Observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        rootMargin: '-10% 0px -10% 0px'
+    });
+
+    const wrapper = document.querySelector('.contactSection---wrapper');
+    if (wrapper) Observer.observe(wrapper);
+});
 
 // ── Form State & Validation ───────────────────────────────
 const getUserName = ref('');
@@ -365,6 +381,9 @@ async function sendEmail(e) {
     position: relative;
     padding: 100px 0;
     overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 /* Ambient glow orbs */
@@ -411,9 +430,12 @@ async function sendEmail(e) {
 /* ── Main Layout ── */
 .contact-layout {
     display: grid;
-    grid-template-columns: 1fr 1.15fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
     gap: 48px;
     align-items: stretch;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 /* ── Left Column ── */
@@ -425,6 +447,10 @@ async function sendEmail(e) {
     opacity: 0;
     transform: translateX(-40px);
     transition: opacity 0.85s 0.15s cubic-bezier(0.22, 1, 0.36, 1), transform 0.85s 0.15s cubic-bezier(0.22, 1, 0.36, 1);
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 .active--s .contact-left {
     opacity: 1;
@@ -493,6 +519,9 @@ async function sendEmail(e) {
     flex-direction: column;
     gap: 14px;
     margin-top: 4px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .info-card {
@@ -509,6 +538,10 @@ async function sendEmail(e) {
     transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
     position: relative;
     cursor: pointer;
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 /* 1. Email: Purple/Indigo Hover Glow */
@@ -558,6 +591,8 @@ async function sendEmail(e) {
     display: flex;
     flex-direction: column;
     flex: 1;
+    min-width: 0;
+    overflow: hidden;
 }
 .info-label {
     font-size: 11px;
@@ -570,6 +605,8 @@ async function sendEmail(e) {
     font-size: 14px;
     color: #ffffff;
     font-weight: 500;
+    word-break: break-word;
+    overflow-wrap: anywhere;
 }
 
 .tz-pill {
@@ -591,6 +628,8 @@ async function sendEmail(e) {
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: rgba(255, 255, 255, 0.7);
     transition: all 0.2s ease;
+    flex-shrink: 0;
+    white-space: nowrap;
 }
 .info-card--email:hover .copy-action-pill {
     background: rgba(108, 99, 255, 0.2);
@@ -617,6 +656,9 @@ async function sendEmail(e) {
     border-radius: 14px;
     padding: 12px 16px;
     margin-top: 4px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 .trust-item {
     display: flex;
@@ -635,6 +677,10 @@ async function sendEmail(e) {
     opacity: 0;
     transform: translateX(40px);
     transition: opacity 0.85s 0.25s cubic-bezier(0.22, 1, 0.36, 1), transform 0.85s 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 .active--s .contact-right {
     opacity: 1;
@@ -654,6 +700,10 @@ async function sendEmail(e) {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .form-header-bar {
@@ -685,6 +735,9 @@ async function sendEmail(e) {
     gap: 18px;
     flex: 1;
     justify-content: space-between;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 /* ── Inputs ── */
@@ -692,12 +745,19 @@ async function sendEmail(e) {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .input-field {
     display: flex;
     flex-direction: column;
     position: relative;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    min-width: 0;
 }
 
 .input-field label {
@@ -915,13 +975,16 @@ async function sendEmail(e) {
 /* ── Responsive Queries ── */
 @media screen and (max-width: 991px) {
     .contact-layout {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
         gap: 36px;
     }
     .trust-guarantee-box {
         flex-direction: column;
         align-items: flex-start;
         gap: 8px;
+    }
+    .form-card-modern {
+        height: auto;
     }
 }
 
@@ -932,11 +995,15 @@ async function sendEmail(e) {
     .contactSection---wrapper .heading--wrapper {
         margin-bottom: 36px;
     }
-}
-
-@media screen and (max-width: 600px) {
-    .contactSection---wrapper {
-        padding: 64px 0;
+    .contact-left {
+        transform: translateY(24px);
+    }
+    .contact-right {
+        transform: translateY(24px);
+    }
+    .active--s .contact-left,
+    .active--s .contact-right {
+        transform: translateY(0);
     }
     .form-card-modern {
         padding: 24px 20px;
@@ -945,6 +1012,37 @@ async function sendEmail(e) {
     .form-row {
         grid-template-columns: 1fr;
         gap: 14px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .info-card {
+        padding: 12px 14px;
+        gap: 12px;
+        border-radius: 16px;
+    }
+    .info-icon {
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+    }
+    .info-icon svg {
+        width: 18px;
+        height: 18px;
+    }
+    .info-val {
+        font-size: 12.5px;
+    }
+    .copy-action-pill {
+        padding: 3px 8px;
+        font-size: 10.5px;
+    }
+    .form-card-modern {
+        padding: 20px 16px;
+        border-radius: 18px;
+    }
+    .trust-guarantee-box {
+        padding: 10px 14px;
     }
 }
 </style>

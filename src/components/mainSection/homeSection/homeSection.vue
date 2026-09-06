@@ -573,13 +573,13 @@ onUnmounted(() => {
 
 .hero-name-glow {
   position: absolute;
-  top: 30px;
-  left: 40px;
-  width: 480px;
-  height: 340px;
+  top: 40px;
+  left: -20px;
+  width: 620px;
+  height: 480px;
   border-radius: 50%;
-  background: radial-gradient(ellipse 65% 55% at 50% 50%, rgba(108, 99, 255, 0.22) 0%, rgba(155, 89, 245, 0.08) 45%, transparent 70%);
-  filter: blur(40px);
+  background: radial-gradient(circle, rgba(108, 99, 255, 0.16) 0%, rgba(155, 89, 245, 0.07) 50%, transparent 70%);
+  filter: blur(80px);
 }
 
 @media screen and (max-width: 991px) {
