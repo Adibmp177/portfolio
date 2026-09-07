@@ -10,6 +10,7 @@ import AboutMeSection from "./components/mainSection/aboutMeSection/aboutMeSecti
 import ServicesSection from "./components/mainSection/servicesSection/servicesSection.vue";
 import CustomCursor from "./components/CustomCursor.vue";
 import FaqSection from "./components/mainSection/faqSection/faqSection.vue";
+import { Analytics } from '@vercel/analytics/vue';
 
 
 if (window.location.hash) {
@@ -90,6 +91,7 @@ onMounted(()=> {
 
     <!-- </div> -->
   </div>
+  <Analytics />
 
 </template>
 
