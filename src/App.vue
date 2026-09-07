@@ -11,6 +11,7 @@ import ServicesSection from "./components/mainSection/servicesSection/servicesSe
 import CustomCursor from "./components/CustomCursor.vue";
 import FaqSection from "./components/mainSection/faqSection/faqSection.vue";
 import { Analytics } from '@vercel/analytics/vue';
+import { SpeedInsights } from '@vercel/speed-insights/vue';
 
 
 if (window.location.hash) {
@@ -92,6 +93,7 @@ onMounted(()=> {
     <!-- </div> -->
   </div>
   <Analytics />
+  <SpeedInsights />
 
 </template>
 
