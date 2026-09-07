@@ -48,17 +48,37 @@ const activeTab = ref('all'); // 'all' | 'tokens' | 'components'
 // 1. Color Tokens & Theme System Map
 const activeColor = ref('#6C63FF');
 const swatches = [
-  { name: 'Primary', hex: '#6C63FF' },
-  { name: 'Accent', hex: '#9B59F5' },
-  { name: 'Emerald', hex: '#10B981' },
-  { name: 'Amber', hex: '#F59E0B' },
+  { 
+    name: 'Primary', 
+    hex: '#6C63FF', 
+    code: '#6C63FF', 
+    bg: 'linear-gradient(135deg, #6C63FF 0%, #9B59F5 100%)' 
+  },
+  { 
+    name: 'Pink', 
+    hex: '#EC4899', 
+    code: '#EC4899', 
+    bg: '#EC4899' 
+  },
+  { 
+    name: 'Emerald', 
+    hex: '#10B981', 
+    code: '#10B981', 
+    bg: '#10B981' 
+  },
+  { 
+    name: 'Amber', 
+    hex: '#F59E0B', 
+    code: '#F59E0B', 
+    bg: '#F59E0B' 
+  },
 ];
 
 const themeMap = {
-  '#6C63FF': { start: '#6C63FF', end: '#9B59F5', glow: 'rgba(108, 99, 255, 0.45)', hoverGlow: 'rgba(108, 99, 255, 0.7)' },
-  '#9B59F5': { start: '#9B59F5', end: '#C084FC', glow: 'rgba(155, 89, 245, 0.45)', hoverGlow: 'rgba(155, 89, 245, 0.7)' },
-  '#10B981': { start: '#10B981', end: '#34D399', glow: 'rgba(16, 185, 129, 0.45)', hoverGlow: 'rgba(16, 185, 129, 0.7)' },
-  '#F59E0B': { start: '#F59E0B', end: '#FBBF24', glow: 'rgba(245, 158, 11, 0.45)', hoverGlow: 'rgba(245, 158, 11, 0.7)' },
+  '#6C63FF': { start: '#6C63FF', end: '#9B59F5', rgb: '108, 99, 255', glow: 'rgba(108, 99, 255, 0.45)', hoverGlow: 'rgba(108, 99, 255, 0.7)' },
+  '#EC4899': { start: '#EC4899', end: '#F472B6', rgb: '236, 72, 153', glow: 'rgba(236, 72, 153, 0.45)', hoverGlow: 'rgba(236, 72, 153, 0.7)' },
+  '#10B981': { start: '#10B981', end: '#34D399', rgb: '16, 185, 129', glow: 'rgba(16, 185, 129, 0.45)', hoverGlow: 'rgba(16, 185, 129, 0.7)' },
+  '#F59E0B': { start: '#F59E0B', end: '#FBBF24', rgb: '245, 158, 11', glow: 'rgba(245, 158, 11, 0.45)', hoverGlow: 'rgba(245, 158, 11, 0.7)' },
 };
 
 const currentTheme = computed(() => themeMap[activeColor.value] || themeMap['#6C63FF']);
@@ -130,7 +150,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="hero-split-container">
+  <div class="hero-split-container container">
     <!-- Desktop-Only Ambient Pattern & Glow Mesh (Seamless radial fade, no rectangle borders) -->
     <div class="hero-desktop-mesh">
       <div class="hero-dot-pattern"></div>
@@ -140,6 +160,9 @@ onUnmounted(() => {
     <div class="hero-grid">
       <!-- LEFT COLUMN: Brand Identity & Typography -->
       <div class="hero-left">
+        <!-- Mobile Glowing Ambient Circle Positioned Behind Name & Role -->
+        <div class="hero-mobile-glow"></div>
+
         <!-- Greeting & Headline -->
         <p class="greeting">Hi, I'm</p>
         <h1 class="myName">Adib Mohammadpouri</h1>
@@ -243,6 +266,7 @@ onUnmounted(() => {
                 <button 
                   class="tab-btn" 
                   :class="{ active: activeTab === 'all' }"
+                  :style="activeTab === 'all' ? { borderColor: currentTheme.start, background: `rgba(${currentTheme.rgb}, 0.18)`, color: '#ffffff', boxShadow: `0 2px 10px rgba(${currentTheme.rgb}, 0.2)` } : {}"
                   @click="activeTab = 'all'"
                 >
                   All Overview
@@ -250,6 +274,7 @@ onUnmounted(() => {
                 <button 
                   class="tab-btn" 
                   :class="{ active: activeTab === 'tokens' }"
+                  :style="activeTab === 'tokens' ? { borderColor: currentTheme.start, background: `rgba(${currentTheme.rgb}, 0.18)`, color: '#ffffff', boxShadow: `0 2px 10px rgba(${currentTheme.rgb}, 0.2)` } : {}"
                   @click="activeTab = 'tokens'"
                 >
                   Tokens
@@ -257,6 +282,7 @@ onUnmounted(() => {
                 <button 
                   class="tab-btn" 
                   :class="{ active: activeTab === 'components' }"
+                  :style="activeTab === 'components' ? { borderColor: currentTheme.start, background: `rgba(${currentTheme.rgb}, 0.18)`, color: '#ffffff', boxShadow: `0 2px 10px rgba(${currentTheme.rgb}, 0.2)` } : {}"
                   @click="activeTab = 'components'"
                 >
                   Components
@@ -265,10 +291,10 @@ onUnmounted(() => {
 
               <!-- Animated Designer Cursor Tag -->
               <div class="designer-cursor-tag">
-                <svg class="cursor-arrow" viewBox="0 0 24 24" fill="#9b59f5" xmlns="http://www.w3.org/2000/svg">
+                <svg class="cursor-arrow" viewBox="0 0 24 24" :fill="currentTheme.start" xmlns="http://www.w3.org/2000/svg">
                   <path d="M5.5 3.2L18.7 12L12.4 13.9L8.7 20.8L5.5 3.2Z" stroke="#ffffff" stroke-width="1.5"/>
                 </svg>
-                <span class="tag-name">Adib (Managing System)</span>
+                <span class="tag-name" :style="{ background: currentTheme.start, boxShadow: `0 3px 10px rgba(${currentTheme.rgb}, 0.5)` }">Adib (Managing System)</span>
               </div>
 
               <!-- FIXED-HEIGHT Workbench Container -->
@@ -279,7 +305,7 @@ onUnmounted(() => {
                 <div class="workbench-section" v-if="activeTab === 'all' || activeTab === 'tokens'">
                   <div class="section-header">
                     <span class="section-lbl">Brand Color Tokens</span>
-                    <span class="token-count">Active: {{ activeColor }}</span>
+                    <span class="token-count" :style="{ color: currentTheme.start }">Active: {{ activeColor }}</span>
                   </div>
                   <div class="color-swatches">
                     <div 
@@ -290,10 +316,10 @@ onUnmounted(() => {
                     >
                       <div 
                         class="swatch" 
-                        :style="{ background: swatch.hex, boxShadow: activeColor === swatch.hex ? `0 0 16px ${currentTheme.glow}` : 'none' }"
+                        :style="{ background: swatch.bg || swatch.hex, boxShadow: activeColor === swatch.hex ? `0 0 16px ${currentTheme.glow}` : 'none' }"
                         :class="{ 'swatch-active': activeColor === swatch.hex }"
                       ></div>
-                      <span class="swatch-code">{{ swatch.hex }}</span>
+                      <span class="swatch-code">{{ swatch.code || swatch.hex }}</span>
                     </div>
                   </div>
                 </div>
@@ -302,7 +328,7 @@ onUnmounted(() => {
                 <div class="workbench-section token-sub-section" v-if="activeTab === 'tokens'">
                   <div class="section-header">
                     <span class="section-lbl">Typography Tokens</span>
-                    <span class="token-count">Scale: {{ activeFontSize }}</span>
+                    <span class="token-count" :style="{ color: currentTheme.start }">Scale: {{ activeFontSize }}</span>
                   </div>
                   <div class="font-scale-selector">
                     <button 
@@ -310,6 +336,12 @@ onUnmounted(() => {
                       v-for="font in fontTokens" 
                       :key="font.label"
                       :class="{ active: activeFontSize === font.size }"
+                      :style="activeFontSize === font.size ? {
+                        borderColor: currentTheme.start,
+                        background: `rgba(${currentTheme.rgb}, 0.18)`,
+                        color: '#ffffff',
+                        boxShadow: `0 4px 14px rgba(${currentTheme.rgb}, 0.25)`
+                      } : {}"
                       @click="activeFontSize = font.size"
                     >
                       {{ font.label }}
@@ -324,7 +356,7 @@ onUnmounted(() => {
                 <div class="workbench-section token-sub-section" v-if="activeTab === 'tokens'">
                   <div class="section-header">
                     <span class="section-lbl">Elevation & Depth Tokens</span>
-                    <span class="token-count">Level: {{ activeElevation }}</span>
+                    <span class="token-count" :style="{ color: currentTheme.start }">Level: {{ activeElevation }}</span>
                   </div>
                   <div class="elevation-selector">
                     <button 
@@ -332,6 +364,12 @@ onUnmounted(() => {
                       v-for="e in elevationTokens" 
                       :key="e.val"
                       :class="{ active: activeElevation === e.val }"
+                      :style="activeElevation === e.val ? {
+                        borderColor: currentTheme.start,
+                        background: `rgba(${currentTheme.rgb}, 0.18)`,
+                        color: '#ffffff',
+                        boxShadow: `0 4px 14px rgba(${currentTheme.rgb}, 0.28)`
+                      } : {}"
                       @click="activeElevation = e.val"
                     >
                       {{ e.label }}
@@ -343,23 +381,23 @@ onUnmounted(() => {
                       boxShadow: activeElevation === 'Flat'
                         ? '0 2px 6px rgba(0, 0, 0, 0.35)'
                         : activeElevation === 'Elevated'
-                        ? '0 8px 20px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.3)'
-                        : '0 12px 28px rgba(0, 0, 0, 0.6), 0 0 12px rgba(108, 99, 255, 0.25)',
+                        ? `0 8px 24px rgba(0, 0, 0, 0.5), 0 0 14px rgba(${currentTheme.rgb}, 0.25)`
+                        : `0 14px 34px rgba(0, 0, 0, 0.6), 0 0 22px rgba(${currentTheme.rgb}, 0.40), 0 0 45px rgba(${currentTheme.rgb}, 0.15)`,
                       borderColor: activeElevation === 'Ambient Float' 
-                        ? 'rgba(155, 89, 245, 0.4)' 
+                        ? currentTheme.start 
                         : activeElevation === 'Elevated'
-                        ? 'rgba(255, 255, 255, 0.16)'
-                        : 'rgba(255, 255, 255, 0.08)',
+                        ? `rgba(${currentTheme.rgb}, 0.45)`
+                        : 'rgba(255, 255, 255, 0.10)',
                       background: activeElevation === 'Ambient Float'
-                        ? 'rgba(108, 99, 255, 0.08)'
+                        ? `rgba(${currentTheme.rgb}, 0.12)`
                         : activeElevation === 'Elevated'
-                        ? 'rgba(255, 255, 255, 0.04)'
+                        ? `rgba(${currentTheme.rgb}, 0.05)`
                         : 'rgba(255, 255, 255, 0.02)',
                       transform: activeElevation === 'Flat' ? 'none' : activeElevation === 'Elevated' ? 'translateY(-2px)' : 'translateY(-3px)'
                     }"
                   >
                     <div class="preview-inner-content">
-                      <span class="preview-indicator" :style="{ background: currentTheme.start, color: currentTheme.start }"></span>
+                      <span class="preview-indicator" :style="{ background: currentTheme.start, color: currentTheme.start, boxShadow: `0 0 10px ${currentTheme.start}` }"></span>
                       <span>Live Surface Preview: <strong>{{ activeElevation }} Depth</strong></span>
                     </div>
                   </div>
@@ -371,7 +409,7 @@ onUnmounted(() => {
                 <div class="workbench-section" v-if="activeTab === 'all' || activeTab === 'components'">
                   <div class="section-header">
                     <span class="section-lbl">UI Component Library</span>
-                    <span class="token-count">Variant: {{ activeVariant }}</span>
+                    <span class="token-count" :style="{ color: currentTheme.start }">Variant: {{ activeVariant }}</span>
                   </div>
                   <div class="component-preview">
                     <!-- Dynamic Button -->
@@ -403,42 +441,45 @@ onUnmounted(() => {
                       <span>Explore UI</span>
                     </button>
 
-                    <!-- Search Input -->
-                    <div 
-                      class="sample-input" 
-                      :style="{ 
-                        borderRadius: '12px',
-                        borderColor: isInputFocused ? currentTheme.start : 'rgba(255, 255, 255, 0.1)',
-                        boxShadow: isInputFocused ? `0 0 12px ${currentTheme.glow}` : 'none'
-                      }"
-                    >
-                      <svg class="search-icon" :style="{ color: isInputFocused ? currentTheme.start : 'rgba(255, 255, 255, 0.4)' }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                      </svg>
-                      <input 
-                        type="text" 
-                        v-model="searchQuery" 
-                        placeholder="Type..."
-                        class="interactive-input-field"
-                        @focus="isInputFocused = true"
-                        @blur="isInputFocused = false"
-                      />
-                    </div>
+                    <!-- Controls Row: Search Input on Left, Toggle Switch on Right -->
+                    <div class="component-controls-row">
+                      <!-- Search Input -->
+                      <div 
+                        class="sample-input" 
+                        :style="{ 
+                          borderRadius: '12px',
+                          borderColor: isInputFocused ? currentTheme.start : 'rgba(255, 255, 255, 0.1)',
+                          boxShadow: isInputFocused ? `0 0 12px ${currentTheme.glow}` : 'none'
+                        }"
+                      >
+                        <svg class="search-icon" :style="{ color: isInputFocused ? currentTheme.start : 'rgba(255, 255, 255, 0.4)' }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <circle cx="11" cy="11" r="8"></circle>
+                          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input 
+                          type="text" 
+                          v-model="searchQuery" 
+                          placeholder="Type..."
+                          class="interactive-input-field"
+                          @focus="isInputFocused = true"
+                          @blur="isInputFocused = false"
+                        />
+                      </div>
 
-                    <!-- Smooth Spring Animated Toggle Switch -->
-                    <div 
-                      class="sample-toggle" 
-                      :class="{ 'toggle-on': isToggleActive }"
-                      :style="{
-                        background: isToggleActive 
-                          ? `linear-gradient(90deg, ${currentTheme.start} 0%, ${currentTheme.end} 100%)` 
-                          : 'rgba(255, 255, 255, 0.12)',
-                        boxShadow: isToggleActive ? `0 0 12px ${currentTheme.glow}` : 'none'
-                      }"
-                      @click="toggleSwitch"
-                    >
-                      <span class="toggle-knob"></span>
+                      <!-- Smooth Spring Animated Toggle Switch -->
+                      <div 
+                        class="sample-toggle" 
+                        :class="{ 'toggle-on': isToggleActive }"
+                        :style="{
+                          background: isToggleActive 
+                            ? `linear-gradient(90deg, ${currentTheme.start} 0%, ${currentTheme.end} 100%)` 
+                            : 'rgba(255, 255, 255, 0.12)',
+                          boxShadow: isToggleActive ? `0 0 12px ${currentTheme.glow}` : 'none'
+                        }"
+                        @click="toggleSwitch"
+                      >
+                        <span class="toggle-knob"></span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -447,7 +488,7 @@ onUnmounted(() => {
                 <div class="workbench-section token-sub-section" v-if="activeTab === 'components'">
                   <div class="section-header">
                     <span class="section-lbl">Component State Matrix</span>
-                    <span class="token-count">Active: {{ activeVariant }}</span>
+                    <span class="token-count" :style="{ color: currentTheme.start }">Active: {{ activeVariant }}</span>
                   </div>
                   <div class="variant-matrix-chips">
                     <button 
@@ -455,6 +496,12 @@ onUnmounted(() => {
                       v-for="v in variants" 
                       :key="v"
                       :class="{ active: activeVariant === v }"
+                      :style="activeVariant === v ? {
+                        borderColor: currentTheme.start,
+                        background: `rgba(${currentTheme.rgb}, 0.18)`,
+                        color: '#ffffff',
+                        boxShadow: `0 4px 14px rgba(${currentTheme.rgb}, 0.25)`
+                      } : {}"
                       @click="activeVariant = v"
                     >
                       {{ v }}
@@ -468,7 +515,7 @@ onUnmounted(() => {
                 <div class="workbench-section animation-section" v-if="activeTab === 'all' || activeTab === 'components'">
                   <div class="section-header">
                     <span class="section-lbl">Motion & Easing Curves</span>
-                    <span class="ease-val">{{ currentEase.bezier }} ({{ motionDuration }})</span>
+                    <span class="ease-val" :style="{ color: currentTheme.start }">{{ currentEase.bezier }} ({{ motionDuration }})</span>
                   </div>
 
                   <!-- Interactive Curve Formula Selector Buttons -->
@@ -478,6 +525,12 @@ onUnmounted(() => {
                       v-for="(curve, key) in easingCurves" 
                       :key="key"
                       :class="{ active: activeEase === key }"
+                      :style="activeEase === key ? {
+                        borderColor: currentTheme.start,
+                        background: `rgba(${currentTheme.rgb}, 0.18)`,
+                        color: '#ffffff',
+                        boxShadow: `0 4px 14px rgba(${currentTheme.rgb}, 0.25)`
+                      } : {}"
                       @click="activeEase = key"
                     >
                       {{ curve.name }}
@@ -550,8 +603,8 @@ onUnmounted(() => {
 .hero-split-container {
   position: relative;
   width: 100%;
-  max-width: 1240px;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 /* ─── Desktop-Only Ambient Pattern & Lighting Mesh ───── */
@@ -593,18 +646,41 @@ onUnmounted(() => {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 44px;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(24px, 3.5vw, 44px);
   align-items: center;
   width: 100%;
+  box-sizing: border-box;
 }
 
 /* ─── Left Column Styling ─────────────────────────────── */
 .hero-left {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   text-align: left;
+}
+
+/* Mobile Glowing Ambient Circle Positioned Behind Name & Role */
+.hero-mobile-glow {
+  display: none;
+}
+@media screen and (max-width: 991px) {
+  .hero-mobile-glow {
+    display: block;
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 520px;
+    height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse 65% 55% at 50% 50%, rgba(108, 99, 255, 0.14) 0%, rgba(155, 89, 245, 0.05) 55%, transparent 72%);
+    filter: blur(65px);
+    pointer-events: none;
+    z-index: 0;
+  }
 }
 
 /* Greeting & Name */
@@ -622,7 +698,7 @@ onUnmounted(() => {
 
 .myName {
   font-family: var(--font-display);
-  font-size: clamp(38px, 4.8vw, 62px);
+  font-size: clamp(34px, 4.4vw, 60px);
   font-weight: 700;
   line-height: 1.08;
   letter-spacing: -0.5px;
@@ -634,6 +710,8 @@ onUnmounted(() => {
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.8s 0.2s ease-out, transform 0.8s 0.2s ease-out;
+  overflow-wrap: break-word;
+  word-break: normal;
 }
 .active--s .myName { opacity: 1; transform: translateY(0); }
 
@@ -684,6 +762,7 @@ onUnmounted(() => {
 /* Buttons */
 .homeButton--wrapper {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 16px;
   margin-bottom: 32px;
@@ -1039,21 +1118,29 @@ onUnmounted(() => {
 /* Elevation & Depth Token Sub-Section */
 .elevation-selector {
   display: flex;
+  align-items: stretch;
   gap: 6px;
   width: 100%;
 }
 .elevation-pill {
   flex: 1;
-  font-size: 10.5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 11px;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.6);
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 5px 10px;
+  padding: 6px 6px;
+  min-height: 42px;
   border-radius: 8px;
   cursor: pointer;
-  text-align: center;
+  line-height: 1.25;
   transition: all 0.2s ease;
+  box-sizing: border-box;
 }
 .elevation-pill.active, .elevation-pill:hover {
   color: #fff;
@@ -1144,6 +1231,10 @@ onUnmounted(() => {
 .btn-sparkle { width: 12px; height: 12px; transition: transform 0.25s ease; }
 .sample-btn:hover .btn-sparkle { transform: rotate(15deg) scale(1.1); }
 
+.component-controls-row {
+  display: contents;
+}
+
 .sample-input {
   display: flex;
   align-items: center;
@@ -1198,19 +1289,30 @@ onUnmounted(() => {
 /* ── INTERACTIVE MOTION PLAYGROUND ────────────────────── */
 .motion-curve-selectors {
   display: flex;
+  align-items: stretch;
   gap: 6px;
   margin-top: 2px;
+  width: 100%;
 }
 .ease-chip {
-  font-size: 10px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 10.5px;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.6);
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 3px 9px;
+  padding: 6px 6px;
+  min-height: 42px;
   border-radius: 8px;
   cursor: pointer;
+  line-height: 1.25;
   transition: all 0.2s ease;
+  box-sizing: border-box;
 }
 .ease-chip.active, .ease-chip:hover {
   color: #fff;
@@ -1324,7 +1426,43 @@ onUnmounted(() => {
 }
 
 /* ─── Responsive Media Queries (Mobile First UX & Touch Guidelines) ──── */
+@media screen and (max-width: 1250px) {
+  .float-top-right {
+    top: -16px;
+    right: -8px;
+    transform: scale(0.92);
+  }
+  .float-bottom-left {
+    bottom: -16px;
+    left: -8px;
+    transform: scale(0.92);
+  }
+  .float-bottom-right {
+    display: none;
+  }
+}
+
 @media screen and (max-width: 1100px) {
+  .hero-grid {
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 24px;
+  }
+  .myName {
+    font-size: clamp(32px, 3.8vw, 48px);
+  }
+  .figma-window {
+    max-width: 410px;
+  }
+  .float-top-right {
+    top: -12px;
+    right: 0px;
+    transform: scale(0.85);
+  }
+  .float-bottom-left {
+    bottom: -12px;
+    left: 0px;
+    transform: scale(0.85);
+  }
   .float-bottom-right { display: none; }
 }
 
@@ -1458,67 +1596,130 @@ onUnmounted(() => {
     font-weight: 500;
   }
 
-  /* Typography & Elevation Token Pills */
+  /* Typography & Elevation Token Pills - Unified Equal Height */
   .font-scale-selector, .elevation-selector {
+    display: flex;
+    align-items: stretch;
     gap: 6px;
+    width: 100%;
   }
 
-  .font-token-pill, .elevation-pill {
+  .font-token-pill {
     flex: 1;
-    padding: 7px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 8px;
     font-size: 11.5px;
-    min-height: 36px;
+    min-height: 44px;
     text-align: center;
+    box-sizing: border-box;
   }
 
-  /* Component Library Sample Row */
+  .elevation-pill {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 6px;
+    font-size: 11px;
+    line-height: 1.25;
+    min-height: 44px;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  /* Component Library Sample Rows (Row 1: Button Fill; Row 2: Search Left + Toggle Right) */
   .component-preview {
-    flex-wrap: wrap;
-    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     padding: 10px;
   }
 
   .sample-btn {
+    width: 100% !important;
+    min-height: 36px;
     padding: 8px 14px;
     font-size: 11.5px;
-    min-height: 36px;
-    flex: 1 1 auto;
     justify-content: center;
+    box-sizing: border-box;
+  }
+
+  .component-controls-row {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 8px;
+    width: 100% !important;
+    box-sizing: border-box;
   }
 
   .sample-input {
-    max-width: 100%;
-    flex: 1 1 120px;
-    padding: 7px 10px;
+    flex: 1 1 0% !important;
+    min-width: 0 !important;
+    max-width: none !important;
     min-height: 36px;
+    padding: 6px 10px;
+    box-sizing: border-box;
   }
 
   .interactive-input-field {
-    font-size: 11.5px;
+    width: 100% !important;
+    min-width: 0 !important;
+    font-size: 11px;
   }
 
   .sample-toggle {
+    flex-shrink: 0 !important;
     width: 42px;
     height: 22px;
-    padding: 3px;
+    padding: 2px;
+    box-sizing: border-box;
   }
 
   .toggle-knob {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
   }
 
   .sample-toggle.toggle-on .toggle-knob {
     transform: translateX(20px);
   }
 
-  /* Matrix Chips & Motion Chips */
-  .variant-chip, .ease-chip {
-    padding: 7px 11px;
-    font-size: 11px;
-    min-height: 34px;
+  /* Matrix Chips & Motion Chips - Unified Equal Height */
+  .variant-matrix-chips, .motion-curve-selectors {
+    display: flex;
+    align-items: stretch;
+    gap: 6px;
+    width: 100%;
+  }
+
+  .variant-chip {
     flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 8px;
+    font-size: 11px;
+    min-height: 40px;
     text-align: center;
+    box-sizing: border-box;
+  }
+
+  .ease-chip {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 6px;
+    font-size: 11px;
+    line-height: 1.25;
+    min-height: 44px;
+    text-align: center;
+    box-sizing: border-box;
   }
 }
 

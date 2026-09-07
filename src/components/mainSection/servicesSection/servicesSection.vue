@@ -402,7 +402,7 @@ onUnmounted(() => {
     z-index: 1;
     display: flex;
     align-items: center;
-    gap: 40px;
+    gap: clamp(20px, 3.5vw, 40px);
 }
 .sk-card__inner--vertical {
     flex-direction: column;

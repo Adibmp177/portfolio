@@ -446,6 +446,7 @@ onUnmounted(() => {
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 18px;
   overflow: hidden;
+  min-width: 0;
   transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
   cursor: default;
 }
@@ -954,7 +955,7 @@ onUnmounted(() => {
 }
 
 /* ─── Responsive Media Queries ───────────────────────── */
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1120px) {
   .metrics--wrapper {
     grid-template-columns: repeat(2, 1fr);
     gap: 14px;

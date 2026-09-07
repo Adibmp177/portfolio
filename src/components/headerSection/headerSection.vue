@@ -40,16 +40,17 @@ function closeResume() {
 
 const stickyMenuHandler = ref(false);
 onMounted(() => {
-    window.addEventListener("scroll", ()=> {
-        
-        if (window.scrollY > 100) {
+    const handleScroll = () => {
+        const threshold = window.innerWidth <= 991 ? 20 : 100;
+        if (window.scrollY > threshold) {
             stickyMenuHandler.value = true;
             emits('headerContainerHandler', true);
         } else {
             stickyMenuHandler.value = false;
             emits('headerContainerHandler', false);
         }
-    })
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
 })
 
 </script>
@@ -363,6 +364,19 @@ onMounted(() => {
     .resumeButton--wrapper {
         display: none;
     }
+    .header--wrapper {
+        padding: 8px 0;
+        transition: background 0.22s ease, backdrop-filter 0.22s ease, -webkit-backdrop-filter 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease, padding 0.22s ease;
+    }
+    .toTop {
+        padding: 6px 0;
+    }
+    .logoImg {
+        width: 112px;
+    }
+    .toTop .logoImg {
+        width: 104px;
+    }
 }
 
 @media screen and (max-width: 960px)  {
@@ -375,7 +389,10 @@ onMounted(() => {
 
 @media screen and (max-width: 768px) {
   .logoImg {
-    width: 125px;
+    width: 112px;
+  }
+  .toTop .logoImg {
+    width: 104px;
   }
   .mainResumes {
         flex-direction: column;

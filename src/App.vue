@@ -127,20 +127,30 @@ header {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 120px 24px 80px;
+  padding: 120px 0 80px;
 }
 
 @media screen and (max-width: 991px) {
+  .homeAndHeader {
+    background-image:
+      radial-gradient(ellipse 100% 35% at 50% 0%, rgba(80, 60, 200, 0.12) 0%, transparent 70%);
+  }
   #home {
     height: auto;
     min-height: auto;
-    padding: 112px 20px 64px;
+    padding: 144px 0 72px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #home {
+    padding: 140px 0 64px;
   }
 }
 
 @media screen and (max-width: 480px) {
   #home {
-    padding: 96px 16px 48px;
+    padding: 136px 0 56px;
   }
 }
 main {

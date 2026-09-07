@@ -431,7 +431,7 @@ async function sendEmail(e) {
 .contact-layout {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
-    gap: 48px;
+    gap: clamp(24px, 3.5vw, 48px);
     align-items: stretch;
     width: 100%;
     max-width: 100%;

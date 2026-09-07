@@ -207,8 +207,8 @@ onMounted(() => {
 
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
-    gap: 28px;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: clamp(20px, 2.5vw, 28px);
 }
 
 /* Each card starts hidden and slides up when .card--visible is added */

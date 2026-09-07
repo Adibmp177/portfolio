@@ -187,24 +187,41 @@ body {
 ::-webkit-scrollbar-thumb:hover { background: var(--accent-dark); }
 
 /* ═══════════════════════════════════════════════════
-   LAYOUT — CONTAINER
+   LAYOUT — CONTAINER (Fluid Responsive Design System)
 ═══════════════════════════════════════════════════ */
 .container {
   width: 100%;
-  max-width: 1150px;
+  max-width: 1214px;
   margin: 0 auto;
+  padding-left: 32px;
+  padding-right: 32px;
   box-sizing: border-box;
 }
 
-@media screen and (max-width: 1160px) {
-  .container { max-width: 991px; }
+@media screen and (max-width: 1100px) {
+  .container {
+    padding-left: 28px;
+    padding-right: 28px;
+  }
 }
+
 @media screen and (max-width: 991px) {
-  .container { max-width: 768px; }
+  .container {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
 }
+
 @media screen and (max-width: 768px) {
-  .container { padding: 0 26px; }
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }
+
 @media screen and (max-width: 480px) {
-  .container { padding: 0 22px; }
+  .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 }
