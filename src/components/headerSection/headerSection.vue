@@ -60,7 +60,7 @@ onMounted(() => {
     <div class="header--wrapper" :class="{'toTop': stickyMenuHandler}">
         <div class="container">
             <a href="#home" class="logoSection">
-                <img src="./../../../public/logo/LOGO.png" alt="my personal logo" class="logoImg">
+                <img src="/logo/LOGO.png" alt="my personal logo" class="logoImg" loading="eager" fetchpriority="high" decoding="async">
             </a>
     
             <hamburgerMenu @toggleMenu="togglingMenu" :menuHandler="menuHandler"></hamburgerMenu>
@@ -79,7 +79,7 @@ onMounted(() => {
             <div class="resume--header">
                 <div class="resume-container container rch">
                     <div class="logoBox">
-                        <img src="../../../public/logo/LOGO.png" alt="logo" class="logoImg">
+                        <img src="/logo/LOGO.png" alt="logo" class="logoImg" loading="lazy" decoding="async">
                     </div>
                     <div class="x--btn" @click="closeResume" aria-label="Close resume overlay">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="x-b">

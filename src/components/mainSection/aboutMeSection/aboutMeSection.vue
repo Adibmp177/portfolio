@@ -170,6 +170,8 @@ onUnmounted(() => {
                 src="/images/profile.webp"
                 alt="Adib Mohammadpouri"
                 class="avatar-photo"
+                loading="lazy"
+                decoding="async"
                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
               />
               <div class="avatar-initials" style="display:none">AM</div>

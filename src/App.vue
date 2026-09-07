@@ -1,17 +1,19 @@
 <script setup>
+import { onMounted, ref, defineAsyncComponent } from "vue";
 import headerSection from "./components/headerSection/headerSection.vue";
 import homeSection from "./components/mainSection/homeSection/homeSection.vue";
-import showcaseSection from "./components/mainSection/showcaseSection/showcaseSection.vue";
-import contactSection from "./components/mainSection/contactSection/contactSection.vue";
-import ProcessSection from "./components/mainSection/processSection/processSection.vue";
-import footerSection from "./components/footerSection/footerSection.vue";
-import { onMounted, ref } from "vue";
-import AboutMeSection from "./components/mainSection/aboutMeSection/aboutMeSection.vue";
-import ServicesSection from "./components/mainSection/servicesSection/servicesSection.vue";
-import CustomCursor from "./components/CustomCursor.vue";
-import FaqSection from "./components/mainSection/faqSection/faqSection.vue";
 import { Analytics } from '@vercel/analytics/vue';
 import { SpeedInsights } from '@vercel/speed-insights/vue';
+
+// Code-split below-the-fold components for faster FCP/LCP
+const CustomCursor = defineAsyncComponent(() => import("./components/CustomCursor.vue"));
+const AboutMeSection = defineAsyncComponent(() => import("./components/mainSection/aboutMeSection/aboutMeSection.vue"));
+const ServicesSection = defineAsyncComponent(() => import("./components/mainSection/servicesSection/servicesSection.vue"));
+const showcaseSection = defineAsyncComponent(() => import("./components/mainSection/showcaseSection/showcaseSection.vue"));
+const ProcessSection = defineAsyncComponent(() => import("./components/mainSection/processSection/processSection.vue"));
+const contactSection = defineAsyncComponent(() => import("./components/mainSection/contactSection/contactSection.vue"));
+const FaqSection = defineAsyncComponent(() => import("./components/mainSection/faqSection/faqSection.vue"));
+const footerSection = defineAsyncComponent(() => import("./components/footerSection/footerSection.vue"));
 
 
 if (window.location.hash) {

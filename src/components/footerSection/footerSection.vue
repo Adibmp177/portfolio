@@ -41,7 +41,7 @@ const socials = [
             <!-- Left: Brand -->
             <div class="footer-brand">
                 <a href="#home" class="brand-logo">
-                    <img src="/logo/LOGO.png" alt="Adib Logo" class="footer-logo-img" />
+                    <img src="/logo/LOGO.png" alt="Adib Logo" class="footer-logo-img" loading="lazy" decoding="async" />
                 </a>
                 <p class="brand-tagline">Crafting high-converting digital products &amp; intuitive user interfaces that turn visitors into customers.</p>
                 <div class="footer-socials">
