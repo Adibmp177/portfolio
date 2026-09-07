@@ -1041,7 +1041,7 @@ onUnmounted(() => {
     gap: 12px;
   }
 
-  /* Ethos Mobile Standard */
+  /* Ethos Mobile Standard (Clean uncollapsed layout) */
   .ethos-tab-btn {
     padding: 8px 6px;
     min-height: 38px;
@@ -1052,11 +1052,40 @@ onUnmounted(() => {
   .ethos-active-display {
     padding: 16px;
   }
+  .ethos-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .ethos-num-badge {
+    display: none !important;
+  }
+  .ethos-title-area {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    flex: 1;
+    min-width: 0;
+  }
   .ethos-main-title {
-    font-size: 15px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.35;
+    margin: 0;
   }
   .ethos-tagline-text {
-    font-size: 11.5px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  .ethos-icon-large {
+    font-size: 20px;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 2px;
   }
   .ethos-body-desc {
     font-size: 12.5px;

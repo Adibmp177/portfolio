@@ -1393,6 +1393,24 @@ onUnmounted(() => {
     box-sizing: border-box;
   }
 
+  /* ── Mobile Window Header Optimization (Prevent Collapsing) ── */
+  .canvas-status {
+    display: none !important;
+  }
+  .file-tab {
+    white-space: nowrap;
+    font-size: 11px;
+    padding: 3px 8px;
+    gap: 5px;
+  }
+  .file-tab span {
+    white-space: nowrap;
+  }
+  .window-header {
+    padding-bottom: 10px;
+    margin-bottom: 12px;
+  }
+
   /* ── Mobile Workbench Touch Controls (44px Minimum Touch Target Standards) ── */
   .figma-artboard {
     padding: 12px 10px;
@@ -1414,9 +1432,9 @@ onUnmounted(() => {
   }
 
   .designer-cursor-tag {
-    top: -22px;
+    top: -10px;
     right: 8px;
-    transform: scale(0.88);
+    transform: scale(0.85);
   }
 
   .ui-workbench-card {
